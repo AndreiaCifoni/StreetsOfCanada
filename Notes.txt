@@ -1,5 +1,5 @@
 - DB (streets_of_canada)
   -tables:
-      -user: user_id, name, email, password
+      -users: user_id(SERIAL PRIMARY KEY), name(TEXT), email(TEXT), password(TEXT)
       -activities: activity_id, title, description, photo, user_id(foreign key), tags, date created
       -comments: comment_id, activity_id, user_id, comment, rating
