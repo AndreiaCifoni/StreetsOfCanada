@@ -1,5 +1,13 @@
 - DB (streets_of_canada)
   -tables:
       -users: user_id(SERIAL PRIMARY KEY), name(TEXT), email(TEXT), password(TEXT)
-      -activities: activity_id(SERIAL PRIMARY KEY), title(TEXT), description(TEXT), photo(TEXT), user_id(FOREIGN KEY), tags(TEXT), date_created(DATE)
+      -activities: activity_id(SERIAL PRIMARY KEY), title(TEXT), description(TEXT), photo(TEXT), user_id(FOREIGN KEY), date_created(DATE)
       -comments: comment_id(SERIAL PRIMARY KEY), activity_id, user_id, comment, rating
+      -tags: tag_id(PRIMARY KEY), name(TEXT)
+      -activities_tags: activities_tags_id (PRIMARY KEY), activity_id(FOREIGN KEY), tag_id(FOREIGN KEY)
+
+-Routes:
+    -users: create
+    -activities: show all, show id, create, update, delete
+    -comments: show all for specific activity, create, update, delete
+    -activities_tags: show all tags for specific activity, created, updated, delete
