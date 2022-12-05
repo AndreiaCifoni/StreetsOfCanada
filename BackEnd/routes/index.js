@@ -82,8 +82,27 @@ router.get("/:id", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  //check if id exist
-  //update ativity
+  const id = parseInt(req.params.id);
+  const { title, description, photo, date_created } = req.body;
+  //check if id exists...
+  pool.query(
+    "SELECT * FROM activities WHERE id = $1",
+    [id],
+    (error, results) => {
+      const noActivityFound = !results.rows.length;
+      if (noActivityFound) {
+        res.send("Activity does not exist in the database");
+      }
+      pool.query(
+        "UPDATE activities SET title = $2, description = $3, photo = $4, date_created = $5  WHERE id = $1",
+        [id, title, description, photo, date_created],
+        (error, results) => {
+          if (error) throw error;
+          res.status(200).send("Activity updated successfully!");
+        }
+      );
+    }
+  );
 });
 
 router.delete("/:id", (req, res) => {
