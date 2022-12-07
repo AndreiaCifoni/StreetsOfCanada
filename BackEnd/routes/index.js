@@ -67,10 +67,10 @@ router.get("/activities/:id", (req, res) => {
 
 router.put("/activities/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  const { title, description, photo, date_created } = req.body;
+  const { activity_id, title, description, photo } = req.body;
   //check if id exists...
   pool.query(
-    "SELECT * FROM activities WHERE id = $1",
+    "SELECT * FROM activities WHERE activity_id = $1",
     [id],
     (error, results) => {
       const noActivityFound = !results.rows.length;
@@ -78,8 +78,8 @@ router.put("/activities/:id", (req, res) => {
         res.send("Activity does not exist in the database");
       }
       pool.query(
-        "UPDATE activities SET title = $2, description = $3, photo = $4, date_created = $5  WHERE id = $1",
-        [id, title, description, photo, date_created],
+        "UPDATE activities SET title = $2, description = $3, photo = $4  WHERE activity_id = $1",
+        [activity_id, title, description, photo],
         (error, results) => {
           if (error) throw error;
           res.status(200).send("Activity updated successfully!");
@@ -92,7 +92,7 @@ router.put("/activities/:id", (req, res) => {
 router.delete("/activities/:id", (req, res) => {
   const id = parseInt(req.params.id);
   pool.query(
-    "SELECT * FROM activities WHERE id = $1",
+    "SELECT * FROM activities WHERE activity_id = $1",
     [id],
     (error, results) => {
       const noActivityFound = !results.rows.length;
@@ -100,7 +100,7 @@ router.delete("/activities/:id", (req, res) => {
         res.send("No activity found in database!");
       }
       pool.query(
-        "DELETE FROM activities WHERE id = $1",
+        "DELETE FROM activities WHERE activity_id = $1",
         [id],
         (error, results) => {
           if (error) throw error;
@@ -110,5 +110,7 @@ router.delete("/activities/:id", (req, res) => {
     }
   );
 });
+
+//-------------------COMMENTS------------------
 
 module.exports = router;
