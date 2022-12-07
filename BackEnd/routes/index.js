@@ -6,24 +6,25 @@ const pool = require("../db/index");
 router.post("/register", (req, res) => {
   const { name, email, password } = req.body;
   //check if email already exists
+  // pool.query(
+  //   "SELECT * FROM users WHERE email = $1",
+  //   [email],
+  //   (error, results) => {
+  //     if (results.rows.length) {
+  //       res.send("User already exist!");
+  //       return;
+  //     }
+  //query to post user
   pool.query(
-    "SELECT * FROM users WHERE email = $1",
-    [email],
+    "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)",
+    [name, email, password],
     (error, results) => {
-      if (results.rows.length) {
-        res.send("User already exist!");
-      }
-      //query to post user
-      pool.query(
-        "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)",
-        [name, email, password],
-        (error, results) => {
-          if (error) throw error;
-          res.status(201).send("User created successfully!");
-        }
-      );
+      if (error) throw error;
+      res.status(201).send("User created successfully!");
     }
   );
+  //   }
+  //  );
 });
 
 router.get("/user", (req, res) => {
@@ -39,15 +40,15 @@ router.get("/user", (req, res) => {
 });
 
 //-------------------ACTIVITIES------------------
-router.get("/", (req, res) => {
+router.get("/activities", (req, res) => {
   pool.query("SELECT * FROM activities", (error, results) => {
     if (error) throw error;
     res.status(200).json(results.rows);
   });
 });
 
-router.post("/new", (req, res) => {
-  const { title, description, photo, date_created, user_id } = req.body;
+router.post("/activities", (req, res) => {
+  const { title, description, photo, user_id } = req.body;
   //check if title already exists
   pool.query(
     "SELECT * FROM activities WHERE title = $1",
@@ -58,8 +59,8 @@ router.post("/new", (req, res) => {
       }
       //query to post user
       pool.query(
-        "INSERT INTO activities (title, description, photo, date_created, user_id) VALUES ($1, $2, $3, $4, $5)",
-        [title, description, photo, date_created, user_id],
+        "INSERT INTO activities (title, description, photo, user_id) VALUES ($1, $2, $3, $4)",
+        [title, description, photo, user_id],
         (error, results) => {
           if (error) throw error;
           res.status(201).send("Activity created successfully!");
@@ -69,7 +70,7 @@ router.post("/new", (req, res) => {
   );
 });
 
-router.get("/:id", (req, res) => {
+router.get("/activities/:id", (req, res) => {
   const id = parseInt(req.params.id);
   pool.query(
     "SELECT * FROM activities WHERE id = $1",
@@ -81,7 +82,7 @@ router.get("/:id", (req, res) => {
   );
 });
 
-router.put("/:id", (req, res) => {
+router.put("/activities/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const { title, description, photo, date_created } = req.body;
   //check if id exists...
@@ -105,7 +106,7 @@ router.put("/:id", (req, res) => {
   );
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/activities/:id", (req, res) => {
   const id = parseInt(req.params.id);
   pool.query(
     "SELECT * FROM activities WHERE id = $1",

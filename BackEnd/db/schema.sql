@@ -1,29 +1,35 @@
-CREATE TABLE users (
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS activities CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS tags CASCADE;
+DROP TABLE IF EXISTS activities_tags CASCADE;
+
+CREATE TABLE IF NOT EXISTS users (
   user_id SERIAL,
-  name TEXT, 
-  email TEXT,
-  password TEXT,
+  name TEXT NOT NULL, 
+  email TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
   PRIMARY KEY (user_id)
   );
   
-CREATE TABLE activities (
+CREATE TABLE IF NOT EXISTS activities (
   activity_id SERIAL,
-  title TEXT, 
-  description TEXT,
-  photo TEXT,
-  date_created TIMESTAMP,
-  user_id INT,
+  title TEXT NOT NULL, 
+  description TEXT NOT NULL,
+  photo TEXT NOT NULL,
+  date_created TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  user_id INT NOT NULL,
   PRIMARY KEY (activity_id),
   FOREIGN KEY (user_id)
     REFERENCES users (user_id)
   );
 
-  CREATE TABLE comments (
+  CREATE TABLE IF NOT EXISTS comments (
   comments_id SERIAL,
-  user_id INT,
-  activity_id INT,
+  user_id INT NOT NULL,
+  activity_id INT NOT NULL,
   comment TEXT,
-  rating TEXT,
+  rating TEXT NOT NULL,
   PRIMARY KEY (comments_id),
   FOREIGN KEY (user_id)
     REFERENCES users (user_id),
@@ -31,16 +37,16 @@ CREATE TABLE activities (
     REFERENCES activities (activity_id)
   );
 
-CREATE TABLE tags (
+CREATE TABLE IF NOT EXISTS tags (
   tags_id SERIAL,
   name TEXT, 
   PRIMARY KEY (tags_id)
   );
 
-CREATE TABLE activities_tags (
+CREATE TABLE IF NOT EXISTS activities_tags (
   activities_tags_id SERIAL ,
-  tags_id INT,
-  activity_id INT,
+  tags_id INT NOT NULL,
+  activity_id INT NOT NULL,
   PRIMARY KEY (activities_tags_id),
   FOREIGN KEY (tags_id)
     REFERENCES tags (tags_id),

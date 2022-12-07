@@ -7,10 +7,31 @@
       -activities_tags: activities_tags_id (PRIMARY KEY), activity_id(FOREIGN KEY), tag_id(FOREIGN KEY)
 
 -Routes:
-    -users: create ("/user"), update ?, delete ?, take user by id (to show in comments for example) ("/user/id")
-    -activities: show all ("/"), show id ("/id"), create ("/new"), update ("/id"), delete ("/id")
-    -comments: show all for specific activity ("/id"), create ("/id"), update ("/id"), delete ("/id")
-    -activities_tags: show all tags for specific activity ("/new"), created ?, updated ?, delete ?
+    -user 
+      POST /users (register - create a new user)
+      POST /sessions  (login - create a new session)
+      DELETE /sessions  (logout - delete a session)
+
+    -activities
+      POST /activities (create a new activity)  - add a second query to add tags in activities_tags
+      GET /activities (get all the act)
+      GET /activities/:id (get specific the act)
+      PUT /activities/:id (edit specific act)  - add a second query to update tags in activities_tags
+      DELETE /activities/:id (delete specific act)  - add a second query to delete tags in activities_tags
+
+    -comments
+      POST /activities/:id/comments (create a new comments)
+      GET /activities/:id/comments (get all the comments)
+      GET /activities/:id/comments/:id (get specific the comment) 
+        GET /comments/:id (get specific the comment) 
+      PUT /activities/:id/comments/:id (edit specific comment)
+      DELETE /activities/:id/comments/:id (delete specific comment)
+
+    -tags:
+      GET /tags (show all the tags)
+
+
+
 
 -ROUTES PROBLEMS:
     -user post - post is creating new entry even if already exists
