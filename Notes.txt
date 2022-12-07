@@ -21,7 +21,7 @@
 
     -comments
       POST /activities/:id/comments (create a new comments)
-      GET /activities/:id/comments (get all the comments)
+      GET /activities/:id/comments (get all the comments in a specific activity)
       GET /activities/:id/comments/:id (get specific the comment) 
         GET /comments/:id (get specific the comment) 
       PUT /activities/:id/comments/:id (edit specific comment)
@@ -53,4 +53,12 @@
         "description": "I like to play video games",
         "photo": "uiop",
         "user_id": "2"
+    }
+
+    test comments
+    {
+        "user_id": "2",
+        "activity_id": "1",
+        "comment": "ajsndasnda asdbujfadbdf asdçfjknasdfjn sadlkmdslkf ",
+        "rating": "5"
     }
