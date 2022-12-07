@@ -3,41 +3,35 @@ const router = Router();
 const pool = require("../db/index");
 
 //-------------------USERS------------------
-router.post("/register", (req, res) => {
+// even if already exists, is showing message "user created"... put message "user already exists"
+router.post("/users", (req, res) => {
   const { name, email, password } = req.body;
-  //check if email already exists
-  // pool.query(
-  //   "SELECT * FROM users WHERE email = $1",
-  //   [email],
-  //   (error, results) => {
-  //     if (results.rows.length) {
-  //       res.send("User already exist!");
-  //       return;
-  //     }
-  //query to post user
   pool.query(
     "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)",
     [name, email, password],
     (error, results) => {
-      if (error) throw error;
+      if (error) console.log("Email already exists in the database");
       res.status(201).send("User created successfully!");
     }
   );
-  //   }
-  //  );
 });
 
-router.get("/user", (req, res) => {
-  const { name, password } = req.body;
-  pool.query(
-    "SELECT * FROM users WHERE name = $1 AND password = $2",
-    [name, password],
-    (error, results) => {
-      if (error) throw error;
-      res.status(200).send(`Hello ${name}`).json(results.rows);
-    }
-  );
-});
+//route for login - not tested... sessions??
+// router.post("/sessions", (req, res) => {
+//   const { name, password } = req.body;
+//   pool.query(
+//     "SELECT * FROM users WHERE name = $1 AND password = $2",
+//     [name, password],
+//     (error, results) => {
+//       if (error) throw error;
+//       res.status(200).send(`Hello ${name}`).json(results.rows);
+//     }
+//   );
+// });
+
+//route for logout - to be build ... sessions??
+// router.delete("/sessions", (req, res) => {
+// });
 
 //-------------------ACTIVITIES------------------
 router.get("/activities", (req, res) => {
