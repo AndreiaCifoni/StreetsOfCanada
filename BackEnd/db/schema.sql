@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
   
 CREATE TABLE IF NOT EXISTS activities (
   activity_id SERIAL,
-  title TEXT NOT NULL, 
+  title TEXT UNIQUE NOT NULL, 
   description TEXT NOT NULL,
   photo TEXT NOT NULL,
   date_created TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,

@@ -36,3 +36,21 @@
 -ROUTES PROBLEMS:
     -user post - post is creating new entry even if already exists
     -user get - not working
+
+
+
+
+    test users
+    {
+        "name": "Mike",
+        "email": "mike@abc",
+        "password": "tuna"
+    }
+
+    test activities
+    {
+        "title": "New arcade 2",
+        "description": "I like to play video games",
+        "photo": "uiop",
+        "user_id": "2"
+    }
