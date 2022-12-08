@@ -137,46 +137,46 @@ router.post("/activities/:id/comments", (req, res) => {
   );
 });
 
-// router.get("/activities/:id/comments/:id", (req, res) => {
-//   const id = parseInt(req.params.id);
-//   pool.query(
-//     "SELECT * FROM activities WHERE activity_id = $1",
-//     [id],
-//     (error, results) => {
-//       if (error) throw error;
-//       res.status(200).json(results.rows);
-//     }
-//   );
-// });
-
-// router.put("/activities/:id/comments/:id", (req, res) => {
-//   const id = parseInt(req.params.id);
-//   const { activity_id, title, description, photo } = req.body;
-//   //check if id exists...
-//   pool.query(
-//     "SELECT * FROM activities WHERE activity_id = $1",
-//     [id],
-//     (error, results) => {
-//       const noActivityFound = !results.rows.length;
-//       if (noActivityFound) {
-//         res.send("Activity does not exist in the database");
-//       }
-//       pool.query(
-//         "UPDATE activities SET title = $2, description = $3, photo = $4  WHERE activity_id = $1",
-//         [activity_id, title, description, photo],
-//         (error, results) => {
-//           if (error) throw error;
-//           res.status(200).send("Activity updated successfully!");
-//         }
-//       );
-//     }
-//   );
-// });
-
-router.delete("/activities/:id/comments/:id", (req, res) => {
+router.get("/comments/:id", (req, res) => {
   const id = parseInt(req.params.id);
   pool.query(
-    "SELECT * FROM comments WHERE comment_id = $1",
+    "SELECT * FROM comments WHERE comments_id = $1",
+    [id],
+    (error, results) => {
+      if (error) throw error;
+      res.status(200).json(results.rows);
+    }
+  );
+});
+
+router.put("/comments/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const { comment, rating } = req.body;
+  //check if id exists...
+  pool.query(
+    "SELECT * FROM comments WHERE comments_id = $1",
+    [id],
+    (error, results) => {
+      const noCommentFound = !results.rows.length;
+      if (noCommentFound) {
+        res.send("Comment does not exist in the database");
+      }
+      pool.query(
+        "UPDATE comments SET comment = $2, rating = $3  WHERE comments_id = $1",
+        [id, comment, rating],
+        (error, results) => {
+          if (error) throw error;
+          res.status(200).send("Comment updated successfully!");
+        }
+      );
+    }
+  );
+});
+
+router.delete("/comments/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  pool.query(
+    "SELECT * FROM comments WHERE comments_id = $1",
     [id],
     (error, results) => {
       const noCommentFound = !results.rows.length;
@@ -184,7 +184,7 @@ router.delete("/activities/:id/comments/:id", (req, res) => {
         res.send("No comment found in database!");
       }
       pool.query(
-        "DELETE FROM comments WHERE comment_id = $1",
+        "DELETE FROM comments WHERE comments_id = $1",
         [id],
         (error, results) => {
           if (error) throw error;
