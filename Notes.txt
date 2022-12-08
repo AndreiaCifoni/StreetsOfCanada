@@ -30,13 +30,7 @@
     -tags:
       GET /tags (show all the tags)
 
-
-
-
--ROUTES PROBLEMS:
-    -user post - post is creating new entry even if already exists
-    -user get - not working
-
+      
 
 
 
@@ -62,3 +56,11 @@
         "comment": "ajsndasnda asdbujfadbdf asdçfjknasdfjn sadlkmdslkf ",
         "rating": "5"
     }
+
+
+    -------------------------------------------------------------------------------
+    FRONT END DETAILS
+
+    -home page description: "Streets of Canada is a website that has the perfect activity for you! This page is for anyone interested in posting or commenting about experiences throughout the city. If you enjoyed hiking in your neighborhood park, saw an artisan fair, or went through a beautiful graffiti wall, share your experiences with our community!  "
+
+    -tag ideas: nature, city, lake/beach, crowded, not crowded, deserted, art, food, music, sport

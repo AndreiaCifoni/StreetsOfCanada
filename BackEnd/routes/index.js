@@ -195,4 +195,13 @@ router.delete("/comments/:id", (req, res) => {
   );
 });
 
+//-------------------TAGS------------------
+
+router.get("/tags", (req, res) => {
+  pool.query("SELECT * FROM tags", (error, result) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+});
+
 module.exports = router;
