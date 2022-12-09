@@ -10,7 +10,9 @@ router.post("/users", (req, res) => {
     "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)",
     [name, email, password],
     (error, results) => {
-      if (error) console.log("Email already exists in the database");
+      if (error) {
+        return res.status(400).send("Email already exists in the database");
+      }
       res.status(201).send("User created successfully!");
     }
   );
@@ -44,11 +46,11 @@ router.get("/activities", (req, res) => {
 router.post("/activities", (req, res) => {
   const { title, description, photo, user_id } = req.body;
   pool.query(
-    "INSERT INTO activities (title, description, photo, user_id) VALUES ($1, $2, $3, $4)",
+    "INSERT INTO activities (title, description, photo, user_id) VALUES ($1, $2, $3, $4) RETURNING *",
     [title, description, photo, user_id],
     (error, results) => {
       if (error) throw error;
-      res.status(201).send("Activity created successfully!");
+      res.status(201).json(results.rows[0]);
     }
   );
 });
@@ -97,7 +99,7 @@ router.delete("/activities/:id", (req, res) => {
     (error, results) => {
       const noActivityFound = !results.rows.length;
       if (noActivityFound) {
-        res.send("No activity found in database!");
+        res.status(404).send("No activity found in database!");
       }
       pool.query(
         "DELETE FROM activities WHERE activity_id = $1",
@@ -126,7 +128,8 @@ router.get("/activities/:id/comments", (req, res) => {
 });
 
 router.post("/activities/:id/comments", (req, res) => {
-  const { user_id, activity_id, comment, rating } = req.body;
+  const activity_id = parseInt(req.params.id);
+  const { user_id, comment, rating } = req.body;
   pool.query(
     "INSERT INTO comments (user_id, activity_id, comment, rating ) VALUES ($1, $2, $3, $4)",
     [user_id, activity_id, comment, rating],
@@ -181,7 +184,7 @@ router.delete("/comments/:id", (req, res) => {
     (error, results) => {
       const noCommentFound = !results.rows.length;
       if (noCommentFound) {
-        res.send("No comment found in database!");
+        res.status(400).send("No comment found in database!");
       }
       pool.query(
         "DELETE FROM comments WHERE comments_id = $1",
