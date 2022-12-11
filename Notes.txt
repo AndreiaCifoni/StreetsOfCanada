@@ -64,3 +64,22 @@
     -home page description: "Streets of Canada is a website that has the perfect activity for you! This page is for anyone interested in posting or commenting about experiences throughout the city. If you enjoyed hiking in your neighborhood park, saw an artisan fair, or went through a beautiful graffiti wall, share your experiences with our community!  "
 
     -tag ideas: nature, city, lake/beach, crowded, not crowded, deserted, art, food, music, sport
+
+
+
+
+    -------------------------------------------------------------------------------
+    INITIATE
+      -db: psql -U postgres
+        password
+        \c streets_of_canada
+
+      -restart Schema: npm run builddb
+
+      -BackEnd
+        cd BackEnd
+        npm run dev
+
+      -FrontEnd
+        cd FrontEnd
+        npm start

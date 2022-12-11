@@ -131,11 +131,11 @@ router.post("/activities/:id/comments", (req, res) => {
   const activity_id = parseInt(req.params.id);
   const { user_id, comment, rating } = req.body;
   pool.query(
-    "INSERT INTO comments (user_id, activity_id, comment, rating ) VALUES ($1, $2, $3, $4)",
+    "INSERT INTO comments (user_id, activity_id, comment, rating ) VALUES ($1, $2, $3, $4) RETURNING *",
     [user_id, activity_id, comment, rating],
     (error, results) => {
       if (error) throw error;
-      res.status(201).send("Comment created successfully!");
+      res.status(201).json(results.rows[0]);
     }
   );
 });
