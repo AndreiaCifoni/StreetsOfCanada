@@ -8,7 +8,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-const sql = fs.readFileSync("./BackEnd/db/schema.sql").toString();
+const sql = fs.readFileSync("./db/schema.sql").toString();
 
 pool.query(sql, (error, results) => {
   if (error) throw error;

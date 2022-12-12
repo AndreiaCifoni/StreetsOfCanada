@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS tags (
   PRIMARY KEY (tags_id)
   );
 
+INSERT INTO tags(name) VALUES ('nature'),('city'),('lake/beach'),('art'),('food'),('music'),('sport');
+
 CREATE TABLE IF NOT EXISTS activities_tags (
   activities_tags_id SERIAL ,
   tags_id INT NOT NULL,

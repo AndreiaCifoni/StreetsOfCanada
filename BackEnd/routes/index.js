@@ -36,6 +36,7 @@ router.post("/users", (req, res) => {
 // });
 
 //-------------------ACTIVITIES------------------
+//SELECT * FROM activities LEFT JOIN activities_tags ON activity_id = activity_id
 router.get("/activities", (req, res) => {
   pool.query("SELECT * FROM activities", (error, results) => {
     if (error) throw error;

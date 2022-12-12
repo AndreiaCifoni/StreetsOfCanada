@@ -30,8 +30,12 @@
     -tags:
       GET /tags (show all the tags)
 
-      
-
+      ******
+      -no form.... show tags
+      -submitting form, post activity... add array of tags to activities_tags
+      -edit activities... edit activities_tags rows ... way to select/no select
+      -delete activity... delete all activities_tags that contains activities_id
+      ******
 
 
     test users
