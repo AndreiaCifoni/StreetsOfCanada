@@ -186,83 +186,49 @@ router.get("/comments/:id", async (req, res) => {
   }
 });
 
-// router.put("/comments/:id", (req, res) => {
-//   const id = parseInt(req.params.id);
-//   const { comment, rating } = req.body;
-//   //check if id exists...
-//   pool.query(
-//     "SELECT * FROM comments WHERE comments_id = $1",
-//     [id],
-//     (error, results) => {
-//       const noCommentFound = !results.rows.length;
-//       if (noCommentFound) {
-//         res.send("Comment does not exist in the database");
-//       }
-//       pool.query(
-//         "UPDATE comments SET comment = $2, rating = $3  WHERE comments_id = $1",
-//         [id, comment, rating],
-//         (error, results) => {
-//           if (error) throw error;
-//           res.status(200).send("Comment updated successfully!");
-//         }
-//       );
-//     }
-//   );
-// });
-
-router.put("/comments/:id", (req, res) => {
+router.put("/comments/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { comment, rating } = req.body;
-  //check if id exists...
-  pool.query(
-    "SELECT * FROM comments WHERE comments_id = $1",
-    [id],
-    (error, results) => {
-      const noCommentFound = !results.rows.length;
-      if (noCommentFound) {
-        res.send("Comment does not exist in the database");
-      }
-      pool.query(
-        "UPDATE comments SET comment = $2, rating = $3  WHERE comments_id = $1",
-        [id, comment, rating],
-        (error, results) => {
-          if (error) throw error;
-          res.status(200).send("Comment updated successfully!");
-        }
-      );
-    }
-  );
+  try {
+    const results = await pool.query(
+      "UPDATE comments SET comment = $2, rating = $3  WHERE comments_id = $1",
+      [id, comment, rating]
+    );
+    res.status(200).send("Comment updated successfully!");
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 });
 
-router.delete("/comments/:id", (req, res) => {
+router.delete("/comments/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  pool.query(
-    "SELECT * FROM comments WHERE comments_id = $1",
-    [id],
-    (error, results) => {
-      const noCommentFound = !results.rows.length;
-      if (noCommentFound) {
-        res.status(400).send("No comment found in database!");
-      }
-      pool.query(
-        "DELETE FROM comments WHERE comments_id = $1",
-        [id],
-        (error, results) => {
-          if (error) throw error;
-          res.status(200).send("Activity removed successfully!");
-        }
-      );
-    }
-  );
+  try {
+    // const checkId = await pool.query(
+    //   "SELECT * FROM comments WHERE comments_id = $1",
+    //   [id]
+    // );
+    const results = await pool.query(
+      "DELETE FROM comments WHERE comments_id = $1",
+      [id]
+    );
+    res.status(200).send("Comment removed successfully!");
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 });
 
 //-------------------TAGS------------------
 
-router.get("/tags", (req, res) => {
-  pool.query("SELECT * FROM tags", (error, result) => {
-    if (error) throw error;
+router.get("/tags", async (req, res) => {
+  try {
+    const results = await pool.query("SELECT * FROM tags");
     res.status(200).json(results.rows);
-  });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 });
 
 module.exports = router;
