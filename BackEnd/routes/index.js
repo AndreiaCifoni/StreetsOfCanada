@@ -36,12 +36,16 @@ router.post("/users", async (req, res) => {
 // });
 
 //-------------------ACTIVITIES------------------
+//SELECT * FROM activities LEFT JOIN activities_tags ON activities.activity_id = activities_tags. activity_id WHERE activities.activity_id = $1
 //SELECT * FROM activities LEFT JOIN activities_tags ON activities.activity_id = activities_tags. activity_id;
-router.get("/activities", (req, res) => {
-  pool.query("SELECT * FROM activities", (error, results) => {
-    if (error) throw error;
+router.get("/activities", async (req, res) => {
+  try {
+    const results = await pool.query("SELECT * FROM activities");
     res.status(200).json(results.rows);
-  });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 });
 
 // router.post("/activities", (req, res) => {
@@ -83,62 +87,60 @@ router.post("/activities", async (req, res) => {
   }
 });
 
-router.get("/activities/:id", (req, res) => {
+router.get("/activities/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  pool.query(
-    "SELECT * FROM activities WHERE activity_id = $1",
-    [id],
-    (error, results) => {
-      if (error) throw error;
-      res.status(200).json(results.rows);
-    }
-  );
+  try {
+    const getTagsIds = await pool.query(
+      "SELECT tags_id FROM activities_tags WHERE activity_id = $1",
+      [id]
+    );
+    const tags = getTagsIds.rows.map((tag) => {
+      return tag.tags_id;
+    });
+    const getActivity = await pool.query(
+      "SELECT * FROM activities WHERE activity_id = $1",
+      [id]
+    );
+    getActivity.rows[0].tags_ids = tags;
+    res.status(200).json(getActivity.rows);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 });
 
-router.put("/activities/:id", (req, res) => {
-  const id = parseInt(req.params.id);
+router.put("/activities/:id", async (req, res) => {
+  // const id = parseInt(req.params.id);
   const { activity_id, title, description, photo } = req.body;
-  //check if id exists...
-  pool.query(
-    "SELECT * FROM activities WHERE activity_id = $1",
-    [id],
-    (error, results) => {
-      const noActivityFound = !results.rows.length;
-      if (noActivityFound) {
-        res.send("Activity does not exist in the database");
-      }
-      pool.query(
-        "UPDATE activities SET title = $2, description = $3, photo = $4  WHERE activity_id = $1",
-        [activity_id, title, description, photo],
-        (error, results) => {
-          if (error) throw error;
-          res.status(200).send("Activity updated successfully!");
-        }
-      );
-    }
-  );
+  try {
+    // const checkId = await pool.query(
+    //   "SELECT * FROM activities WHERE activity_id = $1",
+    //   [activity_id]
+    // );
+    const results = await pool.query(
+      "UPDATE activities SET title = $2, description = $3, photo = $4  WHERE activity_id = $1",
+      [activity_id, title, description, photo]
+    );
+    res.status(200).send("Activity updated successfully!");
+  } catch (error) {
+    console.log(error);
+    res.send("Activity does not exist in the database");
+  }
 });
 
-router.delete("/activities/:id", (req, res) => {
+//also need to delete comments in activities
+router.delete("/activities/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  pool.query(
-    "SELECT * FROM activities WHERE activity_id = $1",
-    [id],
-    (error, results) => {
-      const noActivityFound = !results.rows.length;
-      if (noActivityFound) {
-        res.status(404).send("No activity found in database!");
-      }
-      pool.query(
-        "DELETE FROM activities WHERE activity_id = $1",
-        [id],
-        (error, results) => {
-          if (error) throw error;
-          res.status(200).send("Activity removed successfully!");
-        }
-      );
-    }
-  );
+  try {
+    const results = await pool.query(
+      "DELETE FROM activities WHERE activity_id = $1",
+      [id]
+    );
+    res.status(200).send("Activity removed successfully!");
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 });
 
 //-------------------COMMENTS------------------
