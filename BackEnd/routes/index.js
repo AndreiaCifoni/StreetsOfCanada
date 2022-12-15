@@ -3,19 +3,19 @@ const router = Router();
 const pool = require("../db/index");
 
 //-------------------USERS------------------
-// even if already exists, is showing message "user created"... put message "user already exists"
-router.post("/users", (req, res) => {
+
+router.post("/users", async (req, res) => {
   const { name, email, password } = req.body;
-  pool.query(
-    "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)",
-    [name, email, password],
-    (error, results) => {
-      if (error) {
-        return res.status(400).send("Email already exists in the database");
-      }
-      res.status(201).send("User created successfully!");
-    }
-  );
+  try {
+    const results = await pool.query(
+      "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)",
+      [name, email, password]
+    );
+    res.status(201).send("User created successfully!");
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Email already exists in the database");
+  }
 });
 
 //route for login - not tested... sessions??
@@ -36,7 +36,7 @@ router.post("/users", (req, res) => {
 // });
 
 //-------------------ACTIVITIES------------------
-//SELECT * FROM activities LEFT JOIN activities_tags ON activity_id = activity_id
+//SELECT * FROM activities LEFT JOIN activities_tags ON activities.activity_id = activities_tags. activity_id;
 router.get("/activities", (req, res) => {
   pool.query("SELECT * FROM activities", (error, results) => {
     if (error) throw error;
@@ -143,42 +143,72 @@ router.delete("/activities/:id", (req, res) => {
 
 //-------------------COMMENTS------------------
 
-router.get("/activities/:id/comments", (req, res) => {
+router.get("/activities/:id/comments", async (req, res) => {
   const id = parseInt(req.params.id);
-  pool.query(
-    "SELECT * FROM comments WHERE activity_id = $1",
-    [id],
-    (error, results) => {
-      if (error) throw error;
-      res.status(200).json(results.rows);
-    }
-  );
+  try {
+    const results = await pool.query(
+      "SELECT * FROM comments WHERE activity_id = $1",
+      [id]
+    );
+    res.status(200).json(results.rows);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 });
 
-router.post("/activities/:id/comments", (req, res) => {
+router.post("/activities/:id/comments", async (req, res) => {
   const activity_id = parseInt(req.params.id);
   const { user_id, comment, rating } = req.body;
-  pool.query(
-    "INSERT INTO comments (user_id, activity_id, comment, rating ) VALUES ($1, $2, $3, $4) RETURNING *",
-    [user_id, activity_id, comment, rating],
-    (error, results) => {
-      if (error) throw error;
-      res.status(201).json(results.rows[0]);
-    }
-  );
+  try {
+    const results = await pool.query(
+      "INSERT INTO comments (user_id, activity_id, comment, rating ) VALUES ($1, $2, $3, $4) RETURNING *",
+      [user_id, activity_id, comment, rating]
+    );
+    res.status(201).json(results.rows[0]);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 });
 
-router.get("/comments/:id", (req, res) => {
+router.get("/comments/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  pool.query(
-    "SELECT * FROM comments WHERE comments_id = $1",
-    [id],
-    (error, results) => {
-      if (error) throw error;
-      res.status(200).json(results.rows);
-    }
-  );
+  try {
+    const results = await pool.query(
+      "SELECT * FROM comments WHERE comments_id = $1",
+      [id]
+    );
+    res.status(200).json(results.rows);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 });
+
+// router.put("/comments/:id", (req, res) => {
+//   const id = parseInt(req.params.id);
+//   const { comment, rating } = req.body;
+//   //check if id exists...
+//   pool.query(
+//     "SELECT * FROM comments WHERE comments_id = $1",
+//     [id],
+//     (error, results) => {
+//       const noCommentFound = !results.rows.length;
+//       if (noCommentFound) {
+//         res.send("Comment does not exist in the database");
+//       }
+//       pool.query(
+//         "UPDATE comments SET comment = $2, rating = $3  WHERE comments_id = $1",
+//         [id, comment, rating],
+//         (error, results) => {
+//           if (error) throw error;
+//           res.status(200).send("Comment updated successfully!");
+//         }
+//       );
+//     }
+//   );
+// });
 
 router.put("/comments/:id", (req, res) => {
   const id = parseInt(req.params.id);
