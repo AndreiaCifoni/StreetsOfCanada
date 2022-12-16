@@ -38,10 +38,43 @@ router.post("/users", async (req, res) => {
 //-------------------ACTIVITIES------------------
 //SELECT * FROM activities LEFT JOIN activities_tags ON activities.activity_id = activities_tags. activity_id WHERE activities.activity_id = $1
 //SELECT * FROM activities LEFT JOIN activities_tags ON activities.activity_id = activities_tags. activity_id;
+// router.get("/activities", async (req, res) => {
+//   try {
+//     const results = await pool.query("SELECT * FROM activities");
+//     res.status(200).json(results.rows);
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// });
+
 router.get("/activities", async (req, res) => {
   try {
-    const results = await pool.query("SELECT * FROM activities");
-    res.status(200).json(results.rows);
+    const getActivitiesIds = await pool.query(
+      "SELECT activity_id FROM activities"
+    );
+    const activitiesIds = getActivitiesIds.rows.map((activity) => {
+      return activity.activity_id;
+    });
+    const getActivityAndTags = activitiesIds.map(async (id) => {
+      const getTagsIds = await pool.query(
+        "SELECT tags_id FROM activities_tags WHERE activity_id = $1",
+        [id]
+      );
+      const tags = getTagsIds.rows.map((tag) => {
+        return tag.tags_id;
+      });
+      const getActivity = await pool.query(
+        "SELECT * FROM activities WHERE activity_id = $1",
+        [id]
+      );
+      getActivity.rows[0].tags_ids = tags;
+      return getActivity.rows[0];
+    });
+
+    //await Promise.all(getActivityAndTags);
+    console.log(getActivityAndTags);
+    res.status(200).json(getActivityAndTags);
   } catch (error) {
     console.log(error);
     throw error;
