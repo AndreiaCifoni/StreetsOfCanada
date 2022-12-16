@@ -142,22 +142,44 @@ router.get("/activities/:id", async (req, res) => {
   }
 });
 
+// router.put("/activities/:id", async (req, res) => {
+//   // const id = parseInt(req.params.id);
+//   const { activity_id, title, description, photo } = req.body;
+//   try {
+//     const results = await pool.query(
+//       "UPDATE activities SET title = $2, description = $3, photo = $4  WHERE activity_id = $1",
+//       [activity_id, title, description, photo]
+//     );
+//     res.status(200).send("Activity updated successfully!");
+//   } catch (error) {
+//     console.log(error);
+//     res.send("Activity does not exist in the database");
+//   }
+// });
+
 router.put("/activities/:id", async (req, res) => {
-  // const id = parseInt(req.params.id);
-  const { activity_id, title, description, photo } = req.body;
+  const id = parseInt(req.params.id);
+  const { title, description, photo, tags_ids } = req.body;
   try {
-    // const checkId = await pool.query(
-    //   "SELECT * FROM activities WHERE activity_id = $1",
-    //   [activity_id]
-    // );
     const results = await pool.query(
-      "UPDATE activities SET title = $2, description = $3, photo = $4  WHERE activity_id = $1",
-      [activity_id, title, description, photo]
+      "UPDATE activities SET title = $2, description = $3, photo = $4  WHERE activity_id = $1 RETURNING *",
+      [id, title, description, photo]
     );
-    res.status(200).send("Activity updated successfully!");
+    const deleteTags = await pool.query(
+      "DELETE FROM activities_tags WHERE activity_id = $1",
+      [id]
+    );
+    const insertTags = tags_ids.map((tag_id) => {
+      return pool.query(
+        "INSERT INTO activities_tags (tags_id, activity_id) VALUES ($1, $2)",
+        [tag_id, id]
+      );
+    });
+    await Promise.all(insertTags);
+    res.status(201).json(results.rows[0]);
   } catch (error) {
     console.log(error);
-    res.send("Activity does not exist in the database");
+    res.status(400).send("Activity not updated");
   }
 });
 
