@@ -38,15 +38,6 @@ router.post("/users", async (req, res) => {
 //-------------------ACTIVITIES------------------
 //SELECT * FROM activities LEFT JOIN activities_tags ON activities.activity_id = activities_tags. activity_id WHERE activities.activity_id = $1
 //SELECT * FROM activities LEFT JOIN activities_tags ON activities.activity_id = activities_tags. activity_id;
-// router.get("/activities", async (req, res) => {
-//   try {
-//     const results = await pool.query("SELECT * FROM activities");
-//     res.status(200).json(results.rows);
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// });
 
 router.get("/activities", async (req, res) => {
   try {
@@ -71,10 +62,8 @@ router.get("/activities", async (req, res) => {
       getActivity.rows[0].tags_ids = tags;
       return getActivity.rows[0];
     });
-
-    //await Promise.all(getActivityAndTags);
-    console.log(getActivityAndTags);
-    res.status(200).json(getActivityAndTags);
+    const results = await Promise.all(getActivityAndTags);
+    res.status(200).json(results);
   } catch (error) {
     console.log(error);
     throw error;
