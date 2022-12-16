@@ -142,21 +142,6 @@ router.get("/activities/:id", async (req, res) => {
   }
 });
 
-// router.put("/activities/:id", async (req, res) => {
-//   // const id = parseInt(req.params.id);
-//   const { activity_id, title, description, photo } = req.body;
-//   try {
-//     const results = await pool.query(
-//       "UPDATE activities SET title = $2, description = $3, photo = $4  WHERE activity_id = $1",
-//       [activity_id, title, description, photo]
-//     );
-//     res.status(200).send("Activity updated successfully!");
-//   } catch (error) {
-//     console.log(error);
-//     res.send("Activity does not exist in the database");
-//   }
-// });
-
 router.put("/activities/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { title, description, photo, tags_ids } = req.body;
@@ -183,10 +168,17 @@ router.put("/activities/:id", async (req, res) => {
   }
 });
 
-//also need to delete comments in activities
 router.delete("/activities/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
+    const deleteComments = await pool.query(
+      "DELETE FROM comments WHERE activity_id = $1",
+      [id]
+    );
+    const deleteTags = await pool.query(
+      "DELETE FROM activities_tags WHERE activity_id = $1",
+      [id]
+    );
     const results = await pool.query(
       "DELETE FROM activities WHERE activity_id = $1",
       [id]
