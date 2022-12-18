@@ -102,7 +102,7 @@ router.post("/activities", async (req, res) => {
   } = req.body;
   try {
     const results = await pool.query(
-      "INSERT INTO activities (title, description,address, latitude, longitude, photo, user_id,city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         title,
         description,
@@ -152,11 +152,20 @@ router.get("/activities/:id", async (req, res) => {
 
 router.put("/activities/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const { title, description, photo, tags_ids } = req.body;
+  const {
+    title,
+    description,
+    address,
+    latitude,
+    longitude,
+    photo,
+    city_id,
+    tags_ids,
+  } = req.body;
   try {
     const results = await pool.query(
-      "UPDATE activities SET title = $2, description = $3, photo = $4  WHERE activity_id = $1 RETURNING *",
-      [id, title, description, photo]
+      "UPDATE activities SET title = $2, description = $3, address = $4, latitude = $5, longitude = $6, photo = $7, city_id = $8  WHERE activity_id = $1 RETURNING *",
+      [id, title, description, address, latitude, longitude, photo, city_id]
     );
     const deleteTags = await pool.query(
       "DELETE FROM activities_tags WHERE activity_id = $1",

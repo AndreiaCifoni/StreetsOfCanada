@@ -53,6 +53,19 @@
     "city_id": 1,
     "tags_ids": [1,3,5],
   }
+
+    test act update
+  {
+    "title": "test update",
+    "description": "test update",
+    "address": "test",
+    "latitude": 1211,
+    "longitude": 1223,
+    "photo": "sds",
+    "city_id": 2,
+    "tags_ids": [2, 4]
+  }  
+
     test comments
     {
         "user_id": "2",
