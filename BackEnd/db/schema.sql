@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS activities CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS tags CASCADE;
 DROP TABLE IF EXISTS activities_tags CASCADE;
+DROP TABLE IF EXISTS cities CASCADE;
 
 CREATE TABLE IF NOT EXISTS users (
   user_id SERIAL,
@@ -16,15 +17,21 @@ CREATE TABLE IF NOT EXISTS activities (
   activity_id SERIAL,
   title TEXT UNIQUE NOT NULL, 
   description TEXT NOT NULL,
+  address TEXT NOT NULL,
+  latitude DOUBLE PRECISION NOT NULL,
+  longitude DOUBLE PRECISION NOT NULL,
   photo TEXT NOT NULL,
   date_created TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   user_id INT NOT NULL,
+  city_id INT NOT NULL,
   PRIMARY KEY (activity_id),
   FOREIGN KEY (user_id)
-    REFERENCES users (user_id)
+    REFERENCES users (user_id),
+  FOREIGN KEY (city_id)
+    REFERENCES cities (city_id)
   );
 
-  CREATE TABLE IF NOT EXISTS comments (
+CREATE TABLE IF NOT EXISTS comments (
   comments_id SERIAL,
   user_id INT NOT NULL,
   activity_id INT NOT NULL,
@@ -46,7 +53,7 @@ CREATE TABLE IF NOT EXISTS tags (
 INSERT INTO tags(name) VALUES ('nature'),('city'),('lake/beach'),('art'),('food'),('music'),('sport');
 
 CREATE TABLE IF NOT EXISTS activities_tags (
-  activities_tags_id SERIAL ,
+  activities_tags_id SERIAL,
   tags_id INT NOT NULL,
   activity_id INT NOT NULL,
   PRIMARY KEY (activities_tags_id),
@@ -56,6 +63,11 @@ CREATE TABLE IF NOT EXISTS activities_tags (
     REFERENCES activities (activity_id)
   );
 
+CREATE TABLE IF NOT EXISTS cities (
+  city_id SERIAL,
+  name TEXT, 
+  PRIMARY KEY (city_id)
+  );
 
 
 

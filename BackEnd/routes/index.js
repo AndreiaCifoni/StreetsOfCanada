@@ -89,11 +89,30 @@ router.get("/activities", async (req, res) => {
 // });
 
 router.post("/activities", async (req, res) => {
-  const { title, description, photo, user_id, tags_ids } = req.body;
+  const {
+    title,
+    description,
+    address,
+    latitude,
+    longitude,
+    photo,
+    user_id,
+    city_id,
+    tags_ids,
+  } = req.body;
   try {
     const results = await pool.query(
-      "INSERT INTO activities (title, description, photo, user_id) VALUES ($1, $2, $3, $4) RETURNING *",
-      [title, description, photo, user_id]
+      "INSERT INTO activities (title, description,address, latitude, longitude, photo, user_id,city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [
+        title,
+        description,
+        address,
+        latitude,
+        longitude,
+        photo,
+        user_id,
+        city_id,
+      ]
     );
     const insertPromises = tags_ids.map((tag_id) => {
       return pool.query(

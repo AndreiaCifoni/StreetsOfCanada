@@ -4,7 +4,8 @@
       -activities: activity_id(SERIAL PRIMARY KEY), title(TEXT), description(TEXT), photo(TEXT), user_id(FOREIGN KEY), date_created(DATE)
       -comments: comment_id(SERIAL PRIMARY KEY), activity_id, user_id, comment, rating
       -tags: tag_id(PRIMARY KEY), name(TEXT)
-      -activities_tags: activities_tags_id (PRIMARY KEY), activity_id(FOREIGN KEY), tag_id(FOREIGN KEY)
+      -activities_tags: activities_tags_id (PRIMARY KEY), activity_id(FOREIGN KEY), tag_id(FOREIGN KEY), city_id INT,latitude DOUBLE PRECISION, longitude DOUBLE PRECISION, address TEXT 
+      -cities: city_id INT, name TEXT
 
 -Routes:
     -user 
@@ -30,12 +31,7 @@
     -tags:
       GET /tags (show all the tags)
 
-      ******
-      -no form.... show tags
-      -submitting form, post activity... add array of tags to activities_tags
-      -edit activities... edit activities_tags rows ... way to select/no select
-      -delete activity... delete all activities_tags that contains activities_id
-      ******
+     
 
 
     test users
@@ -46,13 +42,17 @@
     }
 
     test activities
-    {
-        "title": "New arcade 2",
-        "description": "I like to play video games",
-        "photo": "uiop",
-        "user_id": "2"
-    }
-
+ {
+    "title": "test1",
+    "description": "test1 descr",
+    "address": "test1",
+    "latitude": 121321,
+    "longitude": 123123,
+    "photo": "sdfs",
+    "user_id": 1,
+    "city_id": 1,
+    "tags_ids": [1,3,5],
+  }
     test comments
     {
         "user_id": "2",
