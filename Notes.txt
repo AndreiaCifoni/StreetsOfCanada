@@ -51,7 +51,7 @@
     "photo": "sdfs",
     "user_id": 1,
     "city_id": 1,
-    "tags_ids": [1,3,5],
+    "tags_ids": [1,3,5]
   }
 
     test act update
@@ -104,4 +104,3 @@
 -------------------------------------------------------------------------------
 
 PROBLEMS
-*routes put, delet comment  - if put comment that does not exist apears "comment deleted" intead of "not found"
