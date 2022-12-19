@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../../layout.css";
 
 const Activity = () => {
+  const [activity, setActivity] = useState(null);
+
+  let { id } = useParams();
+
+  useEffect(async () => {
+    const response = await fetch(`http://localhost:3000/activities/${id}`);
+    const data = await response.json();
+    console.log(data);
+    setActivity(data);
+  }, []);
+
+  if (!activity) {
+    return <div>Loading</div>;
+  }
+
   return (
     <div className="activity-container">
       <div className="activity-column">
@@ -16,7 +32,7 @@ const Activity = () => {
         <button>Delete</button>
       </div>
       <div className="activity-column">
-        <h1>Title</h1>
+        <h1>{activity.title}</h1>
         <p className="activity-small-text">Location</p>
         <p className="activity-medium-text">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nisi

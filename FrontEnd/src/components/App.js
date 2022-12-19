@@ -11,7 +11,7 @@ const App = () => {
         <Route path={"/"} element={<Home />} />
         <Route path={"/register"} element={<UserForm />} />
         {/* change the next to"activity/:id" */}
-        <Route path={"/activity"} element={<Activity />} />
+        <Route path={"/activity/:id"} element={<Activity />} />
       </Routes>
     </div>
   );

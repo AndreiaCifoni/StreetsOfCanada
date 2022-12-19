@@ -12,6 +12,14 @@ CREATE TABLE IF NOT EXISTS users (
   password TEXT NOT NULL,
   PRIMARY KEY (user_id)
   );
+
+CREATE TABLE IF NOT EXISTS cities (
+  city_id SERIAL,
+  name TEXT, 
+  PRIMARY KEY (city_id)
+  );
+
+  INSERT INTO cities(name) VALUES ('Toronto'),('abc'),('qwer');
   
 CREATE TABLE IF NOT EXISTS activities (
   activity_id SERIAL,
@@ -63,11 +71,7 @@ CREATE TABLE IF NOT EXISTS activities_tags (
     REFERENCES activities (activity_id)
   );
 
-CREATE TABLE IF NOT EXISTS cities (
-  city_id SERIAL,
-  name TEXT, 
-  PRIMARY KEY (city_id)
-  );
+
 
 
 

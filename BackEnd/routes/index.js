@@ -143,7 +143,7 @@ router.get("/activities/:id", async (req, res) => {
       [id]
     );
     getActivity.rows[0].tags_ids = tags;
-    res.status(200).json(getActivity.rows);
+    res.status(200).json(getActivity.rows[0]);
   } catch (error) {
     console.log(error);
     throw error;
