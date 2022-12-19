@@ -1,21 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
+
+/* #root {
+  height: 100%;
+  box-sizing: border-box;
+} */
 
 /* --------------------------ACTIVITY---------------------------------------------------- */
 
 .activity-container {
-  width: 90vw;
-  height: 90vh;
-  padding: 4rem 5rem;
-  display: flex;
+  height: 100vh;
+  padding: 2rem 3rem;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  /* justify-content: space-between; */
 
   background-color: brown;
 }
 
+.activity-column {
+  padding: 4rem 5rem;
+  background-color: blanchedalmond;
+}
+
 .activity-img {
-  width: 5rem;
-  height: 5rem;
+  width: 25rem;
+  height: 25rem;
+}
+
+.activity-small-text {
+  font-size: 1rem;
+}
+
+.activity-medium-text {
+  font-size: 1.4rem;
 }
