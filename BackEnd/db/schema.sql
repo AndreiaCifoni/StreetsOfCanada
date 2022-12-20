@@ -13,13 +13,15 @@ CREATE TABLE IF NOT EXISTS users (
   PRIMARY KEY (user_id)
   );
 
+INSERT INTO users(name, email, password) VALUES ('Deia', 'deia@gmail', 'deia'),('Lucas', 'lucas@gmail', 'lucas'),('Mike', 'mike@gmail', 'mike');
+
 CREATE TABLE IF NOT EXISTS cities (
   city_id SERIAL,
   name TEXT, 
   PRIMARY KEY (city_id)
   );
 
-  INSERT INTO cities(name) VALUES ('Toronto'),('abc'),('qwer');
+INSERT INTO cities(name) VALUES ('Toronto'),('Vancouver'),('Calgary');
   
 CREATE TABLE IF NOT EXISTS activities (
   activity_id SERIAL,

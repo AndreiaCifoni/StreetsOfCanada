@@ -48,18 +48,24 @@ router.get("/activities", async (req, res) => {
       return activity.activity_id;
     });
     const getActivityAndTags = activitiesIds.map(async (id) => {
-      const getTagsIds = await pool.query(
-        "SELECT tags_id FROM activities_tags WHERE activity_id = $1",
+      const getTagsNames = await pool.query(
+        "SELECT name FROM activities_tags LEFT JOIN tags ON activities_tags.tags_id = tags.tags_id  WHERE activity_id = $1",
         [id]
       );
-      const tags = getTagsIds.rows.map((tag) => {
-        return tag.tags_id;
+      const tags = getTagsNames.rows.map((tag) => {
+        return tag.name;
       });
+      const getUserInfo = await pool.query(
+        "SELECT name, email, password FROM users LEFT JOIN activities ON activities.user_id = users.user_id  WHERE activity_id = $1",
+        [id]
+      );
+      const userInfo = getUserInfo.rows[0];
       const getActivity = await pool.query(
         "SELECT * FROM activities WHERE activity_id = $1",
         [id]
       );
       getActivity.rows[0].tags_ids = tags;
+      getActivity.rows[0].user_id = userInfo;
       return getActivity.rows[0];
     });
     const results = await Promise.all(getActivityAndTags);
@@ -131,18 +137,25 @@ router.post("/activities", async (req, res) => {
 router.get("/activities/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const getTagsIds = await pool.query(
-      "SELECT tags_id FROM activities_tags WHERE activity_id = $1",
+    const getTagsNames = await pool.query(
+      "SELECT name FROM activities_tags LEFT JOIN tags ON activities_tags.tags_id = tags.tags_id  WHERE activity_id = $1",
       [id]
     );
-    const tags = getTagsIds.rows.map((tag) => {
-      return tag.tags_id;
+    const tags = getTagsNames.rows.map((tag) => {
+      return tag.name;
     });
+    const getUserInfo = await pool.query(
+      "SELECT name, email, password FROM users LEFT JOIN activities ON activities.user_id = users.user_id  WHERE activity_id = $1",
+      [id]
+    );
+    const userInfo = getUserInfo.rows[0];
     const getActivity = await pool.query(
       "SELECT * FROM activities WHERE activity_id = $1",
       [id]
     );
     getActivity.rows[0].tags_ids = tags;
+    getActivity.rows[0].user_id = userInfo;
+    console.log(userInfo);
     res.status(200).json(getActivity.rows[0]);
   } catch (error) {
     console.log(error);
