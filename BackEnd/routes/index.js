@@ -60,12 +60,18 @@ router.get("/activities", async (req, res) => {
         [id]
       );
       const userInfo = getUserInfo.rows[0];
+      const getCityName = await pool.query(
+        "SELECT name FROM cities LEFT JOIN activities ON activities.city_id = cities.city_id  WHERE activity_id = $1",
+        [id]
+      );
+      const cityName = getCityName.rows[0];
       const getActivity = await pool.query(
         "SELECT * FROM activities WHERE activity_id = $1",
         [id]
       );
       getActivity.rows[0].tags_ids = tags;
       getActivity.rows[0].user_id = userInfo;
+      getActivity.rows[0].city_id = cityName;
       return getActivity.rows[0];
     });
     const results = await Promise.all(getActivityAndTags);
@@ -149,12 +155,18 @@ router.get("/activities/:id", async (req, res) => {
       [id]
     );
     const userInfo = getUserInfo.rows[0];
+    const getCityName = await pool.query(
+      "SELECT name FROM cities LEFT JOIN activities ON activities.city_id = cities.city_id  WHERE activity_id = $1",
+      [id]
+    );
+    const cityName = getCityName.rows[0];
     const getActivity = await pool.query(
       "SELECT * FROM activities WHERE activity_id = $1",
       [id]
     );
     getActivity.rows[0].tags_ids = tags;
     getActivity.rows[0].user_id = userInfo;
+    getActivity.rows[0].city_id = cityName;
     console.log(userInfo);
     res.status(200).json(getActivity.rows[0]);
   } catch (error) {
