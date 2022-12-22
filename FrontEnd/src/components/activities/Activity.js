@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "../../layout.css";
+import "../../index.css";
 
 const Activity = () => {
   const [activity, setActivity] = useState(null);
 
   let { id } = useParams();
 
-  useEffect(async () => {
-    const response = await fetch(`http://localhost:3000/activities/${id}`);
-    const data = await response.json();
-    console.log(data);
-    setActivity(data);
+  useEffect(() => {
+    const fetchActivity = async () => {
+      const response = await fetch(`http://localhost:3000/activities/${id}`);
+      const data = await response.json();
+      setActivity(data);
+      console.log(data);
+    };
+    fetchActivity();
   }, []);
 
   if (!activity) {
@@ -19,22 +22,18 @@ const Activity = () => {
   }
 
   return (
-    <div className="activity-container">
-      <div className="activity-column">
-        <img
-          className="activity-img"
-          src={activity.photo}
-          alt={activity.tags_ids[0]}
-        />
-        <p className="activity-small-text">{activity.user_id.name}</p>
-        <p className="activity-small-text">{activity.date_created}</p>
+    <div className="">
+      <div className="">
+        <img className="" src={activity.photo} alt={activity.tags_ids[0]} />
+        <p className="text-3xl font-bold underline">{activity.user_id.name}</p>
+        <p className="">{activity.date_created}</p>
         <button>Edit</button>
         <button>Delete</button>
       </div>
-      <div className="activity-column">
-        <h1>{activity.title}</h1>
-        <p className="activity-small-text">{activity.city_id.name}</p>
-        <p className="activity-medium-text">{activity.description}</p>
+      <div className="">
+        <h1 className="text-3xl font-bold underline">{activity.title}</h1>
+        <p className="text-3xl font-bold underline">{activity.city_id.name}</p>
+        <p className="">{activity.description}</p>
         {/* <div>Here goes the comment box</div> */}
       </div>
     </div>
