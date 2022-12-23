@@ -8,6 +8,7 @@ const Home = () => {
       <NavBar />
       <div>
         <Link to="/activity">Activity</Link>
+        <Link to="/form">ActivityForm</Link>
       </div>
     </div>
   );

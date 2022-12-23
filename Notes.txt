@@ -74,6 +74,12 @@
         "rating": "5"
     }
 
+    ADDRESSES
+    -Don Valley Brick Works Park >> 550 Bayview Ave, Toronto, ON M4W 3X8 >> LAT 43.688485782510966, LON -79.36362641475667
+    -Craigleigh Gardens Dog Park, Milkman's Lane, Toronto, ON >> LAT 43.67748558012985,LON -79.37223787483332
+    -Polish World War I Military Cemetery, 85 Byron St, Niagara-on-the-Lake, ON L0S 1J0 >> LAT 43.25474226369269, LON -79.06771089792637
+    -Brighton Beach Lighthouse, 160 York Ln, Charlottetown, PE C1A 7W5 >> 46.23060602367885, -63.146939255098474
+
 
 -------------------------------------------------------------------------------
     FRONT END DETAILS

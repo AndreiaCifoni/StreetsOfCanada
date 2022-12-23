@@ -25,14 +25,14 @@ const Activity = () => {
     <div className="">
       <div className="">
         <img className="" src={activity.photo} alt={activity.tags_ids[0]} />
-        <p className="text-3xl font-bold underline">{activity.user_id.name}</p>
+        <p className="">{activity.user_id.name}</p>
         <p className="">{activity.date_created}</p>
         <button>Edit</button>
         <button>Delete</button>
       </div>
       <div className="">
-        <h1 className="text-3xl font-bold underline">{activity.title}</h1>
-        <p className="text-3xl font-bold underline">{activity.city_id.name}</p>
+        <h1 className="">{activity.title}</h1>
+        <p className="">{activity.city_id.name}</p>
         <p className="">{activity.description}</p>
         {/* <div>Here goes the comment box</div> */}
       </div>
