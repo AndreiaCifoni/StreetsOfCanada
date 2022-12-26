@@ -4,10 +4,12 @@ import Activity from "./activities/Activity";
 import ActivityForm from "./activities/ActivityForm";
 import Home from "./Home";
 import UserForm from "./users/UserForm";
+import NavBar from "./NavBar";
 
 const App = () => {
   return (
-    <div>
+    <div className="font-mono">
+      <NavBar />
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route path={"/register"} element={<UserForm />} />

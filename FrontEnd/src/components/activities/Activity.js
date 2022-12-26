@@ -36,7 +36,7 @@ const Activity = () => {
         <p className="">{activity.city.name}</p>
         <p className="">{activity.description}</p>
         <MapContainer
-          style={{ height: "300px" }}
+          style={{ width: "360px", height: "180px" }}
           center={[activity.latitude, activity.longitude]}
           zoom={13}
           scrollWheelZoom={false}
