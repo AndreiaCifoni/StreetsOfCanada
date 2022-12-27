@@ -23,20 +23,16 @@ const Activity = () => {
   }
 
   return (
-    <div className="">
-      <div className="">
-        <img className="" src={activity.photo} alt={activity.title} />
-        <p className="">{activity.user.name}</p>
-        <p className="">{activity.date_created}</p>
-        <button>Edit</button>
-        <button>Delete</button>
-      </div>
-      <div className="">
-        <h1 className="">{activity.title}</h1>
-        <p className="">{activity.city.name}</p>
-        <p className="">{activity.description}</p>
+    <div className="flex mt-8 mx-16 ">
+      <div className=" w-2/5">
+        <img
+          className="w-11/12 h-4/6 object-cover rounded-md"
+          src={activity.photo}
+          alt={activity.title}
+        />
+        <h2 className="text-xl font-bold mt-4 mb-2">Location:</h2>
         <MapContainer
-          style={{ width: "360px", height: "180px" }}
+          style={{ width: "420px", height: "180px" }}
           center={[activity.latitude, activity.longitude]}
           zoom={13}
           scrollWheelZoom={false}
@@ -51,6 +47,24 @@ const Activity = () => {
             </Popup>
           </Marker>
         </MapContainer>
+        <div className="my-4">
+          <p>Created by {activity.user.name}</p>
+          <p>Date: {activity.date_created}</p>
+        </div>
+        <button>Edit</button>
+        <button>Delete</button>
+      </div>
+      <div className=" w-3/5">
+        <h1 className="text-3xl font-bold my-4">
+          {activity.title}{" "}
+          <span className="text-lg"> - {activity.city.name}</span>
+        </h1>
+        <p>My tags go here</p>
+        <p className="text-lg my-8">{activity.description}</p>
+        <div>
+          <h2 className="text-2xl font-bold">Reviews:</h2>
+        </div>
+
         {/* <div>Here goes the comment box</div> */}
       </div>
     </div>
