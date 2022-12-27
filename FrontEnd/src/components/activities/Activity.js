@@ -60,10 +60,28 @@ const Activity = () => {
       </div>
       <div className="w-3/5 m-4">
         <h1 className="text-3xl font-bold my-4">
-          {activity.title}{" "}
+          {activity.title}
           <span className="text-lg"> - {activity.city.name}</span>
         </h1>
-        <p>My tags go here</p>
+        <div className="flex gap-2">
+          {activity.tags.map((tag) => {
+            return (
+              <span
+                className={
+                  tag === "nature"
+                    ? "bg-emerald-200"
+                    : tag === "city"
+                    ? "bg-gray-200"
+                    : tag === "lake/beach"
+                    ? "bg-cyan-200"
+                    : "bg-orange-200"
+                }
+              >
+                {tag}
+              </span>
+            );
+          })}
+        </div>
         <p className="text-lg my-8 mr-16">{activity.description}</p>
         <div className="bg-slate-50 rounded w-4/5 py-3.5 px-4 h-">
           <h2 className="text-2xl font-bold">Reviews:</h2>
