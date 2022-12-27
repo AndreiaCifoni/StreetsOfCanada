@@ -8,7 +8,7 @@ import NavBar from "./NavBar";
 
 const App = () => {
   return (
-    <div className="font-mono">
+    <div className="font-mono bg-orange-50">
       <NavBar />
       <Routes>
         <Route path={"/"} element={<Home />} />

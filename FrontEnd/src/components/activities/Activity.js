@@ -23,10 +23,10 @@ const Activity = () => {
   }
 
   return (
-    <div className="flex mt-8 mx-16 ">
-      <div className=" w-2/5">
+    <div className="flex mt-8 mx-16 bg-indigo-100 rounded">
+      <div className="w-2/5 m-4">
         <img
-          className="w-11/12 h-4/6 object-cover rounded-md"
+          className="w-11/12 h-96 object-cover rounded-md shadow-md "
           src={activity.photo}
           alt={activity.title}
         />
@@ -51,17 +51,21 @@ const Activity = () => {
           <p>Created by {activity.user.name}</p>
           <p>Date: {activity.date_created}</p>
         </div>
-        <button>Edit</button>
-        <button>Delete</button>
+        <button className="my-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow">
+          Edit
+        </button>
+        <button className="my-4 mx-3 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow">
+          Delete
+        </button>
       </div>
-      <div className=" w-3/5">
+      <div className="w-3/5 m-4">
         <h1 className="text-3xl font-bold my-4">
           {activity.title}{" "}
           <span className="text-lg"> - {activity.city.name}</span>
         </h1>
         <p>My tags go here</p>
-        <p className="text-lg my-8">{activity.description}</p>
-        <div>
+        <p className="text-lg my-8 mr-16">{activity.description}</p>
+        <div className="bg-slate-50 rounded w-4/5 py-3.5 px-4 h-">
           <h2 className="text-2xl font-bold">Reviews:</h2>
         </div>
 
