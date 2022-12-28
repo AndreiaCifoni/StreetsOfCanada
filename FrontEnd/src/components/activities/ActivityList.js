@@ -19,7 +19,7 @@ const ActivityList = () => {
   }
 
   return (
-    <div>
+    <div className="flex-col">
       {activityList.map((activity) => {
         return (
           <ActivityCard
@@ -27,7 +27,7 @@ const ActivityList = () => {
             title={activity.title}
             city={activity.city.name}
             tags={activity.tags}
-            description={activity.description}
+            description={activity.description.substring(0, 200) + "..."}
           />
         );
       })}
