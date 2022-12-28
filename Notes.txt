@@ -113,3 +113,30 @@
 -------------------------------------------------------------------------------
 
 PROBLEMS
+
+
+------------------------------
+
+{
+    "title": "Craigleigh Gardens Dog Park",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper eu lectus ac maximus. Sed non posuere arcu. Fusce pharetra arcu justo, vel mollis ante fermentum nec. Fusce commodo aliquam consequat. Phasellus ut ipsum vel diam accumsan volutpat. Vestibulum sit amet felis laoreet, faucibus est in, commodo enim. Sed ultricies urna vitae elit luctus molestie.",
+    "address": "Milkman's Lane",
+    "latitude": 43.67748558012985,
+    "longitude": -79.37223787483332,
+    "photo": "https://images.unsplash.com/photo-1534361960057-19889db9621e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGRvZyUyMHBhcmt8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "user_id": 1,
+    "city_id": 1,
+    "tags_ids": [1,7],
+}
+
+{
+    "title": "Brighton Beach Lighthouse",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper eu lectus ac maximus. Sed non posuere arcu. Fusce pharetra arcu justo, vel mollis ante fermentum nec. Fusce commodo aliquam consequat. Phasellus ut ipsum vel diam accumsan volutpat. Vestibulum sit amet felis laoreet, faucibus est in, commodo enim. Sed ultricies urna vitae elit luctus molestie.",
+    "address": " 160 York Ln",
+    "latitude": 46.23060602367885,
+    "longitude": -63.146939255098474,
+    "photo": "https://images.unsplash.com/photo-1522679056866-8dbbc8774a9d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGlnaHRob3VzZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    "user_id": 2,
+    "city_id": 4,
+    "tags_ids": [1,3,7]
+}

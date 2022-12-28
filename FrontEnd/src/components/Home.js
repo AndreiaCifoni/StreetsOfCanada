@@ -1,4 +1,5 @@
 import React from "react";
+import ActivityList from "./activities/ActivityList";
 
 const Home = () => {
   return (
@@ -19,6 +20,7 @@ const Home = () => {
       </div>
       <div className="bg-red-100">
         <h1 className="text-3xl font-bold mx-4">All Activities:</h1>
+        <ActivityList />
       </div>
     </div>
   );

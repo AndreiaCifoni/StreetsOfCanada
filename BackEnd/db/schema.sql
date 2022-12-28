@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS cities (
   PRIMARY KEY (city_id)
   );
 
-INSERT INTO cities(name) VALUES ('Toronto'),('Vancouver'),('Calgary');
+INSERT INTO cities(name) VALUES ('Toronto'),('Vancouver'),('Calgary'),('Charlottetown');
   
 CREATE TABLE IF NOT EXISTS activities (
   activity_id SERIAL,
