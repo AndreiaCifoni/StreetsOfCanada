@@ -5,6 +5,7 @@ import ActivityForm from "./activities/ActivityForm";
 import Home from "./Home";
 import UserForm from "./users/UserForm";
 import NavBar from "./NavBar";
+import ActivityCard from "./activities/ActivityCard";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path={"/register"} element={<UserForm />} />
         {/* change the next to"activity/:id" */}
         <Route path={"/activity/:id"} element={<Activity />} />
+        <Route path={"/activitycard"} element={<ActivityCard />} />
         <Route path={"/form"} element={<ActivityForm />} />
       </Routes>
     </div>
