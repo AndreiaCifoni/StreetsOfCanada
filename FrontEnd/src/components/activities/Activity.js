@@ -49,7 +49,7 @@ const Activity = () => {
         </MapContainer>
         <div className="my-4">
           <p>Created by {activity.user.name}</p>
-          <p>Date: {activity.date_created}</p>
+          <p>Date: {activity.date_created.substring(0, 10)}</p>
         </div>
         <button className="my-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow">
           Edit

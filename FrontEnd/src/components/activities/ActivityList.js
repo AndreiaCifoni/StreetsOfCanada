@@ -19,7 +19,7 @@ const ActivityList = () => {
   }
 
   return (
-    <div className="flex-col">
+    <div className="flex-col mb-16">
       {activityList.map((activity) => {
         return (
           <ActivityCard

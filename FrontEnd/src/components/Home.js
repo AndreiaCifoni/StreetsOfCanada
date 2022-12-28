@@ -3,9 +3,9 @@ import ActivityList from "./activities/ActivityList";
 
 const Home = () => {
   return (
-    <div className="mt-8 mx-16 bg-indigo-100 rounded">
-      <div className="mx-8 h-96 bg-[url('https://res.cloudinary.com/deiacifoni/image/upload/v1672176321/projects/StreetsOfCanada/streets_of_Canada_4_knnwxz.jpg')]">
-        <h1 className="inline-block text-8xl font-bold bg-orange-50/75 px-5 py-0.5 ">
+    <div className="mt-8 mx-16 bg-indigo-100 rounded py-2">
+      <div className="mx-8 my-4 h-96 bg-[url('https://res.cloudinary.com/deiacifoni/image/upload/v1672176321/projects/StreetsOfCanada/streets_of_Canada_4_knnwxz.jpg')]">
+        <h1 className="inline-block my-36 mx-48 text-8xl font-bold bg-orange-50/90 px-5 py-0.5 ">
           Streets Of Canada
         </h1>
       </div>
