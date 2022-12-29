@@ -1,6 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const ActivityCard = ({ photo, title, city, tags, description }) => {
+const ActivityCard = ({
+  activity_id,
+  photo,
+  title,
+  city,
+  tags,
+  description,
+}) => {
   return (
     <div className="flex w-4/5 h-60 my-2 mx-auto bg-orange-50 rounded shadow-md border-solid border-2 border-indigo-500">
       <div className="w-1/3">
@@ -35,9 +43,12 @@ const ActivityCard = ({ photo, title, city, tags, description }) => {
           })}
         </div>
         <p className="text-lg my-1">{description}</p>
-        <button className="my-4 py-0.5 px-1.5 absolute right-4 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow">
+        <Link
+          className="my-4 py-0.5 px-1.5 absolute right-4 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
+          to={`/activity/${activity_id}`}
+        >
           See activity
-        </button>
+        </Link>
       </div>
     </div>
   );

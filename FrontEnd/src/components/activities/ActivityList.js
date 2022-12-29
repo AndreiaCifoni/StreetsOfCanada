@@ -23,6 +23,7 @@ const ActivityList = () => {
       {activityList.map((activity) => {
         return (
           <ActivityCard
+            activity_id={activity.activity_id}
             photo={activity.photo}
             title={activity.title}
             city={activity.city.name}
