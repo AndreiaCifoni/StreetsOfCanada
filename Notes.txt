@@ -79,6 +79,7 @@
     -Craigleigh Gardens Dog Park, Milkman's Lane, Toronto, ON >> LAT 43.67748558012985,LON -79.37223787483332
     -Polish World War I Military Cemetery, 85 Byron St, Niagara-on-the-Lake, ON L0S 1J0 >> LAT 43.25474226369269, LON -79.06771089792637
     -Brighton Beach Lighthouse, 160 York Ln, Charlottetown, PE C1A 7W5 >> 46.23060602367885, -63.146939255098474
+    -Graffiti Alley - Toronto ON >>  43.64807490885711, -79.39846217344689
 
 
 -------------------------------------------------------------------------------
@@ -139,4 +140,16 @@ PROBLEMS
     "user_id": 2,
     "city_id": 4,
     "tags_ids": [1,3,7]
+}
+
+{
+    "title": "Graffiti Alley",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquam finibus dolor, vitae placerat tortor porta id. Fusce et nulla egestas, tempus felis in, tempus ipsum. Donec a urna maximus, maximus sapien id, elementum metus. Integer faucibus rutrum lacus, egestas posuere augue malesuada ut. Proin semper risus sit amet nulla tristique, ut lobortis tellus imperdiet. Cras egestas orci quis mauris tincidunt tempus. Nullam sodales nunc purus, ac varius ante gravida vel. Sed eu turpis dapibus, vestibulum erat quis, sagittis urna. In lobortis urna a tincidunt dictum. Etiam sit amet libero sed diam ultricies imperdiet. In hac habitasse platea dictumst.",
+    "address": "Graffiti Alley, ON",
+    "latitude": 43.64807490885711,
+    "longitude": -79.39846217344689,
+    "photo": "https://images.unsplash.com/photo-1562252636-e05a15ede29e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGdyYWZmaXRpJTIwYWxsZXl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "user_id": 3,
+    "city_id": 1,
+    "tags_ids": [2,4]
 }

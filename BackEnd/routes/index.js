@@ -41,9 +41,25 @@ router.post("/users", async (req, res) => {
 
 router.get("/activities", async (req, res) => {
   try {
-    const getActivitiesIds = await pool.query(
-      "SELECT activity_id FROM activities"
-    );
+    // const getActivitiesIds = await pool.query(
+    //   "SELECT activity_id FROM activities"
+    // );
+    const city_name = req.query.city;
+    const tag_name = req.query.tags;
+
+    const getActivitiesIds = city_name
+      ? await pool.query(
+          "SELECT activity_id FROM activities LEFT JOIN cities ON activities.city_id = cities.city_id WHERE cities.name = $1 ",
+          [city_name]
+        )
+      : tag_name
+      ? await pool.query(
+          "SELECT activities.activity_id FROM activities JOIN activities_tags ON activities.activity_id = activities_tags.activity_id JOIN tags ON activities_tags.tags_id = tags.tags_id  WHERE tags.name = $1 ",
+          [tag_name]
+        )
+      : await pool.query("SELECT activity_id FROM activities");
+
+    console.log(req.query);
     const activitiesIds = getActivitiesIds.rows.map((activity) => {
       return activity.activity_id;
     });
