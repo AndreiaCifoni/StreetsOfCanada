@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "react-dropdown";
 import ActivityCard from "./ActivityCard";
+import "../utilities/dropdownStyle.css";
 
 const ActivityList = () => {
   const [activityList, setActivityList] = useState(null);
@@ -48,11 +49,9 @@ const ActivityList = () => {
     <div className="flex-col mb-16">
       <div>
         <Dropdown
-          controlClassName="myControlClassName"
           options={options}
-          //value={value}
           onChange={onDropdownChange}
-          placeholder="Select a tag"
+          placeholder="Filter by tag"
         />
       </div>
       {activityList.map((activity) => {
