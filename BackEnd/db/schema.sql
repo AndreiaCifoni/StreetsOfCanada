@@ -41,6 +41,29 @@ CREATE TABLE IF NOT EXISTS activities (
     REFERENCES cities (city_id)
   );
 
+INSERT INTO activities(title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ('Craigleigh Gardens Dog Park',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper eu lectus ac maximus. Sed non posuere arcu. Fusce pharetra arcu justo, vel mollis ante fermentum nec. Fusce commodo aliquam consequat. Phasellus ut ipsum vel diam accumsan volutpat. Vestibulum sit amet felis laoreet, faucibus est in, commodo enim. Sed ultricies urna vitae elit luctus molestie.',
+    'Milkmans Lane',
+    43.67748558012985,
+    -79.37223787483332,
+    'https://images.unsplash.com/photo-1534361960057-19889db9621e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGRvZyUyMHBhcmt8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+     1,
+    1), ('Brighton Beach Lighthouse',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper eu lectus ac maximus. Sed non posuere arcu. Fusce pharetra arcu justo, vel mollis ante fermentum nec. Fusce commodo aliquam consequat. Phasellus ut ipsum vel diam accumsan volutpat. Vestibulum sit amet felis laoreet, faucibus est in, commodo enim. Sed ultricies urna vitae elit luctus molestie.',
+    '160 York Ln',
+    46.23060602367885,
+    -63.146939255098474,
+    'https://images.unsplash.com/photo-1522679056866-8dbbc8774a9d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGlnaHRob3VzZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+    2,
+    4), ('Graffiti Alley',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquam finibus dolor, vitae placerat tortor porta id. Fusce et nulla egestas, tempus felis in, tempus ipsum. Donec a urna maximus, maximus sapien id, elementum metus. Integer faucibus rutrum lacus, egestas posuere augue malesuada ut. Proin semper risus sit amet nulla tristique, ut lobortis tellus imperdiet. Cras egestas orci quis mauris tincidunt tempus. Nullam sodales nunc purus, ac varius ante gravida vel. Sed eu turpis dapibus, vestibulum erat quis, sagittis urna. In lobortis urna a tincidunt dictum. Etiam sit amet libero sed diam ultricies imperdiet. In hac habitasse platea dictumst.',
+    'Graffiti Alley, ON',
+    43.64807490885711,
+    -79.39846217344689,
+    'https://images.unsplash.com/photo-1562252636-e05a15ede29e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGdyYWZmaXRpJTIwYWxsZXl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+    3,
+    1);
+ 
 CREATE TABLE IF NOT EXISTS comments (
   comments_id SERIAL,
   user_id INT NOT NULL,
@@ -73,6 +96,7 @@ CREATE TABLE IF NOT EXISTS activities_tags (
     REFERENCES activities (activity_id)
   );
 
+INSERT INTO activities_tags (tags_id, activity_id) VALUES (1,1),(7,1),(3,2),(7,2),(2,3),(4,3)
 
 
 

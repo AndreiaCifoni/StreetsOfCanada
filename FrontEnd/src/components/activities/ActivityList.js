@@ -5,7 +5,7 @@ import "../utilities/dropdownStyle.css";
 
 const ActivityList = () => {
   const [activityList, setActivityList] = useState(null);
-  const [tags, setTags] = useState([{ value: "", label: "All" }]);
+  const [tags, setTags] = useState([{ value: "", label: "All tags" }]);
 
   useEffect(() => {
     const fetchActivity = async () => {
