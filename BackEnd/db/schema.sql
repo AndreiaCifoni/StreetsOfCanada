@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS tags CASCADE;
 DROP TABLE IF EXISTS activities_tags CASCADE;
 DROP TABLE IF EXISTS cities CASCADE;
+DROP TABLE IF EXISTS provinces CASCADE;
 
 CREATE TABLE IF NOT EXISTS users (
   user_id SERIAL,
@@ -15,13 +16,24 @@ CREATE TABLE IF NOT EXISTS users (
 
 INSERT INTO users(name, email, password) VALUES ('Deia', 'deia@gmail', 'deia'),('Lucas', 'lucas@gmail', 'lucas'),('Mike', 'mike@gmail', 'mike');
 
+CREATE TABLE IF NOT EXISTS provinces (
+  province TEXT, 
+  province_id TEXT,
+  PRIMARY KEY (province_id)
+  );
+
+INSERT INTO provinces(province, province_id) VALUES ('Alberta', 'AB'), ('British Columbia', 'BC'), ('Manitoba','MB'), ('New Brunswick','NB'), ('Newfoundland and Labrador','NL'), ('Northwest Territories','NT'), ('Nova Scotia','NS'), ('Nunavut', 'NU'), ('Ontario','ON'), ('Prince Edward Island','PE'), ('Quebec','QC'), ('Saskatchewan','SK'), ('Yukon','YT');
+
 CREATE TABLE IF NOT EXISTS cities (
   city_id SERIAL,
   name TEXT, 
-  PRIMARY KEY (city_id)
+  province_id TEXT,
+  PRIMARY KEY (city_id),
+  FOREIGN KEY (province_id)
+    REFERENCES provinces (province_id)
   );
 
-INSERT INTO cities(name) VALUES ('Toronto'),('Vancouver'),('Calgary'),('Charlottetown');
+INSERT INTO cities(name, province_id) VALUES ('Toronto', 'ON'),('Vancouver','BC'),('Calgary', 'AB'),('Charlottetown','PE');
   
 CREATE TABLE IF NOT EXISTS activities (
   activity_id SERIAL,
