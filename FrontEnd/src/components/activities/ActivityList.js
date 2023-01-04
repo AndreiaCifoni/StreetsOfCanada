@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "react-dropdown";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import parse from "autosuggest-highlight/parse";
+import match from "autosuggest-highlight/match";
 import ActivityCard from "./ActivityCard";
 import "../utilities/dropdownStyle.css";
 
@@ -46,9 +50,52 @@ const ActivityList = () => {
     return <div>Loading</div>;
   }
 
+  const top100Films = [
+    { title: "The Shawshank Redemption", year: 1994 },
+    { title: "The Godfather", year: 1972 },
+    { title: "The Godfather: Part II", year: 1974 },
+    { title: "The Dark Knight", year: 2008 },
+    { title: "12 Angry Men", year: 1957 },
+    { title: "Schindler's List", year: 1993 },
+    { title: "Pulp Fiction", year: 1994 },
+  ];
+
   return (
     <div className="flex-col mb-16">
       <div>
+        <Autocomplete
+          // id="highlights-demo"
+          sx={{ width: 250 }}
+          options={top100Films}
+          getOptionLabel={(option) => `${option.title}, ${option.year}`}
+          renderInput={(params) => (
+            <TextField {...params} label="Filter by city" margin="normal" />
+          )}
+          renderOption={(props, option, { inputValue }) => {
+            const matches = match(option.title, inputValue, {
+              insideWords: true,
+            });
+            const parts = parse(option.title, matches);
+
+            return (
+              <li {...props}>
+                <div>
+                  {parts.map((part, index) => (
+                    <span
+                      key={index}
+                      style={{
+                        fontWeight: part.highlight ? 700 : 400,
+                      }}
+                    >
+                      {part.text}
+                    </span>
+                  ))}
+                </div>
+              </li>
+            );
+          }}
+        />
+
         <Dropdown
           options={tags}
           onChange={onDropdownChange}
