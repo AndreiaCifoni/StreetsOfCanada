@@ -77,7 +77,7 @@ router.get("/activities", async (req, res) => {
       );
       const userInfo = getUserInfo.rows[0];
       const getCityName = await pool.query(
-        "SELECT cities.city_id, name FROM cities LEFT JOIN activities ON activities.city_id = cities.city_id  WHERE activity_id = $1",
+        "SELECT cities.city_id, name, cities.province_id FROM cities LEFT JOIN activities ON activities.city_id = cities.city_id  WHERE activity_id = $1",
         [id]
       );
       const cityName = getCityName.rows[0];
@@ -172,7 +172,7 @@ router.get("/activities/:id", async (req, res) => {
     );
     const userInfo = getUserInfo.rows[0];
     const getCityName = await pool.query(
-      "SELECT cities.city_id, name FROM cities LEFT JOIN activities ON activities.city_id = cities.city_id  WHERE activity_id = $1",
+      "SELECT cities.city_id, name, cities.province_id FROM cities LEFT JOIN activities ON activities.city_id = cities.city_id  WHERE activity_id = $1",
       [id]
     );
     const cityName = getCityName.rows[0];

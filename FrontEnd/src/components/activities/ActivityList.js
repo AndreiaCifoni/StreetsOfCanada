@@ -110,6 +110,7 @@ const ActivityList = () => {
             photo={activity.photo}
             title={activity.title}
             city={activity.city.name}
+            province={activity.city.province_id}
             tags={activity.tags}
             description={activity.description.substring(0, 200) + "..."}
           />

@@ -61,7 +61,10 @@ const Activity = () => {
       <div className="w-3/5 m-4">
         <h1 className="text-3xl font-bold my-4">
           {activity.title}
-          <span className="text-lg"> - {activity.city.name}</span>
+          <span className="text-lg">
+            {" "}
+            - {activity.city.name}/{activity.city.province_id}
+          </span>
         </h1>
         <div className="flex gap-2">
           {activity.tags.map((tag) => {

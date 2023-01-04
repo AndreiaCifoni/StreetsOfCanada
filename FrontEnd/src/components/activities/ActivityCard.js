@@ -9,6 +9,7 @@ const ActivityCard = ({
   city,
   tags,
   description,
+  province,
 }) => {
   return (
     <div className="flex w-4/5 h-60 my-2 mx-auto bg-orange-50 rounded shadow-md border-solid border-2 border-indigo-500">
@@ -22,7 +23,10 @@ const ActivityCard = ({
       <div className="w-2/3 relative">
         <h1 className="text-3xl font-bold mt-4 relative">
           {title}
-          <span className="text-lg"> - {city}</span>
+          <span className="text-lg">
+            {" "}
+            - {city}/{province}
+          </span>
         </h1>
         <div className="text-base flex gap-2">
           {tags.map((tag) => {
