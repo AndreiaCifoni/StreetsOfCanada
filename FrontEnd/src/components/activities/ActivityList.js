@@ -10,6 +10,8 @@ import "../utilities/dropdownStyle.css";
 const ActivityList = () => {
   const [activityList, setActivityList] = useState(null);
   const [tags, setTags] = useState([{ value: "", label: "All tags" }]);
+  const [cities, setCities] = useState([{ name: "None", province_id: "-" }]);
+  const [cityValue, setCityValue] = useState("");
 
   useEffect(() => {
     const fetchActivity = async () => {
@@ -34,6 +36,19 @@ const ActivityList = () => {
     fetchTags();
   }, []);
 
+  useEffect(() => {
+    const fetchCities = async () => {
+      const response = await fetch("http://localhost:3000/cities");
+      const citiesData = await response.json();
+      const autocompleteCities = citiesData.map((city) => {
+        const listCities = { name: city.name, province_id: city.province_id };
+        return listCities;
+      });
+      setCities([...cities, ...autocompleteCities]);
+    };
+    fetchCities();
+  }, []);
+
   const onDropdownChange = async (option) => {
     const paramValue = option.value;
     const response = await fetch(
@@ -46,36 +61,40 @@ const ActivityList = () => {
     setActivityList(data);
   };
 
+  const onAutocomplete = async (event, newValue) => {
+    setCityValue(newValue);
+    const paramValue = newValue.name;
+    const response = await fetch(
+      "http://localhost:3000/activities?" +
+        new URLSearchParams({
+          city: paramValue,
+        })
+    );
+    const data = await response.json();
+    setActivityList(data);
+  };
+
   if (!activityList) {
     return <div>Loading</div>;
   }
-
-  const top100Films = [
-    { title: "The Shawshank Redemption", year: 1994 },
-    { title: "The Godfather", year: 1972 },
-    { title: "The Godfather: Part II", year: 1974 },
-    { title: "The Dark Knight", year: 2008 },
-    { title: "12 Angry Men", year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: "Pulp Fiction", year: 1994 },
-  ];
 
   return (
     <div className="flex-col mb-16">
       <div>
         <Autocomplete
           // id="highlights-demo"
+          onChange={onAutocomplete}
           sx={{ width: 250 }}
-          options={top100Films}
-          getOptionLabel={(option) => `${option.title}, ${option.year}`}
+          options={cities}
+          getOptionLabel={(option) => `${option.name}, ${option.province_id}`}
           renderInput={(params) => (
             <TextField {...params} label="Filter by city" margin="normal" />
           )}
           renderOption={(props, option, { inputValue }) => {
-            const matches = match(option.title, inputValue, {
+            const matches = match(option.name, inputValue, {
               insideWords: true,
             });
-            const parts = parse(option.title, matches);
+            const parts = parse(option.name, matches);
 
             return (
               <li {...props}>

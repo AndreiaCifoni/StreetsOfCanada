@@ -41,9 +41,6 @@ router.post("/users", async (req, res) => {
 
 router.get("/activities", async (req, res) => {
   try {
-    // const getActivitiesIds = await pool.query(
-    //   "SELECT activity_id FROM activities"
-    // );
     const city_name = req.query.city;
     const tag_name = req.query.tags;
 
@@ -127,10 +124,15 @@ router.post("/activities", async (req, res) => {
     user_id,
     city_id,
     tags_ids,
+    // province_id,
   } = req.body;
   try {
+    // const insertCity = await pool.query(
+    //   "INSERT INTO cities (name, province_id) VALUES ($1, $2)", [city_id, province_id]
+    // )
+
     const results = await pool.query(
-      "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id, province_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         title,
         description,
@@ -331,6 +333,17 @@ router.delete("/comments/:id", async (req, res) => {
 router.get("/tags", async (req, res) => {
   try {
     const results = await pool.query("SELECT * FROM tags");
+    res.status(200).json(results.rows);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
+//------------------CITY------------------
+router.get("/cities", async (req, res) => {
+  try {
+    const results = await pool.query("SELECT * FROM cities");
     res.status(200).json(results.rows);
   } catch (error) {
     console.log(error);
