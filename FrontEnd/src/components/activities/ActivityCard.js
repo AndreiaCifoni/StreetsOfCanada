@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const ActivityCard = ({
   activity_id,
@@ -27,6 +28,7 @@ const ActivityCard = ({
           {tags.map((tag) => {
             return (
               <span
+                key={uuidv4()}
                 className={
                   tag === "nature"
                     ? "bg-emerald-200"

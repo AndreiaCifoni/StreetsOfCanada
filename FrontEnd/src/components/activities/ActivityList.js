@@ -5,28 +5,30 @@ import "../utilities/dropdownStyle.css";
 
 const ActivityList = () => {
   const [activityList, setActivityList] = useState(null);
-  // const [value, setValue] = useState("");
+  const [tags, setTags] = useState([{ value: "", label: "All" }]);
 
   useEffect(() => {
     const fetchActivity = async () => {
       const response = await fetch("http://localhost:3000/activities");
       const data = await response.json();
       setActivityList(data);
-      console.log(data);
     };
     fetchActivity();
   }, []);
 
-  const options = [
-    { value: "", label: "All" },
-    { value: "nature", label: "nature" },
-    { value: "city", label: "city" },
-    { value: "lake/beach", label: "lake/beach" },
-    { value: "art", label: "art" },
-    { value: "food", label: "food" },
-    { value: "music", label: "music" },
-    { value: "sport", label: "sport" },
-  ];
+  useEffect(() => {
+    const fetchTags = async () => {
+      const response = await fetch("http://localhost:3000/tags");
+      const tagsData = await response.json();
+      const dropdownTags = tagsData.map((tag) => {
+        const listOfTags = { value: tag.name, label: tag.name };
+        return listOfTags;
+      });
+
+      setTags([...tags, ...dropdownTags]);
+    };
+    fetchTags();
+  }, []);
 
   const onDropdownChange = async (option) => {
     const paramValue = option.value;
@@ -38,7 +40,6 @@ const ActivityList = () => {
     );
     const data = await response.json();
     setActivityList(data);
-    console.log(paramValue);
   };
 
   if (!activityList) {
@@ -49,7 +50,7 @@ const ActivityList = () => {
     <div className="flex-col mb-16">
       <div>
         <Dropdown
-          options={options}
+          options={tags}
           onChange={onDropdownChange}
           placeholder="Filter by tag"
         />
@@ -57,6 +58,7 @@ const ActivityList = () => {
       {activityList.map((activity) => {
         return (
           <ActivityCard
+            key={activity.activity_id}
             activity_id={activity.activity_id}
             photo={activity.photo}
             title={activity.title}
