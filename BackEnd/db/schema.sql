@@ -26,7 +26,7 @@ INSERT INTO provinces(province, province_id) VALUES ('Alberta', 'AB'), ('British
 
 CREATE TABLE IF NOT EXISTS cities (
   city_id SERIAL,
-  name TEXT, 
+  name TEXT UNIQUE, 
   province_id TEXT,
   PRIMARY KEY (city_id),
   FOREIGN KEY (province_id)

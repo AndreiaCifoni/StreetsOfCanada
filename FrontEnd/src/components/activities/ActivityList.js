@@ -10,7 +10,7 @@ import "../utilities/dropdownStyle.css";
 const ActivityList = () => {
   const [activityList, setActivityList] = useState(null);
   const [tags, setTags] = useState([{ value: "", label: "All tags" }]);
-  const [cities, setCities] = useState([{ name: "None", province_id: "-" }]);
+  const [cities, setCities] = useState([{ name: "None", province_id: "" }]);
   const [cityValue, setCityValue] = useState("");
 
   useEffect(() => {
@@ -64,14 +64,20 @@ const ActivityList = () => {
   const onAutocomplete = async (event, newValue) => {
     setCityValue(newValue);
     const paramValue = newValue.name;
-    const response = await fetch(
-      "http://localhost:3000/activities?" +
-        new URLSearchParams({
-          city: paramValue,
-        })
-    );
-    const data = await response.json();
-    setActivityList(data);
+    if (paramValue === "None") {
+      const response = await fetch("http://localhost:3000/activities");
+      const data = await response.json();
+      setActivityList(data);
+    } else {
+      const response = await fetch(
+        "http://localhost:3000/activities?" +
+          new URLSearchParams({
+            city: paramValue,
+          })
+      );
+      const data = await response.json();
+      setActivityList(data);
+    }
   };
 
   if (!activityList) {
@@ -82,19 +88,25 @@ const ActivityList = () => {
     <div className="flex-col mb-16">
       <div>
         <Autocomplete
-          // id="highlights-demo"
+          className=" w-2/12 "
           onChange={onAutocomplete}
-          sx={{ width: 250 }}
           options={cities}
-          getOptionLabel={(option) => `${option.name}, ${option.province_id}`}
+          getOptionLabel={(option) => `${option.name} ${option.province_id}`}
           renderInput={(params) => (
-            <TextField {...params} label="Filter by city" margin="normal" />
+            <TextField {...params} label="Filter by city" className="" />
           )}
           renderOption={(props, option, { inputValue }) => {
-            const matches = match(option.name, inputValue, {
-              insideWords: true,
-            });
-            const parts = parse(option.name, matches);
+            const matches = match(
+              `${option.name} ${option.province_id}`,
+              inputValue,
+              {
+                insideWords: true,
+              }
+            );
+            const parts = parse(
+              `${option.name} ${option.province_id}`,
+              matches
+            );
 
             return (
               <li {...props}>

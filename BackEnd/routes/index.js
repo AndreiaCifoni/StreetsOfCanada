@@ -124,15 +124,17 @@ router.post("/activities", async (req, res) => {
     user_id,
     city_id,
     tags_ids,
+    // city_name,
     // province_id,
   } = req.body;
   try {
     // const insertCity = await pool.query(
-    //   "INSERT INTO cities (name, province_id) VALUES ($1, $2)", [city_id, province_id]
-    // )
+    //   "INSERT INTO cities (name, province_id) VALUES ($1, $2) ON CONFLICT DO NOTHING RETURNING *",
+    //   [city_name, province_id]
+    // );
 
     const results = await pool.query(
-      "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id, province_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         title,
         description,
