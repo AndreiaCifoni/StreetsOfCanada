@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const pool = require("../db/index");
+const fetch = require("node-fetch");
 
 //-------------------USERS------------------
 
@@ -118,20 +119,29 @@ router.post("/activities", async (req, res) => {
     title,
     description,
     address,
-    latitude,
-    longitude,
     photo,
     user_id,
-    city_id,
     tags_ids,
-    // city_name,
-    // province_id,
+    city_name,
+    province_id,
   } = req.body;
   try {
-    // const insertCity = await pool.query(
-    //   "INSERT INTO cities (name, province_id) VALUES ($1, $2) ON CONFLICT DO NOTHING RETURNING *",
-    //   [city_name, province_id]
-    // );
+    const insertCity = await pool.query(
+      "INSERT INTO cities (name, province_id) VALUES ($1, $2) ON CONFLICT DO NOTHING",
+      [city_name, province_id]
+    );
+    const getCityId = await pool.query(
+      "SELECT * FROM cities WHERE name = $1 AND province_id = $2",
+      [city_name, province_id]
+    );
+
+    const fullAddress = `${address}, ${city_name}, ${province_id}`;
+
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${fullAddress}&format=json`
+    );
+    const citiesData = await response.json();
+    console.log(citiesData[0]);
 
     const results = await pool.query(
       "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
@@ -143,7 +153,7 @@ router.post("/activities", async (req, res) => {
         longitude,
         photo,
         user_id,
-        city_id,
+        getCityId.rows[0].city_id,
       ]
     );
     const insertPromises = tags_ids.map((tag_id) => {

@@ -153,3 +153,7 @@ PROBLEMS
     "city_id": 1,
     "tags_ids": [2,4]
 }
+
+
+----------------------------------------------
+https://nominatim.openstreetmap.org/search?q=135+bloor%20street,+toronto&format=json
