@@ -157,3 +157,13 @@ PROBLEMS
 
 ----------------------------------------------
 https://nominatim.openstreetmap.org/search?q=135+bloor%20street,+toronto&format=json
+
+PROGRAMS USED 
+  Maps:
+    open street Map
+    leaflet
+
+  Dropdown - package
+  Autocomplete - Material UI
+
+  Take the map in the BackEnd - package >> node-fetch

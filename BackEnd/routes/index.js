@@ -137,11 +137,12 @@ router.post("/activities", async (req, res) => {
 
     const fullAddress = `${address}, ${city_name}, ${province_id}`;
 
-    const response = await fetch(
+    const getLatLong = await fetch(
       `https://nominatim.openstreetmap.org/search?q=${fullAddress}&format=json`
     );
-    const citiesData = await response.json();
-    console.log(citiesData[0]);
+    const latLongData = await getLatLong.json();
+    const latitude = latLongData[0].lat;
+    const longitude = latLongData[0].lon;
 
     const results = await pool.query(
       "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
@@ -356,6 +357,17 @@ router.get("/tags", async (req, res) => {
 router.get("/cities", async (req, res) => {
   try {
     const results = await pool.query("SELECT * FROM cities");
+    res.status(200).json(results.rows);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
+//------------------PROVINCE------------------
+router.get("/provinces", async (req, res) => {
+  try {
+    const results = await pool.query("SELECT * FROM provinces");
     res.status(200).json(results.rows);
   } catch (error) {
     console.log(error);
