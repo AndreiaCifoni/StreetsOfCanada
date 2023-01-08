@@ -88,6 +88,8 @@ const ActivityList = () => {
     <div className="flex-col mb-16">
       <div>
         <Autocomplete
+          id="size-small-standard"
+          size="small"
           className=" w-2/12 "
           onChange={onAutocomplete}
           options={cities}

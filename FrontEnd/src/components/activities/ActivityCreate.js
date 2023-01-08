@@ -4,10 +4,10 @@ import ActivityForm from "./ActivityForm";
 const ActivityCreate = () => {
   const [newActivity, setNewActivity] = useState({
     title: "",
-    tags_ids: ["nature", "city"],
+    tags_ids: [],
     address: "",
-    city_name: "Toronto",
-    province_id: "ON",
+    city_name: "",
+    province_id: "",
     photo: "",
     description: "",
     user_id: 1,
@@ -21,10 +21,10 @@ const ActivityCreate = () => {
       },
       body: JSON.stringify({
         title: newActivity.title,
-        tags_ids: [1, 2],
+        tags_ids: newActivity.tags_ids,
         address: newActivity.address,
-        city_name: "Toronto",
-        province_id: "ON",
+        city_name: newActivity.city_name,
+        province_id: newActivity.province_id,
         photo: newActivity.photo,
         description: newActivity.description,
         user_id: 1,

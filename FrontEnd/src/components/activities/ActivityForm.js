@@ -1,6 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      const response = await fetch("http://localhost:3000/tags");
+      const tagsData = await response.json();
+      const autocompleteTags = tagsData.map((tag) => {
+        const listOfTags = { tags_id: tag.tags_id, name: tag.name };
+        return listOfTags;
+      });
+      setTags(autocompleteTags);
+    };
+    fetchTags();
+  }, []);
+
+  const onTagsAutocomplete = (event, newValue) => {
+    const allTags = newValue.map((tag) => {
+      return tag.tags_id;
+    });
+    setActivity({ ...activity, tags_ids: allTags });
+  };
+
   return (
     <div>
       <form
@@ -21,10 +45,28 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
         </div>
         <div>
           <label>Tags</label>
-          <input
+          {/* <input
             type=""
             value={activity.tag}
             onChange={(e) => setActivity({ ...activity, tag: e.target.value })}
+          /> */}
+          <Autocomplete
+            id="size-small-standard"
+            size="small"
+            className=" w-4/12 "
+            multiple
+            options={tags}
+            getOptionLabel={(tags) => tags.name}
+            onChange={onTagsAutocomplete}
+            //defaultValue={[tags[1]]}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="filterSelectedOptions"
+                placeholder="Favorites"
+              />
+            )}
           />
         </div>
         <div>
@@ -41,14 +83,16 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
           <input
             type=""
             value={activity.city}
-            onChange={(e) => setActivity({ ...activity, city: e.target.value })}
+            onChange={(e) =>
+              setActivity({ ...activity, city_name: e.target.value })
+            }
           />
           <label>Province</label>
           <input
             type=""
             value={activity.province}
             onChange={(e) =>
-              setActivity({ ...activity, province: e.target.value })
+              setActivity({ ...activity, province_id: e.target.value })
             }
           />
         </div>
