@@ -1,9 +1,14 @@
 import React from "react";
 
-const ActivityForm = ({ activity, setActivity }) => {
+const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
   return (
     <div>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmitActivity(activity);
+        }}
+      >
         <div>
           <label>Title</label>
           <input
@@ -67,6 +72,7 @@ const ActivityForm = ({ activity, setActivity }) => {
             }
           />
         </div>
+        <input type="submit" value="Save" />
       </form>
     </div>
   );

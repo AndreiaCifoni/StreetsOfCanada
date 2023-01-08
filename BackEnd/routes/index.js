@@ -143,7 +143,7 @@ router.post("/activities", async (req, res) => {
     const latLongData = await getLatLong.json();
     const latitude = latLongData[0].lat;
     const longitude = latLongData[0].lon;
-
+    console.log(getLatLong);
     const results = await pool.query(
       "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
