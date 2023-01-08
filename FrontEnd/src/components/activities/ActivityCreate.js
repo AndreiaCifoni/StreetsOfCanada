@@ -4,16 +4,15 @@ import ActivityForm from "./ActivityForm";
 const ActivityCreate = () => {
   const [newActivity, setNewActivity] = useState({
     title: "",
-    tag_id: ["nature", "city"],
+    tags_ids: ["nature", "city"],
     address: "",
-    city: "Toronto",
-    province: "ON",
+    city_name: "Toronto",
+    province_id: "ON",
     photo: "",
     description: "",
     user_id: 1,
   });
 
-  console.log(newActivity);
   const onSubmitNewActivity = async () => {
     const data = await fetch("http://localhost:3000/activities", {
       method: "POST",
@@ -21,7 +20,14 @@ const ActivityCreate = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        text: newActivity,
+        title: newActivity.title,
+        tags_ids: [1, 2],
+        address: newActivity.address,
+        city_name: "Toronto",
+        province_id: "ON",
+        photo: newActivity.photo,
+        description: newActivity.description,
+        user_id: 1,
       }),
     }).then((res) => res.json());
     console.log(data);
