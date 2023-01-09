@@ -4,6 +4,8 @@ import TextField from "@mui/material/TextField";
 
 const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
   const [tags, setTags] = useState([]);
+  // const [cities, setCities] = useState([]);
+  const [provinces, setProvinces] = useState([]);
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -18,11 +20,46 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
     fetchTags();
   }, []);
 
+  // useEffect(() => {
+  //   const fetchCities = async () => {
+  //     const response = await fetch("http://localhost:3000/cities");
+  //     const citiesData = await response.json();
+  //     const autocompleteCities = citiesData.map((city) => {
+  //       const listCities = { name: city.name, province_id: city.province_id };
+  //       return listCities;
+  //     });
+  //     setCities(autocompleteCities);
+  //   };
+  //   fetchCities();
+  // }, []);
+
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      const response = await fetch("http://localhost:3000/provinces");
+      const provincesData = await response.json();
+      const autocompleteProvinces = provincesData.map((province) => {
+        return province.province_id;
+      });
+      setProvinces(autocompleteProvinces);
+    };
+    fetchProvinces();
+  }, []);
+
   const onTagsAutocomplete = (event, newValue) => {
     const allTags = newValue.map((tag) => {
       return tag.tags_id;
     });
     setActivity({ ...activity, tags_ids: allTags });
+  };
+
+  // const onCitiesAutocomplete = (event, newValue) => {
+  //   console.log(newValue);
+  //   setActivity({ ...activity, city_name: newValue });
+  // };
+
+  const onProvAutocomplete = (event, newValue) => {
+    console.log(newValue);
+    setActivity({ ...activity, province_id: newValue });
   };
 
   return (
@@ -45,11 +82,6 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
         </div>
         <div>
           <label>Tags</label>
-          {/* <input
-            type=""
-            value={activity.tag}
-            onChange={(e) => setActivity({ ...activity, tag: e.target.value })}
-          /> */}
           <Autocomplete
             id="size-small-standard"
             size="small"
@@ -87,19 +119,30 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
               setActivity({ ...activity, city_name: e.target.value })
             }
           />
+          {/* <Autocomplete
+            id="size-small-standard"
+            size="small"
+            className=" w-4/12 "
+            freeSolo
+            onChange={onCitiesAutocomplete}
+            options={cities.map((option) => option.name)}
+            renderInput={(params) => <TextField {...params} label="freeSolo" />}
+          /> */}
           <label>Province</label>
-          <input
-            type=""
-            value={activity.province}
-            onChange={(e) =>
-              setActivity({ ...activity, province_id: e.target.value })
-            }
+          <Autocomplete
+            disablePortal
+            id="size-small-standard"
+            size="small"
+            className=" w-2/12 "
+            options={provinces}
+            onChange={onProvAutocomplete}
+            renderInput={(params) => <TextField {...params} label="Province" />}
           />
         </div>
         <div>
           <label>Photo</label>
           <input
-            type=""
+            type="text"
             value={activity.photo}
             onChange={(e) =>
               setActivity({ ...activity, photo: e.target.value })
@@ -109,7 +152,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
         <div>
           <label>Description</label>
           <textarea
-            type=""
+            type="text"
             value={activity.description}
             onChange={(e) =>
               setActivity({ ...activity, description: e.target.value })
