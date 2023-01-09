@@ -244,8 +244,8 @@ router.put("/activities/:id", async (req, res) => {
 router.delete("/activities/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const deleteComments = await pool.query(
-      "DELETE FROM comments WHERE activity_id = $1",
+    const deleteReviews = await pool.query(
+      "DELETE FROM reviews WHERE activity_id = $1",
       [id]
     );
     const deleteTags = await pool.query(
@@ -265,11 +265,11 @@ router.delete("/activities/:id", async (req, res) => {
 
 //-------------------COMMENTS------------------
 
-router.get("/activities/:id/comments", async (req, res) => {
+router.get("/activities/:id/reviews", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
     const results = await pool.query(
-      "SELECT * FROM comments WHERE activity_id = $1",
+      "SELECT * FROM reviews WHERE activity_id = $1",
       [id]
     );
     res.status(200).json(results.rows);
@@ -279,13 +279,13 @@ router.get("/activities/:id/comments", async (req, res) => {
   }
 });
 
-router.post("/activities/:id/comments", async (req, res) => {
+router.post("/activities/:id/reviews", async (req, res) => {
   const activity_id = parseInt(req.params.id);
-  const { user_id, comment, rating } = req.body;
+  const { user_id, review, rating } = req.body;
   try {
     const results = await pool.query(
-      "INSERT INTO comments (user_id, activity_id, comment, rating ) VALUES ($1, $2, $3, $4) RETURNING *",
-      [user_id, activity_id, comment, rating]
+      "INSERT INTO reviews (user_id, activity_id, review, rating ) VALUES ($1, $2, $3, $4) RETURNING *",
+      [user_id, activity_id, review, rating]
     );
     res.status(201).json(results.rows[0]);
   } catch (error) {
@@ -294,11 +294,11 @@ router.post("/activities/:id/comments", async (req, res) => {
   }
 });
 
-router.get("/comments/:id", async (req, res) => {
+router.get("/reviews/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
     const results = await pool.query(
-      "SELECT * FROM comments WHERE comments_id = $1",
+      "SELECT * FROM reviews WHERE review_id = $1",
       [id]
     );
     res.status(200).json(results.rows);
@@ -308,33 +308,33 @@ router.get("/comments/:id", async (req, res) => {
   }
 });
 
-router.put("/comments/:id", async (req, res) => {
+router.put("/reviews/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const { comment, rating } = req.body;
+  const { review, rating } = req.body;
   try {
     const results = await pool.query(
-      "UPDATE comments SET comment = $2, rating = $3  WHERE comments_id = $1",
-      [id, comment, rating]
+      "UPDATE reviews SET review = $2, rating = $3  WHERE review_id = $1",
+      [id, review, rating]
     );
-    res.status(200).send("Comment updated successfully!");
+    res.status(200).send("Review updated successfully!");
   } catch (error) {
     console.log(error);
     throw error;
   }
 });
 
-router.delete("/comments/:id", async (req, res) => {
+router.delete("/reviews/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
     // const checkId = await pool.query(
-    //   "SELECT * FROM comments WHERE comments_id = $1",
+    //   "SELECT * FROM reviews WHERE comments_id = $1",
     //   [id]
     // );
     const results = await pool.query(
-      "DELETE FROM comments WHERE comments_id = $1",
+      "DELETE FROM reviews WHERE review_id = $1",
       [id]
     );
-    res.status(200).send("Comment removed successfully!");
+    res.status(200).send("Review removed successfully!");
   } catch (error) {
     console.log(error);
     throw error;

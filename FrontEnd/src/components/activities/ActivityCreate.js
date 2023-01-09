@@ -14,7 +14,6 @@ const ActivityCreate = () => {
   });
 
   const onSubmitNewActivity = async () => {
-    console.log(newActivity.city_name);
     const data = await fetch("http://localhost:3000/activities", {
       method: "POST",
       headers: {

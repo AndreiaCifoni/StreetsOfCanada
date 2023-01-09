@@ -12,10 +12,10 @@ const Home = () => {
       <div className="w-2/3 mx-auto my-12">
         <p className="text-lg text-center">
           Streets of Canada is a website that has the perfect activity for you!
-          This page is for anyone interested in posting or commenting about
-          experiences throughout the city. If you enjoyed hiking in your
-          neighborhood park, saw an artisan fair, or went through a beautiful
-          graffiti wall, share your experiences with our community!
+          This page is for anyone interested in post or review experiences
+          throughout the city. If you enjoyed hiking in your neighborhood park,
+          saw an artisan fair, or went through a beautiful graffiti wall, share
+          your experiences with our community!
         </p>
       </div>
       <div className="mt-20">
