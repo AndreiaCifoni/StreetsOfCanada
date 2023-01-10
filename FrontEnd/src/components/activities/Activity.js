@@ -15,7 +15,6 @@ const Activity = () => {
       const response = await fetch(`http://localhost:3000/activities/${id}`);
       const data = await response.json();
       setActivity(data);
-      console.log(data);
     };
     fetchActivity();
   }, []);
