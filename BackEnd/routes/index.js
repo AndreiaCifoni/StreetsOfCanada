@@ -57,7 +57,6 @@ router.get("/activities", async (req, res) => {
         )
       : await pool.query("SELECT activity_id FROM activities");
 
-    console.log(req.query);
     const activitiesIds = getActivitiesIds.rows.map((activity) => {
       return activity.activity_id;
     });
@@ -263,16 +262,37 @@ router.delete("/activities/:id", async (req, res) => {
   }
 });
 
-//-------------------COMMENTS------------------
+//-------------------REVIEWS------------------
 
 router.get("/activities/:id/reviews", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const results = await pool.query(
-      "SELECT * FROM reviews WHERE activity_id = $1",
+    const allReviewsByActivity = await pool.query(
+      "SELECT review_id FROM reviews WHERE activity_id = $1",
       [id]
     );
-    res.status(200).json(results.rows);
+    const allReviewsIds = allReviewsByActivity.rows.map((review) => {
+      return review.review_id;
+    });
+
+    const activityReviews = allReviewsIds.map(async (reviewId) => {
+      const getUserInfo = await pool.query(
+        "SELECT users.user_id, name, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
+        [reviewId]
+      );
+      const userInfo = getUserInfo.rows[0];
+
+      const getReview = await pool.query(
+        "SELECT * FROM reviews WHERE review_id = $1",
+        [reviewId]
+      );
+      getReview.rows[0].user = userInfo;
+
+      return getReview.rows[0];
+    });
+    const results = await Promise.all(activityReviews);
+
+    res.status(200).json(results);
   } catch (error) {
     console.log(error);
     throw error;
@@ -301,6 +321,12 @@ router.get("/reviews/:id", async (req, res) => {
       "SELECT * FROM reviews WHERE review_id = $1",
       [id]
     );
+    const getUserInfo = await pool.query(
+      "SELECT users.user_id, name, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
+      [id]
+    );
+    const userInfo = getUserInfo.rows[0];
+    results.rows[0].user = userInfo;
     res.status(200).json(results.rows);
   } catch (error) {
     console.log(error);

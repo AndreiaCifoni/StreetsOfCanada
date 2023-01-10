@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS reviews (
   activity_id INT NOT NULL,
   review TEXT,
   rating INT NOT NULL,
+  date_created TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (review_id),
   FOREIGN KEY (user_id)
     REFERENCES users (user_id),
@@ -89,7 +90,7 @@ CREATE TABLE IF NOT EXISTS reviews (
     REFERENCES activities (activity_id)
   );
 
-  INSERT INTO reviews(user_id, activity_id, review, rating) VALUES (1,1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 4),(2,1,'Fusce et nulla egestas, tempus felis in, tempus ipsum.',5),(3,1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquam finibus dolor, vitae placerat tortor porta id. Fusce et nulla egestas, tempus felis in, tempus ipsum. Donec a urna maximus, maximus sapien id, elementum metus. Integer faucibus rutrum lacus, egestas posuere augue malesuada ut. Proin semper risus sit amet nulla tristique, ut lobortis tellus imperdiet. Cras egestas orci quis mauris tincidunt tempus. Nullam sodales nunc purus, ac varius ante gravida vel. Sed eu turpis dapibus, vestibulum erat quis, sagittis urna. In lobortis urna a tincidunt dictum. Etiam sit amet libero sed diam ultricies imperdiet. In hac habitasse platea dictumst.', 3);
+  INSERT INTO reviews(user_id, activity_id, review, rating) VALUES (3,1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 4),(2,1,'Fusce et nulla egestas, tempus felis in, tempus ipsum.',5),(1,1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquam finibus dolor, vitae placerat tortor porta id. Fusce et nulla egestas, tempus felis in, tempus ipsum. Donec a urna maximus, maximus sapien id, elementum metus. Integer faucibus rutrum lacus, egestas posuere augue malesuada ut. Proin semper risus sit amet nulla tristique, ut lobortis tellus imperdiet. Cras egestas orci quis mauris tincidunt tempus. Nullam sodales nunc purus, ac varius ante gravida vel. Sed eu turpis dapibus, vestibulum erat quis, sagittis urna. In lobortis urna a tincidunt dictum. Etiam sit amet libero sed diam ultricies imperdiet. In hac habitasse platea dictumst.', 3);
 
 CREATE TABLE IF NOT EXISTS tags (
   tags_id SERIAL,
