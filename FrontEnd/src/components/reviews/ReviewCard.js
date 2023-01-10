@@ -1,6 +1,6 @@
 import React from "react";
 
-const ReviewCard = (user, rating, date, review) => {
+const ReviewCard = ({ user, rating, date, review }) => {
   return (
     <div className="py-2 px-4 rounded border-solid border-2 border-indigo-400 shadow">
       <div>
