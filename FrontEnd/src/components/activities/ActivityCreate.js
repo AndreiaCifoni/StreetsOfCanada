@@ -30,7 +30,6 @@ const ActivityCreate = () => {
         user_id: 1,
       }),
     }).then((res) => res.json());
-    console.log(data);
   };
 
   return (
