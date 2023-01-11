@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { MapContainer, TileLayer, useMap, Popup, Marker } from "react-leaflet";
 import "../../index.css";
 import ReviewsList from "../reviews/ReviewList";
-import ReviewCard from "../reviews/ReviewCard";
+import ReviewForm from "../reviews/ReviewForm";
 
 const Activity = () => {
   const [activity, setActivity] = useState(null);
@@ -71,6 +71,7 @@ const Activity = () => {
           {activity.tags.map((tag) => {
             return (
               <span
+                key={tag}
                 className={
                   tag === "nature"
                     ? "bg-emerald-200"
@@ -89,8 +90,8 @@ const Activity = () => {
         <p className="text-lg my-8 mr-16">{activity.description}</p>
         <div className="bg-slate-50 rounded w-4/5 py-3.5 px-4 h-">
           <h2 className="text-2xl font-bold">Reviews:</h2>
+          <ReviewForm />
           <ReviewsList />
-          <ReviewCard />
         </div>
       </div>
     </div>

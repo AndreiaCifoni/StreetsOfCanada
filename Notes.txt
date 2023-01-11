@@ -167,3 +167,5 @@ PROGRAMS USED
   Autocomplete - Material UI
 
   Take the map in the BackEnd - package >> node-fetch
+
+  Rating - package > react simple star rating

@@ -17,15 +17,17 @@ const ReviewsList = () => {
     };
     fetchReviews();
   }, []);
-  console.log(reviewList);
+
   if (!reviewList) {
     return <div>Loading</div>;
   }
+  console.log(reviewList);
   return (
     <div>
       {reviewList.map((review) => {
         return (
           <ReviewCard
+            key={review.review_id}
             user={review.user.name}
             rating={review.rating}
             date={review.date}
