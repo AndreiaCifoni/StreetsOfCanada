@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ActivityForm from "./ActivityForm";
 
 const ActivityCreate = () => {
@@ -13,6 +13,8 @@ const ActivityCreate = () => {
     description: "",
     user_id: 1,
   });
+
+  const navigate = useNavigate();
 
   const onSubmitNewActivity = async () => {
     const data = await fetch("http://localhost:3000/activities", {
@@ -33,8 +35,7 @@ const ActivityCreate = () => {
     });
     const response = await data.json();
     console.log(response.activity_id);
-
-    //redirect(`/activity/${response.activity_id}`);
+    navigate(`/activity/${response.activity_id}`);
   };
 
   return (
