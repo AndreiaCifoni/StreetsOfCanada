@@ -53,7 +53,6 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
   };
 
   const onCitiesAutocomplete = (event, newValue) => {
-    console.log(newValue);
     setActivity({ ...activity, city_name: newValue });
   };
 

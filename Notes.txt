@@ -168,4 +168,6 @@ PROGRAMS USED
 
   Take the map in the BackEnd - package >> node-fetch
 
-  Rating - package > react simple star rating
+  Rating - package > react simple star rating >> https://github.com/awran5/react-simple-star-rating
+
+  Tailwind >> https://tailwindcss.com/docs/flex-direction

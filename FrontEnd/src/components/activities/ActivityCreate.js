@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { redirect } from "react-router-dom";
 import ActivityForm from "./ActivityForm";
 
 const ActivityCreate = () => {
@@ -29,7 +30,11 @@ const ActivityCreate = () => {
         description: newActivity.description,
         user_id: 1,
       }),
-    }).then((res) => res.json());
+    });
+    const response = await data.json();
+    console.log(response.activity_id);
+
+    //redirect(`/activity/${response.activity_id}`);
   };
 
   return (

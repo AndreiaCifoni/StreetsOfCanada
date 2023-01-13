@@ -21,7 +21,7 @@ const ReviewsList = () => {
   if (!reviewList) {
     return <div>Loading</div>;
   }
-  console.log(reviewList);
+
   return (
     <div>
       {reviewList.map((review) => {

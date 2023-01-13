@@ -23,7 +23,7 @@ const ReviewCreate = () => {
         rating: newReview.rating,
       }),
     }).then((res) => res.json());
-    console.log(data);
+    // console.log(data);
   };
 
   return (
