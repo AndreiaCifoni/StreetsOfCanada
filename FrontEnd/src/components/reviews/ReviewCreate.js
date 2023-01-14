@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import ReviewForm from "./ReviewForm";
 
-const ReviewCreate = () => {
-  const [newReview, setNewReview] = useState({
-    user_id: 1,
-    review: "",
-    rating: 0,
-  });
-
+const ReviewCreate = ({
+  newReview,
+  setNewReview,
+  setReviewList,
+  reviewList,
+}) => {
   let { id } = useParams();
 
   const onSubmitNewReview = async () => {
@@ -22,8 +21,16 @@ const ReviewCreate = () => {
         review: newReview.review,
         rating: newReview.rating,
       }),
-    }).then((res) => res.json());
-    // console.log(data);
+    });
+    const response = await data.json();
+
+    setReviewList([...reviewList, response]);
+    //clean the form
+    setNewReview({
+      user_id: 1,
+      review: "",
+      rating: 0,
+    });
   };
 
   return (

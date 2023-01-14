@@ -6,14 +6,6 @@ const ReviewForm = ({ review, setReview, onSubmitReview }) => {
     setReview({ ...review, rating: rate });
   };
 
-  // const onResetReview = () => {
-  //   setReview({
-  //     user_id: 1,
-  //     review: "",
-  //     rating: 0,
-  //   });
-  // };
-
   return (
     <form
       onSubmit={(e) => {
@@ -44,7 +36,6 @@ const ReviewForm = ({ review, setReview, onSubmitReview }) => {
           className="mt-2 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
           type="submit"
           value="Submit"
-          //onClick={onResetReview}
         />
       </div>
     </form>

@@ -307,6 +307,14 @@ router.post("/activities/:id/reviews", async (req, res) => {
       "INSERT INTO reviews (user_id, activity_id, review, rating ) VALUES ($1, $2, $3, $4) RETURNING *",
       [user_id, activity_id, review, rating]
     );
+    const review_id = results.rows[0].review_id;
+    const getUserInfo = await pool.query(
+      "SELECT users.user_id, name, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
+      [review_id]
+    );
+    const userInfo = getUserInfo.rows[0];
+    results.rows[0].user = userInfo;
+
     res.status(201).json(results.rows[0]);
   } catch (error) {
     console.log(error);

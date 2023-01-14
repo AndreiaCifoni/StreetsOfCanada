@@ -34,7 +34,6 @@ const ActivityCreate = () => {
       }),
     });
     const response = await data.json();
-    console.log(response.activity_id);
     navigate(`/activity/${response.activity_id}`);
   };
 

@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReviewCard from "./ReviewCard";
 
-const ReviewsList = () => {
-  const [reviewList, setReviewList] = useState(null);
-
+const ReviewsList = ({ reviewList, setReviewList }) => {
   let { id } = useParams();
 
   useEffect(() => {
