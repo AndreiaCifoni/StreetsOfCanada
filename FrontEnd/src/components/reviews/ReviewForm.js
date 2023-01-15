@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Rating } from "react-simple-star-rating";
 
 const ReviewForm = ({ review, setReview, onSubmitReview }) => {

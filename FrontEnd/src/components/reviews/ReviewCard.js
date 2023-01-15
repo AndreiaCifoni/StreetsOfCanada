@@ -1,14 +1,24 @@
 import React from "react";
+import { Rating } from "react-simple-star-rating";
 
 const ReviewCard = ({ user, rating, date, review }) => {
   return (
     <div className="my-2 py-2 px-4 rounded border-solid border-2 border-indigo-400 shadow">
       <div>
-        <p>{user}</p>
-        <p>
-          Rating:{rating}
-          <span>{date.substring(0, 10)}</span>
+        <p className="flex justify-between">
+          <span>{user}</span>
+          <span className="text-xs">{date.substring(0, 10)}</span>
         </p>
+
+        <div>
+          <Rating
+            SVGclassName="inline-block"
+            initialValue={rating}
+            readonly
+            fillColor="#4E5AC7"
+            size={25}
+          />
+        </div>
         <p>{review}</p>
       </div>
       <div>

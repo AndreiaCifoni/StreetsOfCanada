@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { MapContainer, TileLayer, useMap, Popup, Marker } from "react-leaflet";
 import "../../index.css";
-import ReviewsList from "../reviews/ReviewList";
-import ReviewCreate from "../reviews/ReviewCreate";
 import Reviews from "../reviews/Reviews";
 
 const Activity = () => {
