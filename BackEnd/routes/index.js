@@ -360,10 +360,6 @@ router.put("/reviews/:id", async (req, res) => {
 router.delete("/reviews/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    // const checkId = await pool.query(
-    //   "SELECT * FROM reviews WHERE comments_id = $1",
-    //   [id]
-    // );
     const results = await pool.query(
       "DELETE FROM reviews WHERE review_id = $1",
       [id]

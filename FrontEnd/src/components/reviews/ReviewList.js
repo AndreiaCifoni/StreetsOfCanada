@@ -30,6 +30,9 @@ const ReviewsList = ({ reviewList, setReviewList }) => {
             rating={review.rating}
             date={review.date}
             review={review.review}
+            reviewId={review.review_id}
+            setReviewList={setReviewList}
+            reviewList={reviewList}
           />
         );
       })}
