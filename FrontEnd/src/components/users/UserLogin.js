@@ -4,7 +4,7 @@ import UserForm from "./UserForm";
 const UserLogin = () => {
   const [login, setLogin] = useState({
     name: "",
-    email: "",
+    email: null,
     password: "",
   });
 

@@ -5,16 +5,26 @@ DROP TABLE IF EXISTS tags CASCADE;
 DROP TABLE IF EXISTS activities_tags CASCADE;
 DROP TABLE IF EXISTS cities CASCADE;
 DROP TABLE IF EXISTS provinces CASCADE;
+DROP TABLE IF EXISTS sessions CASCADE;
 
 CREATE TABLE IF NOT EXISTS users (
   user_id SERIAL,
-  name TEXT NOT NULL, 
+  name TEXT UNIQUE NOT NULL, 
   email TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
   PRIMARY KEY (user_id)
   );
 
 INSERT INTO users(name, email, password) VALUES ('Deia', 'deia@gmail', 'deia'),('Lucas', 'lucas@gmail', 'lucas'),('Mike', 'mike@gmail', 'mike');
+
+CREATE TABLE IF NOT EXISTS sessions (
+  session_id TEXT NOT NULL, 
+  date_created TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  user_id INT NOT NULL,
+  PRIMARY KEY (session_id),
+  FOREIGN KEY (user_id)
+    REFERENCES users (user_id)
+  );
 
 CREATE TABLE IF NOT EXISTS provinces (
   province TEXT, 
@@ -114,6 +124,13 @@ CREATE TABLE IF NOT EXISTS activities_tags (
 INSERT INTO activities_tags (tags_id, activity_id) VALUES (1,1),(7,1),(3,2),(7,2),(2,3),(4,3)
 
 
+
+--***** important, I already see this structure ON DELETE CASCADE, use if needed
+-- FOREIGN KEY (user_id)
+--       REFERENCES accounts (user_id) ON DELETE CASCADE
+
+-- ***** important, add for post and review
+-- update_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 
 
 -- CREATE TABLE account_roles (

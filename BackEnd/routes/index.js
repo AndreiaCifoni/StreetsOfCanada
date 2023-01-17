@@ -5,7 +5,21 @@ const fetch = require("node-fetch");
 
 //-------------------USERS------------------
 
-router.post("/users", async (req, res) => {
+// router.post("/users", async (req, res) => {
+//   const { name, email, password } = req.body;
+//   try {
+//     const results = await pool.query(
+//       "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)",
+//       [name, email, password]
+//     );
+//     res.status(201).send("User created successfully!");
+//   } catch (error) {
+//     console.log(error);
+//     res.status(400).send("Email already exists in the database");
+//   }
+// });
+
+router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   try {
     const results = await pool.query(
@@ -15,7 +29,7 @@ router.post("/users", async (req, res) => {
     res.status(201).send("User created successfully!");
   } catch (error) {
     console.log(error);
-    res.status(400).send("Email already exists in the database");
+    res.status(400).send("Couldn't register");
   }
 });
 

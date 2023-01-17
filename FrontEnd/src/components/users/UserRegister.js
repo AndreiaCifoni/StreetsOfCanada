@@ -4,7 +4,7 @@ import UserForm from "./UserForm";
 const UserRegister = () => {
   const [register, setRegister] = useState({
     name: "",
-    email: null,
+    email: "",
     password: "",
   });
 
