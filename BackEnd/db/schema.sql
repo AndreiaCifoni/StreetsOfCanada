@@ -9,13 +9,13 @@ DROP TABLE IF EXISTS sessions CASCADE;
 
 CREATE TABLE IF NOT EXISTS users (
   user_id SERIAL,
-  name TEXT UNIQUE NOT NULL, 
+  username TEXT UNIQUE NOT NULL, 
   email TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
   PRIMARY KEY (user_id)
   );
 
-INSERT INTO users(name, email, password) VALUES ('Deia', 'deia@gmail', 'deia'),('Lucas', 'lucas@gmail', 'lucas'),('Mike', 'mike@gmail', 'mike');
+INSERT INTO users(username, email, password) VALUES ('Deia', 'deia@gmail', 'deia'),('Lucas', 'lucas@gmail', 'lucas'),('Mike', 'mike@gmail', 'mike');
 
 CREATE TABLE IF NOT EXISTS sessions (
   session_id TEXT NOT NULL, 

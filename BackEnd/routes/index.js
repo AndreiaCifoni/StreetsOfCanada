@@ -20,11 +20,11 @@ const fetch = require("node-fetch");
 // });
 
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
   try {
     const results = await pool.query(
-      "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)",
-      [name, email, password]
+      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)",
+      [username, email, password]
     );
     res.status(201).send("User created successfully!");
   } catch (error) {
@@ -83,7 +83,7 @@ router.get("/activities", async (req, res) => {
         return tag.name;
       });
       const getUserInfo = await pool.query(
-        "SELECT users.user_id, name, email FROM users LEFT JOIN activities ON activities.user_id = users.user_id  WHERE activity_id = $1",
+        "SELECT users.user_id, username, email FROM users LEFT JOIN activities ON activities.user_id = users.user_id  WHERE activity_id = $1",
         [id]
       );
       const userInfo = getUserInfo.rows[0];
@@ -195,7 +195,7 @@ router.get("/activities/:id", async (req, res) => {
       return tag.name;
     });
     const getUserInfo = await pool.query(
-      "SELECT users.user_id, name, email FROM users LEFT JOIN activities ON activities.user_id = users.user_id  WHERE activity_id = $1",
+      "SELECT users.user_id, username, email FROM users LEFT JOIN activities ON activities.user_id = users.user_id  WHERE activity_id = $1",
       [id]
     );
     const userInfo = getUserInfo.rows[0];
@@ -291,7 +291,7 @@ router.get("/activities/:id/reviews", async (req, res) => {
 
     const activityReviews = allReviewsIds.map(async (reviewId) => {
       const getUserInfo = await pool.query(
-        "SELECT users.user_id, name, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
+        "SELECT users.user_id, username, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
         [reviewId]
       );
       const userInfo = getUserInfo.rows[0];
@@ -323,7 +323,7 @@ router.post("/activities/:id/reviews", async (req, res) => {
     );
     const review_id = results.rows[0].review_id;
     const getUserInfo = await pool.query(
-      "SELECT users.user_id, name, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
+      "SELECT users.user_id,username, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
       [review_id]
     );
     const userInfo = getUserInfo.rows[0];
@@ -344,7 +344,7 @@ router.get("/reviews/:id", async (req, res) => {
       [id]
     );
     const getUserInfo = await pool.query(
-      "SELECT users.user_id, name, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
+      "SELECT users.user_id, username, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
       [id]
     );
     const userInfo = getUserInfo.rows[0];

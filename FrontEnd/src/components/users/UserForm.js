@@ -12,11 +12,11 @@ const UserForm = ({ user, setUser, onSubmitUser }) => {
       >
         <div>
           <div>
-            <label>Name</label>
+            <label>Username</label>
             <input
               type="text"
-              value={user.name}
-              onChange={(e) => setUser({ ...user, name: e.target.value })}
+              value={user.username}
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
             />
           </div>
 

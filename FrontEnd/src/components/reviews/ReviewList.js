@@ -26,7 +26,7 @@ const ReviewsList = ({ reviewList, setReviewList }) => {
         return (
           <ReviewCard
             key={review.review_id}
-            user={review.user.name}
+            user={review.user.username}
             rating={review.rating}
             date={review.date}
             review={review.review}
