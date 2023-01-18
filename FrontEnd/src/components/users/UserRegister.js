@@ -8,8 +8,20 @@ const UserRegister = () => {
     password: "",
   });
 
-  const onSubmitRegister = () => {
-    console.log("Hi Register");
+  const onSubmitRegister = async () => {
+    const data = await fetch(`http://localhost:3000/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: register.username,
+        email: register.email,
+        password: register.password,
+      }),
+    });
+    const response = await data.json();
+    setRegister({ username: "", email: "", password: "" });
   };
 
   return (
