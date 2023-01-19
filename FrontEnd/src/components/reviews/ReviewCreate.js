@@ -20,7 +20,6 @@ const ReviewCreate = ({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            user_id: 1,
             review: newReview.review,
             rating: newReview.rating,
           }),
@@ -31,7 +30,6 @@ const ReviewCreate = ({
       setReviewList([...reviewList, response]);
       //clean the form
       setNewReview({
-        user_id: 1,
         review: "",
         rating: 0,
       });

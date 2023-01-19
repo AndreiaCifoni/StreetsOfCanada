@@ -21,7 +21,7 @@ const UserLogin = () => {
         }),
       });
       const response = await data.json();
-      console.log(response);
+
       //I need to put this in a parent component with a state of [user, setUser] ... in login: setUser(response) *to return the username and email - to be used*...
       //in that way, the user will be able to delete and edit post and review when is that user
       setLogin({ username: "", email: null, password: "" });

@@ -5,7 +5,6 @@ import ReviewCreate from "./ReviewCreate";
 const Reviews = () => {
   const [reviewList, setReviewList] = useState(null);
   const [newReview, setNewReview] = useState({
-    user_id: 1,
     review: "",
     rating: 0,
   });

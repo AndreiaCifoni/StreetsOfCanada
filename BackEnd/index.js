@@ -1,11 +1,15 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const streetsOfCanadaRoutes = require("./routes/index");
 const app = express();
 const port = 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(cookieParser());
 app.use("/", streetsOfCanadaRoutes);
 
 app.get("/", (req, res) => {

@@ -185,7 +185,7 @@ router.post("/activities", async (req, res) => {
     const latLongData = await getLatLong.json();
     const latitude = latLongData[0].lat;
     const longitude = latLongData[0].lon;
-    console.log(getLatLong);
+
     const results = await pool.query(
       "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
@@ -240,7 +240,7 @@ router.get("/activities/:id", async (req, res) => {
     getActivity.rows[0].tags = tags;
     getActivity.rows[0].user = userInfo;
     getActivity.rows[0].city = cityName;
-    console.log(userInfo);
+
     res.status(200).json(getActivity.rows[0]);
   } catch (error) {
     console.log(error);
@@ -343,22 +343,32 @@ router.get("/activities/:id/reviews", async (req, res) => {
 });
 
 router.post("/activities/:id/reviews", async (req, res) => {
-  const activity_id = parseInt(req.params.id);
-  const { user_id, review, rating } = req.body;
   try {
-    const results = await pool.query(
+    const activity_id = parseInt(req.params.id);
+    const { review, rating } = req.body;
+    const { sessionId } = req.cookies;
+
+    const getUserIdBySession = await pool.query(
+      "SELECT * FROM sessions WHERE session_id = $1",
+      [sessionId]
+    );
+    // const userId = getUserIdBySession.rows[0].user_id;
+    const userId = 2;
+    const userResult = await pool.query(
+      "SELECT users.user_id,username, email FROM users WHERE review_id = $1",
+      [userId]
+    );
+    const userInfo = userResult.rows[0];
+    if (userInfo === null) throw `Couldn't get user with given session.`;
+
+    const newPost = await pool.query(
       "INSERT INTO reviews (user_id, activity_id, review, rating ) VALUES ($1, $2, $3, $4) RETURNING *",
-      [user_id, activity_id, review, rating]
+      [userInfo.user_id, activity_id, review, rating]
     );
-    const review_id = results.rows[0].review_id;
-    const getUserInfo = await pool.query(
-      "SELECT users.user_id,username, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
-      [review_id]
-    );
-    const userInfo = getUserInfo.rows[0];
+
     results.rows[0].user = userInfo;
 
-    res.status(201).json(results.rows[0]);
+    res.status(201).json(newPost.rows[0]);
   } catch (error) {
     console.log(error);
     throw error;
