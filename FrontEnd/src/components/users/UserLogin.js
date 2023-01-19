@@ -8,8 +8,24 @@ const UserLogin = () => {
     password: "",
   });
 
-  const onSubmitLogin = () => {
-    console.log("Hi login");
+  const onSubmitLogin = async () => {
+    try {
+      const data = await fetch(`http://localhost:3000/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: login.username,
+          password: login.password,
+        }),
+      });
+      const response = await data.json();
+      console.log(response);
+      setLogin({ username: "", email: null, password: "" });
+    } catch {
+      alert("Couldn't login");
+    }
   };
 
   return (

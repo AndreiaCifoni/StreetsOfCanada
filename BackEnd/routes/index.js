@@ -3,6 +3,7 @@ const router = Router();
 const pool = require("../db/index");
 const fetch = require("node-fetch");
 const bcrypt = require("bcryptjs");
+const { v4: uuidv4 } = require("uuid");
 
 //-------------------USERS------------------
 
@@ -33,6 +34,41 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).send("Couldn't register");
+  }
+});
+
+router.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const user = await pool.query("SELECT * FROM users WHERE username = $1", [
+      username,
+    ]);
+    if (user.rows[0] === null) throw `Couldn't get username`;
+    const userInfo = user.rows[0];
+
+    const hashedPassword = userInfo.password;
+    if (!bcrypt.compareSync(password, hashedPassword)) throw `Wrong password`;
+
+    const sessionId = uuidv4();
+
+    const createSession = await pool.query(
+      "INSERT INTO sessions (session_id, user_id) VALUES ($1, $2) RETURNING *",
+      [sessionId, userInfo.user_id]
+    );
+    const session = createSession.rows[0];
+    if (session === null) throw `Couldn't create session`;
+
+    res.cookie("sessionId", sessionId, { httpOnly: true, sameSite: true });
+
+    res.status(201).send({
+      user_id: userInfo.user_id,
+      username: userInfo.username,
+      email: userInfo.email,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Couldn't login");
   }
 });
 
