@@ -7,20 +7,6 @@ const { v4: uuidv4 } = require("uuid");
 
 //-------------------USERS------------------
 
-// router.post("/users", async (req, res) => {
-//   const { name, email, password } = req.body;
-//   try {
-//     const results = await pool.query(
-//       "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)",
-//       [name, email, password]
-//     );
-//     res.status(201).send("User created successfully!");
-//   } catch (error) {
-//     console.log(error);
-//     res.status(400).send("Email already exists in the database");
-//   }
-// });
-
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -72,18 +58,22 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//route for login - not tested... sessions??
-// router.post("/sessions", (req, res) => {
-//   const { name, password } = req.body;
-//   pool.query(
-//     "SELECT * FROM users WHERE name = $1 AND password = $2",
-//     [name, password],
-//     (error, results) => {
-//       if (error) throw error;
-//       res.status(200).send(`Hello ${name}`).json(results.rows);
-//     }
-//   );
-// });
+router.post("/logout", async (req, res) => {
+  try {
+    const { sessionId } = req.cookies;
+    const deleteSession = await pool.query(
+      "DELETE FROM sessions WHERE session_id = $1",
+      [sessionId]
+    );
+
+    res.clearCookie("sessionId");
+
+    res.status(200).send({ error: false });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ error: true, message: `Couldn't logout.` });
+  }
+});
 
 //route for logout - to be build ... sessions??
 // router.delete("/sessions", (req, res) => {
