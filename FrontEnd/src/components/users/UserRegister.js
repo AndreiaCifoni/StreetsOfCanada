@@ -10,7 +10,7 @@ const UserRegister = () => {
 
   const onSubmitRegister = async () => {
     try {
-      const data = await fetch(`http://localhost:3000/register`, {
+      const response = await fetch(`http://localhost:3000/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,7 +21,8 @@ const UserRegister = () => {
           password: register.password,
         }),
       });
-      const response = await data.json();
+      const data = await response.json();
+
       setRegister({ username: "", email: "", password: "" });
     } catch {
       alert("Couldn't register");
