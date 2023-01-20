@@ -17,7 +17,7 @@ const App = () => {
 
   const onLogin = async () => {
     try {
-      const response = await fetch(`/login`, {
+      const response = await fetch("/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const App = () => {
 
   const onLogout = async () => {
     try {
-      const logout = await fetch(`/logout`, {
+      const logout = await fetch("/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

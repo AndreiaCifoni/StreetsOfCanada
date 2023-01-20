@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const pool = require("../db/index");
+const pool = require("../db/pool");
 const fetch = require("node-fetch");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
