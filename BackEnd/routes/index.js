@@ -15,7 +15,7 @@ router.post("/register", async (req, res) => {
       "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
       [username, email, hashedPassword]
     );
-    if (createUser.rows[0] === null) throw `Couldn't create user`;
+    if (createUser.rows[0] === undefined) throw `Couldn't create user`;
     res.status(201).json(createUser.rows[0]);
   } catch (error) {
     console.log(error);
@@ -30,7 +30,7 @@ router.post("/login", async (req, res) => {
     const user = await pool.query("SELECT * FROM users WHERE username = $1", [
       username,
     ]);
-    if (user.rows[0] === null) throw `Couldn't get username`;
+    if (user.rows[0] === undefined) throw `Couldn't get username`;
     const userInfo = user.rows[0];
 
     const hashedPassword = userInfo.password;
@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
       [sessionId, userInfo.user_id]
     );
     const session = createSession.rows[0];
-    if (session === null) throw `Couldn't create session`;
+    if (session === undefined) throw `Couldn't create session`;
 
     res.cookie("sessionId", sessionId, { httpOnly: true, sameSite: true });
 
@@ -352,14 +352,13 @@ router.post("/activities/:id/reviews", async (req, res) => {
       "SELECT * FROM sessions WHERE session_id = $1",
       [sessionId]
     );
-    // const userId = getUserIdBySession.rows[0].user_id;
-    const userId = 2;
+    const userId = getUserIdBySession.rows[0].user_id;
     const userResult = await pool.query(
       "SELECT users.user_id,username, email FROM users WHERE review_id = $1",
       [userId]
     );
     const userInfo = userResult.rows[0];
-    if (userInfo === null) throw `Couldn't get user with given session.`;
+    if (userInfo === undefined) throw `Couldn't get user with given session.`;
 
     const newPost = await pool.query(
       "INSERT INTO reviews (user_id, activity_id, review, rating ) VALUES ($1, $2, $3, $4) RETURNING *",
