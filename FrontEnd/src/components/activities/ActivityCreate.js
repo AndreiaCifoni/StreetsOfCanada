@@ -17,7 +17,7 @@ const ActivityCreate = () => {
   const navigate = useNavigate();
 
   const onSubmitNewActivity = async () => {
-    const data = await fetch("http://localhost:3000/activities", {
+    const data = await fetch("/activities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

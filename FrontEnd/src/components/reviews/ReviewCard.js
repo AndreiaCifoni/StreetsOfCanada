@@ -15,12 +15,9 @@ const ReviewCard = ({
 
   const onClickDeleteReview = async () => {
     try {
-      const deleteReviews = await fetch(
-        `http://localhost:3000/reviews/${reviewId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const deleteReviews = await fetch(`/reviews/${reviewId}`, {
+        method: "DELETE",
+      });
       const filteredList = reviewList.filter(
         (review) => review.review_id !== reviewId
       );

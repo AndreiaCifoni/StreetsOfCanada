@@ -15,7 +15,7 @@ const ActivityList = () => {
 
   useEffect(() => {
     const fetchActivity = async () => {
-      const response = await fetch("http://localhost:3000/activities");
+      const response = await fetch("/activities");
       const data = await response.json();
       setActivityList(data);
     };
@@ -24,7 +24,7 @@ const ActivityList = () => {
 
   useEffect(() => {
     const fetchTags = async () => {
-      const response = await fetch("http://localhost:3000/tags");
+      const response = await fetch("/tags");
       const tagsData = await response.json();
       const dropdownTags = tagsData.map((tag) => {
         const listOfTags = { value: tag.name, label: tag.name };
@@ -38,7 +38,7 @@ const ActivityList = () => {
 
   useEffect(() => {
     const fetchCities = async () => {
-      const response = await fetch("http://localhost:3000/cities");
+      const response = await fetch("/cities");
       const citiesData = await response.json();
       const autocompleteCities = citiesData.map((city) => {
         const listCities = { name: city.name, province_id: city.province_id };
@@ -52,7 +52,7 @@ const ActivityList = () => {
   const onDropdownChange = async (option) => {
     const paramValue = option.value;
     const response = await fetch(
-      "http://localhost:3000/activities?" +
+      "/activities?" +
         new URLSearchParams({
           tags: paramValue,
         })
@@ -65,12 +65,12 @@ const ActivityList = () => {
     setCityValue(newValue);
     const paramValue = newValue.name;
     if (paramValue === "None") {
-      const response = await fetch("http://localhost:3000/activities");
+      const response = await fetch("/activities");
       const data = await response.json();
       setActivityList(data);
     } else {
       const response = await fetch(
-        "http://localhost:3000/activities?" +
+        "/activities?" +
           new URLSearchParams({
             city: paramValue,
           })

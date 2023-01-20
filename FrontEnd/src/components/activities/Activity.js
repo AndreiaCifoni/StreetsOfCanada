@@ -11,7 +11,7 @@ const Activity = () => {
 
   useEffect(() => {
     const fetchActivity = async () => {
-      const response = await fetch(`http://localhost:3000/activities/${id}`);
+      const response = await fetch(`/activities/${id}`);
       const data = await response.json();
       setActivity(data);
     };

@@ -19,7 +19,7 @@ const ReviewEdit = ({
 
   const onSubmitEditReview = async () => {
     try {
-      await fetch(`http://localhost:3000/reviews/${reviewId}`, {
+      await fetch(`/reviews/${reviewId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

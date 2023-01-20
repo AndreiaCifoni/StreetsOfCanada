@@ -9,7 +9,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
 
   useEffect(() => {
     const fetchTags = async () => {
-      const response = await fetch("http://localhost:3000/tags");
+      const response = await fetch("/tags");
       const tagsData = await response.json();
       const autocompleteTags = tagsData.map((tag) => {
         const listOfTags = { tags_id: tag.tags_id, name: tag.name };
@@ -22,7 +22,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
 
   useEffect(() => {
     const fetchCities = async () => {
-      const response = await fetch("http://localhost:3000/cities");
+      const response = await fetch("/cities");
       const citiesData = await response.json();
       const autocompleteCities = citiesData.map((city) => {
         const listCities = { name: city.name, province_id: city.province_id };
@@ -35,7 +35,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
 
   useEffect(() => {
     const fetchProvinces = async () => {
-      const response = await fetch("http://localhost:3000/provinces");
+      const response = await fetch("/provinces");
       const provincesData = await response.json();
       const autocompleteProvinces = provincesData.map((province) => {
         return province.province_id;

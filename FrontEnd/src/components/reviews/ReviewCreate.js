@@ -12,19 +12,16 @@ const ReviewCreate = ({
 
   const onSubmitNewReview = async () => {
     try {
-      const data = await fetch(
-        `http://localhost:3000/activities/${id}/reviews`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            review: newReview.review,
-            rating: newReview.rating,
-          }),
-        }
-      );
+      const data = await fetch(`/activities/${id}/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          review: newReview.review,
+          rating: newReview.rating,
+        }),
+      });
       const response = await data.json();
 
       setReviewList([...reviewList, response]);

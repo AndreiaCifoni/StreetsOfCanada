@@ -7,9 +7,7 @@ const ReviewsList = ({ reviewList, setReviewList }) => {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      const response = await fetch(
-        `http://localhost:3000/activities/${id}/reviews`
-      );
+      const response = await fetch(`/activities/${id}/reviews`);
       const data = await response.json();
       setReviewList(data);
     };

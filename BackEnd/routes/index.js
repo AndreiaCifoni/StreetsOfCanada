@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
     const session = createSession.rows[0];
     if (session === undefined) throw `Couldn't create session`;
 
-    res.cookie("sessionId", sessionId, { httpOnly: true, sameSite: true });
+    res.cookie("sessionId", sessionId);
 
     res.status(201).send({
       user_id: userInfo.user_id,
@@ -61,6 +61,7 @@ router.post("/login", async (req, res) => {
 router.post("/logout", async (req, res) => {
   try {
     const { sessionId } = req.cookies;
+    //console.log(sessionId);
     const deleteSession = await pool.query(
       "DELETE FROM sessions WHERE session_id = $1",
       [sessionId]
