@@ -1,9 +1,10 @@
 const { Router } = require("express");
 const router = Router();
-const pool = require("../db/pool");
 const fetch = require("node-fetch");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
+const pool = require("../db/pool");
+const db = require("../db/index");
 
 //-------------------USERS------------------
 
@@ -11,15 +12,12 @@ router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 8);
-    const createUser = await pool.query(
-      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
-      [username, email, hashedPassword]
-    );
-    if (createUser.rows[0] === undefined) throw `Couldn't create user`;
-    res.status(201).json(createUser.rows[0]);
+    const user = await db.createUser(username, email, hashedPassword);
+    if (user === null) throw `Couldn't create user`;
+    res.status(201).send({ error: false });
   } catch (error) {
     console.log(error);
-    res.status(400).send("Couldn't register");
+    res.status(400).send({ error: true, message: "Couldn't register" });
   }
 });
 
