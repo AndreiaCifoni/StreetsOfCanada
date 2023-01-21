@@ -12,8 +12,10 @@ router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 8);
+
     const user = await db.createUser(username, email, hashedPassword);
     if (user === null) throw `Couldn't create user`;
+
     res.status(201).send({ error: false });
   } catch (error) {
     console.log(error);
@@ -25,30 +27,22 @@ router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const user = await pool.query("SELECT * FROM users WHERE username = $1", [
-      username,
-    ]);
-    if (user.rows[0] === undefined) throw `Couldn't get username`;
-    const userInfo = user.rows[0];
+    const user = await db.getUserByUsername(username);
+    if (user === null) throw `Couldn't get username`;
 
-    const hashedPassword = userInfo.password;
+    const hashedPassword = user.password;
     if (!bcrypt.compareSync(password, hashedPassword)) throw `Wrong password`;
 
     const sessionId = uuidv4();
-
-    const createSession = await pool.query(
-      "INSERT INTO sessions (session_id, user_id) VALUES ($1, $2) RETURNING *",
-      [sessionId, userInfo.user_id]
-    );
-    const session = createSession.rows[0];
-    if (session === undefined) throw `Couldn't create session`;
+    const newSession = await db.createSession(sessionId, user.user_id);
+    if (newSession === null) throw `Couldn't create session`;
 
     res.cookie("sessionId", sessionId);
 
     res.status(201).send({
-      user_id: userInfo.user_id,
-      username: userInfo.username,
-      email: userInfo.email,
+      user_id: user.user_id,
+      username: user.username,
+      email: user.email,
     });
   } catch (error) {
     console.log(error);
@@ -59,11 +53,7 @@ router.post("/login", async (req, res) => {
 router.post("/logout", async (req, res) => {
   try {
     const { sessionId } = req.cookies;
-    //console.log(sessionId);
-    const deleteSession = await pool.query(
-      "DELETE FROM sessions WHERE session_id = $1",
-      [sessionId]
-    );
+    await db.deleteSession(sessionId);
 
     res.clearCookie("sessionId");
 
@@ -74,13 +64,7 @@ router.post("/logout", async (req, res) => {
   }
 });
 
-//route for logout - to be build ... sessions??
-// router.delete("/sessions", (req, res) => {
-// });
-
 //-------------------ACTIVITIES------------------
-//SELECT * FROM activities LEFT JOIN activities_tags ON activities.activity_id = activities_tags. activity_id WHERE activities.activity_id = $1
-//SELECT * FROM activities LEFT JOIN activities_tags ON activities.activity_id = activities_tags. activity_id;
 
 router.get("/activities", async (req, res) => {
   try {
