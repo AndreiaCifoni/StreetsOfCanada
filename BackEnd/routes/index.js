@@ -331,26 +331,19 @@ router.post("/activities/:id/reviews", async (req, res) => {
     const { review, rating } = req.body;
     const { sessionId } = req.cookies;
 
-    const getUserIdBySession = await pool.query(
-      "SELECT * FROM sessions WHERE session_id = $1",
-      [sessionId]
-    );
-    const userId = getUserIdBySession.rows[0].user_id;
-    const userResult = await pool.query(
-      "SELECT users.user_id,username, email FROM users WHERE review_id = $1",
-      [userId]
-    );
-    const userInfo = userResult.rows[0];
-    if (userInfo === undefined) throw `Couldn't get user with given session.`;
+    const user = await db.getUserBySession(sessionId);
+    console.log(user);
 
-    const newPost = await pool.query(
-      "INSERT INTO reviews (user_id, activity_id, review, rating ) VALUES ($1, $2, $3, $4) RETURNING *",
-      [userInfo.user_id, activity_id, review, rating]
+    if (user === null) throw `Couldn't get user with given session.`;
+
+    const newReview = await db.createReview(
+      user.user_id,
+      activity_id,
+      review,
+      rating
     );
-
-    results.rows[0].user = userInfo;
-
-    res.status(201).json(newPost.rows[0]);
+    newReview.user = user;
+    res.status(201).json(newReview);
   } catch (error) {
     console.log(error);
     throw error;

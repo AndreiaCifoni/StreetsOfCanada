@@ -64,7 +64,10 @@ const App = () => {
           }
         />
         <Route path={"/activity"} element={<ActivityCreate />} />
-        <Route path={"/activity/:id"} element={<Activity />} />
+        <Route
+          path={"/activity/:id"}
+          element={<Activity userStatus={userStatus} />}
+        />
       </Routes>
     </div>
   );
