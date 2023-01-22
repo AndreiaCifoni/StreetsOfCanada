@@ -139,6 +139,63 @@ router.get("/activities", async (req, res) => {
 //   );
 // });
 
+// router.post("/activities", async (req, res) => {
+//   try {
+//     const {
+//       title,
+//       description,
+//       address,
+//       photo,
+//       user_id,
+//       tags_ids,
+//       city_name,
+//       province_id,
+//     } = req.body;
+//     const insertCity = await pool.query(
+//       "INSERT INTO cities (name, province_id) VALUES ($1, $2) ON CONFLICT DO NOTHING",
+//       [city_name, province_id]
+//     );
+//     const getCityId = await pool.query(
+//       "SELECT * FROM cities WHERE name = $1 AND province_id = $2",
+//       [city_name, province_id]
+//     );
+
+//     const fullAddress = `${address}, ${city_name}, ${province_id}`;
+
+//     const getLatLong = await fetch(
+//       `https://nominatim.openstreetmap.org/search?q=${fullAddress}&format=json`
+//     );
+//     const latLongData = await getLatLong.json();
+//     const latitude = latLongData[0].lat;
+//     const longitude = latLongData[0].lon;
+
+//     const results = await pool.query(
+//       "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+//       [
+//         title,
+//         description,
+//         address,
+//         latitude,
+//         longitude,
+//         photo,
+//         user_id,
+//         getCityId.rows[0].city_id,
+//       ]
+//     );
+//     const insertPromises = tags_ids.map((tag_id) => {
+//       return pool.query(
+//         "INSERT INTO activities_tags (tags_id, activity_id) VALUES ($1, $2)",
+//         [tag_id, results.rows[0].activity_id]
+//       );
+//     });
+//     await Promise.all(insertPromises);
+//     res.status(201).json(results.rows[0]);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(400).send("Activity not posted");
+//   }
+// });
+
 router.post("/activities", async (req, res) => {
   try {
     const {
@@ -151,14 +208,9 @@ router.post("/activities", async (req, res) => {
       city_name,
       province_id,
     } = req.body;
-    const insertCity = await pool.query(
-      "INSERT INTO cities (name, province_id) VALUES ($1, $2) ON CONFLICT DO NOTHING",
-      [city_name, province_id]
-    );
-    const getCityId = await pool.query(
-      "SELECT * FROM cities WHERE name = $1 AND province_id = $2",
-      [city_name, province_id]
-    );
+
+    const insertCity = await db.createCity(city_name, province_id);
+    const cityId = await db.getCityId(city_name, province_id);
 
     const fullAddress = `${address}, ${city_name}, ${province_id}`;
 
@@ -169,27 +221,23 @@ router.post("/activities", async (req, res) => {
     const latitude = latLongData[0].lat;
     const longitude = latLongData[0].lon;
 
-    const results = await pool.query(
-      "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
-      [
-        title,
-        description,
-        address,
-        latitude,
-        longitude,
-        photo,
-        user_id,
-        getCityId.rows[0].city_id,
-      ]
+    const newActivity = await db.createActivity(
+      title,
+      description,
+      address,
+      latitude,
+      longitude,
+      photo,
+      user_id,
+      cityId
     );
+
     const insertPromises = tags_ids.map((tag_id) => {
-      return pool.query(
-        "INSERT INTO activities_tags (tags_id, activity_id) VALUES ($1, $2)",
-        [tag_id, results.rows[0].activity_id]
-      );
+      return db.createActivityTags(tag_id, newActivity.activity_id);
     });
     await Promise.all(insertPromises);
-    res.status(201).json(results.rows[0]);
+
+    res.status(201).json(newActivity);
   } catch (error) {
     console.log(error);
     res.status(400).send("Activity not posted");

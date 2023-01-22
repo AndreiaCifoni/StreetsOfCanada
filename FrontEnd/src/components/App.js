@@ -63,7 +63,10 @@ const App = () => {
             <UserLogin login={login} setLogin={setLogin} onLogin={onLogin} />
           }
         />
-        <Route path={"/activity"} element={<ActivityCreate />} />
+        <Route
+          path={"/activity"}
+          element={<ActivityCreate userStatus={userStatus} />}
+        />
         <Route
           path={"/activity/:id"}
           element={<Activity userStatus={userStatus} />}

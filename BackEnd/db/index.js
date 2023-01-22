@@ -93,6 +93,46 @@ const deleteReview = async (id) => {
   return null;
 };
 
+const createCity = async (city_name, province_id) => {
+  const { rows } = await pool.query(
+    "INSERT INTO cities (name, province_id) VALUES ($1, $2) ON CONFLICT DO NOTHING",
+    [city_name, province_id]
+  );
+  return null;
+};
+
+const getCityId = async (city_name, province_id) => {
+  const { rows } = await pool.query(
+    "SELECT * FROM cities WHERE name = $1 AND province_id = $2",
+    [city_name, province_id]
+  );
+  return rows.length >= 1 ? rows[0].city_id : null;
+};
+
+const createActivity = async (
+  title,
+  description,
+  address,
+  latitude,
+  longitude,
+  photo,
+  user_id,
+  cityId
+) => {
+  const { rows } = await pool.query(
+    "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+    [title, description, address, latitude, longitude, photo, user_id, cityId]
+  );
+  return rows.length >= 1 ? rows[0] : null;
+};
+
+const createActivityTags = async (tag_id, activityId) => {
+  const { rows } = await pool.query(
+    "INSERT INTO activities_tags (tags_id, activity_id) VALUES ($1, $2)",
+    [tag_id, activityId]
+  );
+};
+
 module.exports = {
   createUser,
   getUserByUsername,
@@ -105,4 +145,8 @@ module.exports = {
   getSingleReview,
   updateReview,
   deleteReview,
+  createCity,
+  getCityId,
+  createActivity,
+  createActivityTags,
 };

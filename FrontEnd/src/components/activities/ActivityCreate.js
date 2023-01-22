@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ActivityForm from "./ActivityForm";
 
-const ActivityCreate = () => {
+const ActivityCreate = ({ userStatus }) => {
   const [newActivity, setNewActivity] = useState({
     title: "",
     tags_ids: [],
@@ -11,7 +11,7 @@ const ActivityCreate = () => {
     province_id: "",
     photo: "",
     description: "",
-    user_id: 1,
+    user_id: userStatus.username,
   });
 
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const ActivityCreate = () => {
         province_id: newActivity.province_id,
         photo: newActivity.photo,
         description: newActivity.description,
-        user_id: 1,
+        user_id: userStatus.username,
       }),
     });
     const response = await data.json();
