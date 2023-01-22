@@ -77,6 +77,14 @@ const getSingleReview = async (reviewId) => {
   return rows.length >= 1 ? rows[0] : null;
 };
 
+const updateReview = async (id, review, rating) => {
+  const { rows } = await pool.query(
+    "UPDATE reviews SET review = $2, rating = $3  WHERE review_id = $1",
+    [id, review, rating]
+  );
+  return null;
+};
+
 module.exports = {
   createUser,
   getUserByUsername,
@@ -87,4 +95,5 @@ module.exports = {
   getReviewsByActivity,
   getUserByReviewId,
   getSingleReview,
+  updateReview,
 };

@@ -367,10 +367,7 @@ router.put("/reviews/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { review, rating } = req.body;
   try {
-    const results = await pool.query(
-      "UPDATE reviews SET review = $2, rating = $3  WHERE review_id = $1",
-      [id, review, rating]
-    );
+    const results = await db.updateReview(id, review, rating);
     res.status(200).send("Review updated successfully!");
   } catch (error) {
     console.log(error);
