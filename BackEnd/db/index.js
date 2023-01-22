@@ -85,6 +85,14 @@ const updateReview = async (id, review, rating) => {
   return null;
 };
 
+const deleteReview = async (id) => {
+  const { rows } = await pool.query(
+    "DELETE FROM reviews WHERE review_id = $1",
+    [id]
+  );
+  return null;
+};
+
 module.exports = {
   createUser,
   getUserByUsername,
@@ -96,4 +104,5 @@ module.exports = {
   getUserByReviewId,
   getSingleReview,
   updateReview,
+  deleteReview,
 };

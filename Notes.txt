@@ -181,3 +181,11 @@ PROGRAMS USED
 
 -- ***** important, add for post and review
 -- update_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
+------------------------------
+PROBLEMS
+  -Edit & Delete Review
+    -route > couldn't add safety
+    -ReviewCard > couldn't hide btns (edit, delete)
+
+

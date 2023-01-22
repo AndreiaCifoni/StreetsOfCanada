@@ -140,17 +140,17 @@ router.get("/activities", async (req, res) => {
 // });
 
 router.post("/activities", async (req, res) => {
-  const {
-    title,
-    description,
-    address,
-    photo,
-    user_id,
-    tags_ids,
-    city_name,
-    province_id,
-  } = req.body;
   try {
+    const {
+      title,
+      description,
+      address,
+      photo,
+      user_id,
+      tags_ids,
+      city_name,
+      province_id,
+    } = req.body;
     const insertCity = await pool.query(
       "INSERT INTO cities (name, province_id) VALUES ($1, $2) ON CONFLICT DO NOTHING",
       [city_name, province_id]
@@ -391,10 +391,7 @@ router.put("/reviews/:id", async (req, res) => {
 router.delete("/reviews/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const results = await pool.query(
-      "DELETE FROM reviews WHERE review_id = $1",
-      [id]
-    );
+    await db.deleteReview(id);
     res.status(200).send("Review removed successfully!");
   } catch (error) {
     console.log(error);
