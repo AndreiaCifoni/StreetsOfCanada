@@ -364,9 +364,22 @@ router.post("/activities/:id/reviews", async (req, res) => {
 // });
 
 router.put("/reviews/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-  const { review, rating } = req.body;
   try {
+    const id = parseInt(req.params.id);
+    const { review, rating } = req.body;
+
+    //****this part not working!!!!!
+    // const { sessionId } = req.cookies;
+
+    // const userByReview = await db.getUserByReviewId(id);
+    // const userBySession = await db.getUserBySession(sessionId);
+
+    // if (
+    //   userByReview.user_id !== userBySession.user_id ||
+    //   userBySession.user_id === undefined
+    // )
+    //   throw "Only the owner of the review can edit!";
+
     const results = await db.updateReview(id, review, rating);
     res.status(200).send("Review updated successfully!");
   } catch (error) {
