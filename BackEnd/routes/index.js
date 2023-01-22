@@ -291,31 +291,25 @@ router.delete("/activities/:id", async (req, res) => {
 //-------------------REVIEWS------------------
 
 router.get("/activities/:id/reviews", async (req, res) => {
-  const id = parseInt(req.params.id);
   try {
-    const allReviewsByActivity = await pool.query(
-      "SELECT review_id FROM reviews WHERE activity_id = $1",
-      [id]
-    );
-    const allReviewsIds = allReviewsByActivity.rows.map((review) => {
+    const id = parseInt(req.params.id);
+
+    const allReviewsByActivity = await db.getReviewsByActivity(id);
+
+    const allReviewsIds = allReviewsByActivity.map((review) => {
       return review.review_id;
     });
 
     const activityReviews = allReviewsIds.map(async (reviewId) => {
-      const getUserInfo = await pool.query(
-        "SELECT users.user_id, username, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
-        [reviewId]
-      );
-      const userInfo = getUserInfo.rows[0];
+      const userInfo = await db.getUserByReviewId(reviewId);
 
-      const getReview = await pool.query(
-        "SELECT * FROM reviews WHERE review_id = $1",
-        [reviewId]
-      );
-      getReview.rows[0].user = userInfo;
+      const getReview = await db.getSingleReview(reviewId);
 
-      return getReview.rows[0];
+      getReview.user = userInfo;
+
+      return getReview;
     });
+
     const results = await Promise.all(activityReviews);
 
     res.status(200).json(results);
@@ -332,7 +326,6 @@ router.post("/activities/:id/reviews", async (req, res) => {
     const { sessionId } = req.cookies;
 
     const user = await db.getUserBySession(sessionId);
-    console.log(user);
 
     if (user === null) throw `Couldn't get user with given session.`;
 
@@ -350,25 +343,25 @@ router.post("/activities/:id/reviews", async (req, res) => {
   }
 });
 
-router.get("/reviews/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-  try {
-    const results = await pool.query(
-      "SELECT * FROM reviews WHERE review_id = $1",
-      [id]
-    );
-    const getUserInfo = await pool.query(
-      "SELECT users.user_id, username, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
-      [id]
-    );
-    const userInfo = getUserInfo.rows[0];
-    results.rows[0].user = userInfo;
-    res.status(200).json(results.rows);
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-});
+// router.get("/reviews/:id", async (req, res) => {
+//   const id = parseInt(req.params.id);
+//   try {
+//     const results = await pool.query(
+//       "SELECT * FROM reviews WHERE review_id = $1",
+//       [id]
+//     );
+//     const getUserInfo = await pool.query(
+//       "SELECT users.user_id, username, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
+//       [id]
+//     );
+//     const userInfo = getUserInfo.rows[0];
+//     results.rows[0].user = userInfo;
+//     res.status(200).json(results.rows);
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// });
 
 router.put("/reviews/:id", async (req, res) => {
   const id = parseInt(req.params.id);

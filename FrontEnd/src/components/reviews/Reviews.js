@@ -8,8 +8,7 @@ const Reviews = ({ userStatus }) => {
     review: "",
     rating: 0,
   });
-  console.log("review list");
-  console.log(reviewList);
+
   return (
     <div>
       <div className="mb-8">

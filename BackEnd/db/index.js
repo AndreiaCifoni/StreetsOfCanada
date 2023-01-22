@@ -53,6 +53,30 @@ const createReview = async (userId, activity_id, review, rating) => {
   return rows.length >= 1 ? rows[0] : null;
 };
 
+const getReviewsByActivity = async (activityId) => {
+  const { rows } = await pool.query(
+    "SELECT review_id FROM reviews WHERE activity_id = $1",
+    [activityId]
+  );
+  return rows;
+};
+
+const getUserByReviewId = async (reviewId) => {
+  const { rows } = await pool.query(
+    "SELECT users.user_id, username, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
+    [reviewId]
+  );
+  return rows.length >= 1 ? rows[0] : null;
+};
+
+const getSingleReview = async (reviewId) => {
+  const { rows } = await pool.query(
+    "SELECT * FROM reviews WHERE review_id = $1",
+    [reviewId]
+  );
+  return rows.length >= 1 ? rows[0] : null;
+};
+
 module.exports = {
   createUser,
   getUserByUsername,
@@ -60,4 +84,7 @@ module.exports = {
   deleteSession,
   getUserBySession,
   createReview,
+  getReviewsByActivity,
+  getUserByReviewId,
+  getSingleReview,
 };
