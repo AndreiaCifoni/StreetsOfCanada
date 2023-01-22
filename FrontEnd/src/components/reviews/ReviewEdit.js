@@ -3,7 +3,7 @@ import ReviewForm from "./ReviewForm";
 
 const ReviewEdit = ({
   onClickCancelEditReview,
-  user,
+  userInfo,
   rating,
   date,
   review,
@@ -12,7 +12,6 @@ const ReviewEdit = ({
   reviewList,
 }) => {
   const [editReview, setEditReview] = useState({
-    user_id: 1,
     review: review,
     rating: rating,
   });
@@ -25,7 +24,6 @@ const ReviewEdit = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: 1,
           review: editReview.review,
           rating: editReview.rating,
         }),

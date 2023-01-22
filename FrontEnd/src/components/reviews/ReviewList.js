@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReviewCard from "./ReviewCard";
 
-const ReviewsList = ({ reviewList, setReviewList }) => {
+const ReviewsList = ({ reviewList, setReviewList, userStatus }) => {
   let { id } = useParams();
 
   useEffect(() => {
@@ -24,13 +24,14 @@ const ReviewsList = ({ reviewList, setReviewList }) => {
         return (
           <ReviewCard
             key={review.review_id}
-            user={review.user.username}
+            userInfo={review.user}
             rating={review.rating}
             date={review.date}
             review={review.review}
             reviewId={review.review_id}
             setReviewList={setReviewList}
             reviewList={reviewList}
+            userStatus={userStatus}
           />
         );
       })}

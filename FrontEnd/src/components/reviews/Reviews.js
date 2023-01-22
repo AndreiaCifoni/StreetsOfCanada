@@ -23,7 +23,11 @@ const Reviews = ({ userStatus }) => {
           />
         )}
       </div>
-      <ReviewsList reviewList={reviewList} setReviewList={setReviewList} />
+      <ReviewsList
+        reviewList={reviewList}
+        setReviewList={setReviewList}
+        userStatus={userStatus}
+      />
     </div>
   );
 };
