@@ -10,6 +10,7 @@ const ReviewEdit = ({
   reviewId,
   setReviewList,
   reviewList,
+  fetchReviews,
 }) => {
   const [editReview, setEditReview] = useState({
     review: review,
@@ -18,7 +19,7 @@ const ReviewEdit = ({
 
   const onSubmitEditReview = async () => {
     try {
-      await fetch(`/reviews/${reviewId}`, {
+      const response = await fetch(`/reviews/${reviewId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -28,18 +29,14 @@ const ReviewEdit = ({
           rating: editReview.rating,
         }),
       });
-      const editedReviewList = reviewList.map((review) => {
-        if (review.review_id === reviewId) {
-          review.review = editReview.review;
-          review.rating = editReview.rating;
-          return review;
-        }
-        return review;
-      });
-      setReviewList(editedReviewList);
+
+      if (response.status !== 200) throw Error("Not Edit");
+
+      fetchReviews();
+
       onClickCancelEditReview();
-    } catch {
-      alert("Error");
+    } catch (error) {
+      alert(error);
     }
   };
 

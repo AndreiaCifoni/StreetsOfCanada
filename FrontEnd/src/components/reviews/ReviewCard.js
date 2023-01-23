@@ -11,6 +11,7 @@ const ReviewCard = ({
   setReviewList,
   reviewList,
   userStatus,
+  fetchReviews,
 }) => {
   const [isEditingReview, setIsEditingReview] = useState(false);
 
@@ -36,6 +37,23 @@ const ReviewCard = ({
     setIsEditingReview(false);
   };
 
+  const editAndDeleteBtn = (
+    <>
+      <button
+        className="mt-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
+        onClick={onClickEditReview}
+      >
+        Edit
+      </button>
+      <button
+        className="mt-4 mx-3 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
+        onClick={onClickDeleteReview}
+      >
+        Delete
+      </button>
+    </>
+  );
+
   return (
     <div className="my-2 py-2 px-4 rounded border-solid border-2 border-indigo-400 shadow">
       {isEditingReview ? (
@@ -48,6 +66,7 @@ const ReviewCard = ({
           reviewId={reviewId}
           setReviewList={setReviewList}
           reviewList={reviewList}
+          fetchReviews={fetchReviews}
         />
       ) : (
         <div>
@@ -69,18 +88,7 @@ const ReviewCard = ({
             <p>{review}</p>
           </div>
           <div>
-            <button
-              className="mt-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
-              onClick={onClickEditReview}
-            >
-              Edit
-            </button>
-            <button
-              className="mt-4 mx-3 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
-              onClick={onClickDeleteReview}
-            >
-              Delete
-            </button>
+            {userInfo.user_id === userStatus?.user_id ? editAndDeleteBtn : null}
           </div>
         </div>
       )}

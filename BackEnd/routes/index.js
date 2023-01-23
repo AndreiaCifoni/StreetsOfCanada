@@ -165,7 +165,7 @@ router.get("/activities/:id", async (req, res) => {
     res.status(200).json(activityById);
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(400).json({ error: true, message: "Could not get activity" });
   }
 });
 
@@ -339,23 +339,20 @@ router.put("/reviews/:id", async (req, res) => {
     const id = parseInt(req.params.id);
     const { review, rating } = req.body;
 
-    //****this part not working!!!!!
-    // const { sessionId } = req.cookies;
+    const { sessionId } = req.cookies;
+    if (!sessionId) throw "User not login";
 
-    // const userByReview = await db.getUserByReviewId(id);
-    // const userBySession = await db.getUserBySession(sessionId);
+    const userByReview = await db.getUserByReviewId(id);
+    const userBySession = await db.getUserBySession(sessionId);
 
-    // if (
-    //   userByReview.user_id !== userBySession.user_id ||
-    //   userBySession.user_id === undefined
-    // )
-    //   throw "Only the owner of the review can edit!";
+    if (userByReview?.user_id !== userBySession?.user_id)
+      throw "Only the owner of the review can edit!";
 
     const results = await db.updateReview(id, review, rating);
     res.status(200).send("Review updated successfully!");
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(400).send("Review not updated");
   }
 });
 

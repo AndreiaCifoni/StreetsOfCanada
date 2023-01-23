@@ -9,6 +9,12 @@ const Reviews = ({ userStatus }) => {
     rating: 0,
   });
 
+  const fetchReviews = async (id) => {
+    const response = await fetch(`/activities/${id}/reviews`);
+    const data = await response.json();
+    setReviewList(data);
+  };
+
   return (
     <div>
       <div className="mb-8">
@@ -27,6 +33,7 @@ const Reviews = ({ userStatus }) => {
         reviewList={reviewList}
         setReviewList={setReviewList}
         userStatus={userStatus}
+        fetchReviews={fetchReviews}
       />
     </div>
   );

@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReviewCard from "./ReviewCard";
 
-const ReviewsList = ({ reviewList, setReviewList, userStatus }) => {
+const ReviewsList = ({
+  reviewList,
+  setReviewList,
+  userStatus,
+  fetchReviews,
+}) => {
   let { id } = useParams();
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      const response = await fetch(`/activities/${id}/reviews`);
-      const data = await response.json();
-      setReviewList(data);
-    };
-    fetchReviews();
-  }, []);
+    fetchReviews(id);
+  }, [fetchReviews, id]);
 
   if (!reviewList) {
     return <div>Loading</div>;
@@ -32,6 +32,7 @@ const ReviewsList = ({ reviewList, setReviewList, userStatus }) => {
             setReviewList={setReviewList}
             reviewList={reviewList}
             userStatus={userStatus}
+            fetchReviews={fetchReviews}
           />
         );
       })}
