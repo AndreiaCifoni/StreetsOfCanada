@@ -11,7 +11,7 @@ const ActivityCreate = ({ userStatus }) => {
     province_id: "",
     photo: "",
     description: "",
-    user_id: userStatus.username,
+    user_id: userStatus.user_id,
   });
 
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const ActivityCreate = ({ userStatus }) => {
         province_id: newActivity.province_id,
         photo: newActivity.photo,
         description: newActivity.description,
-        user_id: userStatus.username,
+        user_id: userStatus.user_id,
       }),
     });
     const response = await data.json();
