@@ -71,49 +71,19 @@ router.get("/activities", async (req, res) => {
     const city_name = req.query.city;
     const tag_name = req.query.tags;
 
-    const getActivitiesIds = city_name
-      ? await pool.query(
-          "SELECT activity_id FROM activities LEFT JOIN cities ON activities.city_id = cities.city_id WHERE cities.name = $1 ",
-          [city_name]
-        )
-      : tag_name
-      ? await pool.query(
-          "SELECT activities.activity_id FROM activities JOIN activities_tags ON activities.activity_id = activities_tags.activity_id JOIN tags ON activities_tags.tags_id = tags.tags_id  WHERE tags.name = $1 ",
-          [tag_name]
-        )
-      : await pool.query("SELECT activity_id FROM activities");
-
-    const activitiesIds = getActivitiesIds.rows.map((activity) => {
+    const activitiesIdsByQuery = await db.getActivitiesIdByQuery(
+      city_name,
+      tag_name
+    );
+    const allActivitiesIds = activitiesIdsByQuery.map((activity) => {
       return activity.activity_id;
     });
-    const getActivityAndTags = activitiesIds.map(async (id) => {
-      const getTagsNames = await pool.query(
-        "SELECT name FROM activities_tags LEFT JOIN tags ON activities_tags.tags_id = tags.tags_id  WHERE activity_id = $1",
-        [id]
-      );
-      const tags = getTagsNames.rows.map((tag) => {
-        return tag.name;
-      });
-      const getUserInfo = await pool.query(
-        "SELECT users.user_id, username, email FROM users LEFT JOIN activities ON activities.user_id = users.user_id  WHERE activity_id = $1",
-        [id]
-      );
-      const userInfo = getUserInfo.rows[0];
-      const getCityName = await pool.query(
-        "SELECT cities.city_id, name, cities.province_id FROM cities LEFT JOIN activities ON activities.city_id = cities.city_id  WHERE activity_id = $1",
-        [id]
-      );
-      const cityName = getCityName.rows[0];
-      const getActivity = await pool.query(
-        "SELECT * FROM activities WHERE activity_id = $1",
-        [id]
-      );
-      getActivity.rows[0].tags = tags;
-      getActivity.rows[0].user = userInfo;
-      getActivity.rows[0].city = cityName;
-      return getActivity.rows[0];
+
+    const activityInfo = allActivitiesIds.map(async (id) => {
+      return await db.getActivityInfo(id);
     });
-    const results = await Promise.all(getActivityAndTags);
+
+    const results = await Promise.all(activityInfo);
     res.status(200).json(results);
   } catch (error) {
     console.log(error);
@@ -137,63 +107,6 @@ router.get("/activities", async (req, res) => {
 //       res.status(201).json(results.rows[0]);
 //     }
 //   );
-// });
-
-// router.post("/activities", async (req, res) => {
-//   try {
-//     const {
-//       title,
-//       description,
-//       address,
-//       photo,
-//       user_id,
-//       tags_ids,
-//       city_name,
-//       province_id,
-//     } = req.body;
-//     const insertCity = await pool.query(
-//       "INSERT INTO cities (name, province_id) VALUES ($1, $2) ON CONFLICT DO NOTHING",
-//       [city_name, province_id]
-//     );
-//     const getCityId = await pool.query(
-//       "SELECT * FROM cities WHERE name = $1 AND province_id = $2",
-//       [city_name, province_id]
-//     );
-
-//     const fullAddress = `${address}, ${city_name}, ${province_id}`;
-
-//     const getLatLong = await fetch(
-//       `https://nominatim.openstreetmap.org/search?q=${fullAddress}&format=json`
-//     );
-//     const latLongData = await getLatLong.json();
-//     const latitude = latLongData[0].lat;
-//     const longitude = latLongData[0].lon;
-
-//     const results = await pool.query(
-//       "INSERT INTO activities (title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
-//       [
-//         title,
-//         description,
-//         address,
-//         latitude,
-//         longitude,
-//         photo,
-//         user_id,
-//         getCityId.rows[0].city_id,
-//       ]
-//     );
-//     const insertPromises = tags_ids.map((tag_id) => {
-//       return pool.query(
-//         "INSERT INTO activities_tags (tags_id, activity_id) VALUES ($1, $2)",
-//         [tag_id, results.rows[0].activity_id]
-//       );
-//     });
-//     await Promise.all(insertPromises);
-//     res.status(201).json(results.rows[0]);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(400).send("Activity not posted");
-//   }
 // });
 
 router.post("/activities", async (req, res) => {

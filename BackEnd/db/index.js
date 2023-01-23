@@ -133,6 +133,51 @@ const createActivityTags = async (tag_id, activityId) => {
   );
 };
 
+const getActivitiesIdByQuery = async (city_name, tag_name) => {
+  const { rows } = city_name
+    ? await pool.query(
+        "SELECT activity_id FROM activities LEFT JOIN cities ON activities.city_id = cities.city_id WHERE cities.name = $1 ",
+        [city_name]
+      )
+    : tag_name
+    ? await pool.query(
+        "SELECT activities.activity_id FROM activities JOIN activities_tags ON activities.activity_id = activities_tags.activity_id JOIN tags ON activities_tags.tags_id = tags.tags_id  WHERE tags.name = $1 ",
+        [tag_name]
+      )
+    : await pool.query("SELECT activity_id FROM activities");
+
+  return rows.length >= 1 ? rows : null;
+};
+
+const getActivityInfo = async (id) => {
+  const getTagsNamesByActivity = await pool.query(
+    "SELECT name FROM activities_tags LEFT JOIN tags ON activities_tags.tags_id = tags.tags_id  WHERE activity_id = $1",
+    [id]
+  );
+  const allTagsNameByActivity = getTagsNamesByActivity.rows.map((tag) => {
+    return tag.name;
+  });
+  const getUserInfo = await pool.query(
+    "SELECT users.user_id, username, email FROM users LEFT JOIN activities ON activities.user_id = users.user_id  WHERE activity_id = $1",
+    [id]
+  );
+  const userInfo = getUserInfo.rows[0];
+  const getCityName = await pool.query(
+    "SELECT cities.city_id, name, cities.province_id FROM cities LEFT JOIN activities ON activities.city_id = cities.city_id  WHERE activity_id = $1",
+    [id]
+  );
+  const cityName = getCityName.rows[0];
+  const getActivity = await pool.query(
+    "SELECT * FROM activities WHERE activity_id = $1",
+    [id]
+  );
+  getActivity.rows[0].tags = allTagsNameByActivity;
+  getActivity.rows[0].user = userInfo;
+  getActivity.rows[0].city = cityName;
+
+  return getActivity.rows[0];
+};
+
 module.exports = {
   createUser,
   getUserByUsername,
@@ -149,4 +194,6 @@ module.exports = {
   getCityId,
   createActivity,
   createActivityTags,
+  getActivitiesIdByQuery,
+  getActivityInfo,
 };
