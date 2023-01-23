@@ -169,35 +169,77 @@ router.get("/activities/:id", async (req, res) => {
   }
 });
 
+// router.put("/activities/:id", async (req, res) => {
+//   try {
+//     const id = parseInt(req.params.id);
+//     const {
+//       title,
+//       description,
+//       address,
+//       latitude,
+//       longitude,
+//       photo,
+//       city_id,
+//       tags_ids,
+//     } = req.body;
+
+//     const results = await pool.query(
+//       "UPDATE activities SET title = $2, description = $3, address = $4, latitude = $5, longitude = $6, photo = $7, city_id = $8  WHERE activity_id = $1 RETURNING *",
+//       [id, title, description, address, latitude, longitude, photo, city_id]
+//     );
+//     const deleteTags = await pool.query(
+//       "DELETE FROM activities_tags WHERE activity_id = $1",
+//       [id]
+//     );
+//     const insertTags = tags_ids.map((tag_id) => {
+//       return pool.query(
+//         "INSERT INTO activities_tags (tags_id, activity_id) VALUES ($1, $2)",
+//         [tag_id, id]
+//       );
+//     });
+//     await Promise.all(insertTags);
+//     res.status(201).json(results.rows[0]);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(400).send("Activity not updated");
+//   }
+// });
+
 router.put("/activities/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-  const {
-    title,
-    description,
-    address,
-    latitude,
-    longitude,
-    photo,
-    city_id,
-    tags_ids,
-  } = req.body;
   try {
-    const results = await pool.query(
-      "UPDATE activities SET title = $2, description = $3, address = $4, latitude = $5, longitude = $6, photo = $7, city_id = $8  WHERE activity_id = $1 RETURNING *",
-      [id, title, description, address, latitude, longitude, photo, city_id]
+    const id = parseInt(req.params.id);
+    const {
+      title,
+      description,
+      address,
+      photo,
+      tags_ids,
+      city_name,
+      province_id,
+    } = req.body;
+
+    const insertCity = await db.createCity(city_name, province_id);
+    const cityId = await db.getCityId(city_name, province_id);
+    const fullAddress = `${address}, ${city_name}, ${province_id}`;
+    const getLatLong = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${fullAddress}&format=json`
     );
-    const deleteTags = await pool.query(
-      "DELETE FROM activities_tags WHERE activity_id = $1",
-      [id]
+    const latLongData = await getLatLong.json();
+    const latitude = latLongData[0].lat;
+    const longitude = latLongData[0].lon;
+
+    const updateActivity = await db.getUpdateActivity(
+      id,
+      title,
+      description,
+      address,
+      latitude,
+      longitude,
+      photo,
+      cityId
     );
-    const insertTags = tags_ids.map((tag_id) => {
-      return pool.query(
-        "INSERT INTO activities_tags (tags_id, activity_id) VALUES ($1, $2)",
-        [tag_id, id]
-      );
-    });
-    await Promise.all(insertTags);
-    res.status(201).json(results.rows[0]);
+
+    res.status(201).json(updateActivity);
   } catch (error) {
     console.log(error);
     res.status(400).send("Activity not updated");
@@ -205,20 +247,11 @@ router.put("/activities/:id", async (req, res) => {
 });
 
 router.delete("/activities/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
   try {
-    const deleteReviews = await pool.query(
-      "DELETE FROM reviews WHERE activity_id = $1",
-      [id]
-    );
-    const deleteTags = await pool.query(
-      "DELETE FROM activities_tags WHERE activity_id = $1",
-      [id]
-    );
-    const results = await pool.query(
-      "DELETE FROM activities WHERE activity_id = $1",
-      [id]
-    );
+    const id = parseInt(req.params.id);
+
+    await deleteActivity(id);
+
     res.status(200).send("Activity removed successfully!");
   } catch (error) {
     console.log(error);

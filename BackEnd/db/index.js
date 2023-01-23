@@ -178,6 +178,50 @@ const getActivityInfo = async (id) => {
   return getActivity.rows[0];
 };
 
+const getUpdateActivity = async (
+  id,
+  title,
+  description,
+  address,
+  latitude,
+  longitude,
+  photo,
+  cityId
+) => {
+  const { rows } = await pool.query(
+    "UPDATE activities SET title = $2, description = $3, address = $4, latitude = $5, longitude = $6, photo = $7, city_id = $8  WHERE activity_id = $1 RETURNING *",
+    [id, title, description, address, latitude, longitude, photo, cityId]
+  );
+  const deleteTags = await pool.query(
+    "DELETE FROM activities_tags WHERE activity_id = $1",
+    [id]
+  );
+  const insertTags = tags_ids.map((tag_id) => {
+    return pool.query(
+      "INSERT INTO activities_tags (tags_id, activity_id) VALUES ($1, $2)",
+      [tag_id, id]
+    );
+  });
+  await Promise.all(insertTags);
+  return rows.length >= 1 ? rows[0] : null;
+};
+
+const deleteActivity = async (id) => {
+  const deleteReviews = await pool.query(
+    "DELETE FROM reviews WHERE activity_id = $1",
+    [id]
+  );
+  const deleteTags = await pool.query(
+    "DELETE FROM activities_tags WHERE activity_id = $1",
+    [id]
+  );
+  const results = await pool.query(
+    "DELETE FROM activities WHERE activity_id = $1",
+    [id]
+  );
+  return null;
+};
+
 module.exports = {
   createUser,
   getUserByUsername,
@@ -196,4 +240,6 @@ module.exports = {
   createActivityTags,
   getActivitiesIdByQuery,
   getActivityInfo,
+  getUpdateActivity,
+  deleteActivity,
 };
