@@ -160,32 +160,9 @@ router.post("/activities", async (req, res) => {
 router.get("/activities/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const getTagsNames = await pool.query(
-      "SELECT name FROM activities_tags LEFT JOIN tags ON activities_tags.tags_id = tags.tags_id  WHERE activity_id = $1",
-      [id]
-    );
-    const tags = getTagsNames.rows.map((tag) => {
-      return tag.name;
-    });
-    const getUserInfo = await pool.query(
-      "SELECT users.user_id, username, email FROM users LEFT JOIN activities ON activities.user_id = users.user_id  WHERE activity_id = $1",
-      [id]
-    );
-    const userInfo = getUserInfo.rows[0];
-    const getCityName = await pool.query(
-      "SELECT cities.city_id, name, cities.province_id FROM cities LEFT JOIN activities ON activities.city_id = cities.city_id  WHERE activity_id = $1",
-      [id]
-    );
-    const cityName = getCityName.rows[0];
-    const getActivity = await pool.query(
-      "SELECT * FROM activities WHERE activity_id = $1",
-      [id]
-    );
-    getActivity.rows[0].tags = tags;
-    getActivity.rows[0].user = userInfo;
-    getActivity.rows[0].city = cityName;
+    const activityById = await db.getActivityInfo(id);
 
-    res.status(200).json(getActivity.rows[0]);
+    res.status(200).json(activityById);
   } catch (error) {
     console.log(error);
     throw error;
