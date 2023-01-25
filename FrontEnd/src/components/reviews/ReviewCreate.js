@@ -7,12 +7,13 @@ const ReviewCreate = ({
   setNewReview,
   setReviewList,
   reviewList,
+  fetchReviews,
 }) => {
   let { id } = useParams();
 
   const onSubmitNewReview = async () => {
     try {
-      const data = await fetch(`/activities/${id}/reviews`, {
+      const response = await fetch(`/activities/${id}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -22,16 +23,18 @@ const ReviewCreate = ({
           rating: newReview.rating,
         }),
       });
-      const response = await data.json();
+      const data = await response.json();
 
-      setReviewList([...reviewList, response]);
-      //clean the form
+      if (response.status !== 201) throw Error("Review not created");
+
+      fetchReviews();
+
       setNewReview({
         review: "",
         rating: 0,
       });
-    } catch {
-      alert("Error");
+    } catch (error) {
+      alert(error);
     }
   };
 

@@ -20,12 +20,12 @@ const ReviewCard = ({
       const deleteReviews = await fetch(`/reviews/${reviewId}`, {
         method: "DELETE",
       });
-      const filteredList = reviewList.filter(
-        (review) => review.review_id !== reviewId
-      );
-      setReviewList(filteredList);
-    } catch {
-      alert("Something went wrong");
+      console.log(deleteReviews);
+      if (deleteReviews.status !== 200) throw Error("Not deleted");
+
+      fetchReviews();
+    } catch (error) {
+      alert(error);
     }
   };
 

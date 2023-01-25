@@ -366,7 +366,7 @@ router.put("/reviews/:id", async (req, res) => {
 
     const results = await db.updateReview(id, review, rating);
     res
-      .status(200)
+      .status(201)
       .json({ error: false, message: "Review updated successfully!" });
   } catch (error) {
     console.log(error);

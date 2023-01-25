@@ -26,6 +26,7 @@ const Reviews = ({ userStatus, activityId }) => {
             setNewReview={setNewReview}
             setReviewList={setReviewList}
             reviewList={reviewList}
+            fetchReviews={fetchReviews}
           />
         )}
       </div>
