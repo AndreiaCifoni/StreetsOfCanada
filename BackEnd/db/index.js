@@ -222,6 +222,21 @@ const deleteActivity = async (id) => {
   return null;
 };
 
+const getAllTags = async () => {
+  const { rows } = await pool.query("SELECT * FROM tags");
+  return rows.length >= 1 ? rows : null;
+};
+
+const getAllCities = async () => {
+  const { rows } = await pool.query("SELECT * FROM cities");
+  return rows.length >= 1 ? rows : null;
+};
+
+const getAllProvinces = async () => {
+  const { rows } = await pool.query("SELECT * FROM provinces");
+  return rows.length >= 1 ? rows : null;
+};
+
 module.exports = {
   createUser,
   getUserByUsername,
@@ -242,4 +257,7 @@ module.exports = {
   getActivityInfo,
   getUpdateActivity,
   deleteActivity,
+  getAllTags,
+  getAllCities,
+  getAllProvinces,
 };

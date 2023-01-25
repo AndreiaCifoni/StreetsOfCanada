@@ -32,7 +32,7 @@ const App = () => {
       setUserStatus(data);
       setLogin({ username: "", email: null, password: "" });
     } catch {
-      alert("Couldn't login");
+      alert("Could not login");
     }
   };
 
@@ -47,7 +47,7 @@ const App = () => {
       });
       setUserStatus(null);
     } catch {
-      alert("Couldn't logout");
+      alert("Could not logout");
     }
   };
 

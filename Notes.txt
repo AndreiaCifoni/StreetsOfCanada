@@ -185,7 +185,7 @@ PROGRAMS USED
 ------------------------------
 PROBLEMS
   -Edit & Delete Review
-    -route > couldn't add safety
-    -ReviewCard > couldn't hide btns (edit, delete)
+    -route > Could not add safety
+    -ReviewCard > Could not hide btns (edit, delete)
 
 

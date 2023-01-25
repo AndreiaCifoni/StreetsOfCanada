@@ -14,12 +14,12 @@ router.post("/register", async (req, res) => {
     const hashedPassword = bcrypt.hashSync(password, 8);
 
     const user = await db.createUser(username, email, hashedPassword);
-    if (user === null) throw `Couldn't create user`;
+    if (user === null) throw `Could not create user`;
 
     res.status(201).send({ error: false });
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Couldn't register" });
+    res.status(400).send({ error: true, message: "Could not register" });
   }
 });
 
@@ -28,14 +28,14 @@ router.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
     const user = await db.getUserByUsername(username);
-    if (user === null) throw `Couldn't get username`;
+    if (user === null) throw `Could not get username`;
 
     const hashedPassword = user.password;
     if (!bcrypt.compareSync(password, hashedPassword)) throw `Wrong password`;
 
     const sessionId = uuidv4();
     const newSession = await db.createSession(sessionId, user.user_id);
-    if (newSession === null) throw `Couldn't create session`;
+    if (newSession === null) throw `Could not create session`;
 
     res.cookie("sessionId", sessionId);
 
@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(400).send("Couldn't login");
+    res.status(400).send("Could not login");
   }
 });
 
@@ -60,7 +60,7 @@ router.post("/logout", async (req, res) => {
     res.status(200).send({ error: false });
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: `Couldn't logout.` });
+    res.status(400).send({ error: true, message: `Could not logout.` });
   }
 });
 
@@ -87,7 +87,7 @@ router.get("/activities", async (req, res) => {
     res.status(200).json(results);
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(400).send({ error: true, message: "Could not get activities" });
   }
 });
 
@@ -158,14 +158,14 @@ router.post("/activities", async (req, res) => {
 });
 
 router.get("/activities/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
   try {
+    const id = parseInt(req.params.id);
     const activityById = await db.getActivityInfo(id);
 
     res.status(200).json(activityById);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ error: true, message: "Could not get activity" });
+    res.status(400).send({ error: true, message: "Could not get activity" });
   }
 });
 
@@ -218,6 +218,14 @@ router.put("/activities/:id", async (req, res) => {
       province_id,
     } = req.body;
 
+    const { sessionId } = req.cookies;
+
+    if (!sessionId) throw "User not login";
+    const userByReview = await db.getUserByReviewId(id);
+    const userBySession = await db.getUserBySession(sessionId);
+    if (userByReview?.user_id !== userBySession?.user_id)
+      throw "Only the owner of the activity can edit!";
+
     const insertCity = await db.createCity(city_name, province_id);
     const cityId = await db.getCityId(city_name, province_id);
     const fullAddress = `${address}, ${city_name}, ${province_id}`;
@@ -249,13 +257,20 @@ router.put("/activities/:id", async (req, res) => {
 router.delete("/activities/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
+    const { sessionId } = req.cookies;
+
+    if (!sessionId) throw "User not login";
+    const userByReview = await db.getUserByReviewId(id);
+    const userBySession = await db.getUserBySession(sessionId);
+    if (userByReview?.user_id !== userBySession?.user_id)
+      throw "Only the owner of the activity can delete!";
 
     await deleteActivity(id);
 
     res.status(200).send("Activity removed successfully!");
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(400).send({ error: true, message: "Activity not deleted" });
   }
 });
 
@@ -286,7 +301,7 @@ router.get("/activities/:id/reviews", async (req, res) => {
     res.status(200).json(results);
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(400).send({ error: true, message: "Could not get review" });
   }
 });
 
@@ -298,7 +313,7 @@ router.post("/activities/:id/reviews", async (req, res) => {
 
     const user = await db.getUserBySession(sessionId);
 
-    if (user === null) throw `Couldn't get user with given session.`;
+    if (user === null) throw `Could not get user with given session.`;
 
     const newReview = await db.createReview(
       user.user_id,
@@ -310,7 +325,7 @@ router.post("/activities/:id/reviews", async (req, res) => {
     res.status(201).json(newReview);
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(400).send({ error: true, message: "Could not create review" });
   }
 });
 
@@ -340,11 +355,10 @@ router.put("/reviews/:id", async (req, res) => {
     const { review, rating } = req.body;
 
     const { sessionId } = req.cookies;
-    if (!sessionId) throw "User not login";
 
+    if (!sessionId) throw "User not login";
     const userByReview = await db.getUserByReviewId(id);
     const userBySession = await db.getUserBySession(sessionId);
-
     if (userByReview?.user_id !== userBySession?.user_id)
       throw "Only the owner of the review can edit!";
 
@@ -357,13 +371,21 @@ router.put("/reviews/:id", async (req, res) => {
 });
 
 router.delete("/reviews/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
   try {
+    const id = parseInt(req.params.id);
+    const { sessionId } = req.cookies;
+
+    if (!sessionId) throw "User not login";
+    const userByReview = await db.getUserByReviewId(id);
+    const userBySession = await db.getUserBySession(sessionId);
+    if (userByReview?.user_id !== userBySession?.user_id)
+      throw "Only the owner of the review can delete!";
+
     await db.deleteReview(id);
     res.status(200).send("Review removed successfully!");
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(400).send({ error: true, message: "Review not deleted" });
   }
 });
 
@@ -371,33 +393,33 @@ router.delete("/reviews/:id", async (req, res) => {
 
 router.get("/tags", async (req, res) => {
   try {
-    const results = await pool.query("SELECT * FROM tags");
-    res.status(200).json(results.rows);
+    const tags = await db.getAllTags();
+    res.status(200).json(tags);
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(400).send({ error: true, message: "Could not get tags" });
   }
 });
 
 //------------------CITY------------------
 router.get("/cities", async (req, res) => {
   try {
-    const results = await pool.query("SELECT * FROM cities");
-    res.status(200).json(results.rows);
+    const cities = await db.getAllCities();
+    res.status(200).json(cities);
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(400).send({ error: true, message: "Could not get cities" });
   }
 });
 
 //------------------PROVINCE------------------
 router.get("/provinces", async (req, res) => {
   try {
-    const results = await pool.query("SELECT * FROM provinces");
-    res.status(200).json(results.rows);
+    const provinces = await db.getAllProvinces();
+    res.status(200).json(provinces);
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(400).send({ error: true, message: "Could not get provinces" });
   }
 });
 

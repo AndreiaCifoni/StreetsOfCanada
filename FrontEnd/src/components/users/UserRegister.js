@@ -25,7 +25,7 @@ const UserRegister = () => {
 
       setRegister({ username: "", email: "", password: "" });
     } catch {
-      alert("Couldn't register");
+      alert("Could not register");
     }
   };
 
