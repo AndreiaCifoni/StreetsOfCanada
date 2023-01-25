@@ -16,10 +16,10 @@ router.post("/register", async (req, res) => {
     const user = await db.createUser(username, email, hashedPassword);
     if (user === null) throw `Could not create user`;
 
-    res.status(201).send({ error: false });
+    res.status(201).json({ error: false });
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Could not register" });
+    res.status(400).json({ error: true, message: "Could not register" });
   }
 });
 
@@ -39,14 +39,14 @@ router.post("/login", async (req, res) => {
 
     res.cookie("sessionId", sessionId);
 
-    res.status(201).send({
+    res.status(201).json({
       user_id: user.user_id,
       username: user.username,
       email: user.email,
     });
   } catch (error) {
     console.log(error);
-    res.status(400).send("Could not login");
+    res.status(400).json({ error: true, message: "Could not login" });
   }
 });
 
@@ -57,10 +57,10 @@ router.post("/logout", async (req, res) => {
 
     res.clearCookie("sessionId");
 
-    res.status(200).send({ error: false });
+    res.status(200).json({ error: false });
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: `Could not logout.` });
+    res.status(400).json({ error: true, message: `Could not logout.` });
   }
 });
 
@@ -87,7 +87,7 @@ router.get("/activities", async (req, res) => {
     res.status(200).json(results);
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Could not get activities" });
+    res.status(400).json({ error: true, message: "Could not get activities" });
   }
 });
 
@@ -153,7 +153,7 @@ router.post("/activities", async (req, res) => {
     res.status(201).json(newActivity);
   } catch (error) {
     console.log(error);
-    res.status(400).send("Activity not posted");
+    res.status(400).json({ error: true, message: "Activity not posted" });
   }
 });
 
@@ -165,7 +165,7 @@ router.get("/activities/:id", async (req, res) => {
     res.status(200).json(activityById);
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Could not get activity" });
+    res.status(400).json({ error: true, message: "Could not get activity" });
   }
 });
 
@@ -250,7 +250,7 @@ router.put("/activities/:id", async (req, res) => {
     res.status(201).json(updateActivity);
   } catch (error) {
     console.log(error);
-    res.status(400).send("Activity not updated");
+    res.status(400).json({ error: true, message: "Activity not updated" });
   }
 });
 
@@ -267,10 +267,12 @@ router.delete("/activities/:id", async (req, res) => {
 
     await deleteActivity(id);
 
-    res.status(200).send("Activity removed successfully!");
+    res
+      .status(200)
+      .json({ error: false, message: "Activity removed successfully!" });
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Activity not deleted" });
+    res.status(400).json({ error: true, message: "Activity not deleted" });
   }
 });
 
@@ -301,7 +303,7 @@ router.get("/activities/:id/reviews", async (req, res) => {
     res.status(200).json(results);
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Could not get review" });
+    res.status(400).json({ error: true, message: "Could not get review" });
   }
 });
 
@@ -325,7 +327,7 @@ router.post("/activities/:id/reviews", async (req, res) => {
     res.status(201).json(newReview);
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Could not create review" });
+    res.status(400).json({ error: true, message: "Could not create review" });
   }
 });
 
@@ -363,10 +365,12 @@ router.put("/reviews/:id", async (req, res) => {
       throw "Only the owner of the review can edit!";
 
     const results = await db.updateReview(id, review, rating);
-    res.status(200).send("Review updated successfully!");
+    res
+      .status(200)
+      .json({ error: false, message: "Review updated successfully!" });
   } catch (error) {
     console.log(error);
-    res.status(400).send("Review not updated");
+    res.status(400).json({ error: true, message: "Could not edit review" });
   }
 });
 
@@ -382,10 +386,12 @@ router.delete("/reviews/:id", async (req, res) => {
       throw "Only the owner of the review can delete!";
 
     await db.deleteReview(id);
-    res.status(200).send("Review removed successfully!");
+    res
+      .status(200)
+      .json({ error: false, message: "Review removed successfully!" });
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Review not deleted" });
+    res.status(400).json({ error: true, message: "Review not deleted" });
   }
 });
 
@@ -397,7 +403,7 @@ router.get("/tags", async (req, res) => {
     res.status(200).json(tags);
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Could not get tags" });
+    res.status(400).json({ error: true, message: "Could not get tags" });
   }
 });
 
@@ -408,7 +414,7 @@ router.get("/cities", async (req, res) => {
     res.status(200).json(cities);
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Could not get cities" });
+    res.status(400).json({ error: true, message: "Could not get cities" });
   }
 });
 
@@ -419,7 +425,7 @@ router.get("/provinces", async (req, res) => {
     res.status(200).json(provinces);
   } catch (error) {
     console.log(error);
-    res.status(400).send({ error: true, message: "Could not get provinces" });
+    res.status(400).json({ error: true, message: "Could not get provinces" });
   }
 });
 
