@@ -9,38 +9,59 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
 
   useEffect(() => {
     const fetchTags = async () => {
-      const response = await fetch("/tags");
-      const tagsData = await response.json();
-      const autocompleteTags = tagsData.map((tag) => {
-        const listOfTags = { tags_id: tag.tags_id, name: tag.name };
-        return listOfTags;
-      });
-      setTags(autocompleteTags);
+      try {
+        const response = await fetch("/tags");
+        const tagsData = await response.json();
+        const autocompleteTags = tagsData.map((tag) => {
+          const listOfTags = { tags_id: tag.tags_id, name: tag.name };
+          return listOfTags;
+        });
+
+        if (response.status !== 200) throw Error("Could not get tags");
+
+        setTags(autocompleteTags);
+      } catch (error) {
+        alert(error);
+      }
     };
     fetchTags();
   }, []);
 
   useEffect(() => {
     const fetchCities = async () => {
-      const response = await fetch("/cities");
-      const citiesData = await response.json();
-      const autocompleteCities = citiesData.map((city) => {
-        const listCities = { name: city.name, province_id: city.province_id };
-        return listCities;
-      });
-      setCities(autocompleteCities);
+      try {
+        const response = await fetch("/cities");
+        const citiesData = await response.json();
+        const autocompleteCities = citiesData.map((city) => {
+          const listCities = { name: city.name, province_id: city.province_id };
+          return listCities;
+        });
+
+        if (response.status !== 200) throw Error("Could not get cities");
+
+        setCities(autocompleteCities);
+      } catch (error) {
+        alert(error);
+      }
     };
     fetchCities();
   }, []);
 
   useEffect(() => {
     const fetchProvinces = async () => {
-      const response = await fetch("/provinces");
-      const provincesData = await response.json();
-      const autocompleteProvinces = provincesData.map((province) => {
-        return province.province_id;
-      });
-      setProvinces(autocompleteProvinces);
+      try {
+        const response = await fetch("/provinces");
+        const provincesData = await response.json();
+        const autocompleteProvinces = provincesData.map((province) => {
+          return province.province_id;
+        });
+
+        if (response.status !== 200) throw Error("Could not get provices");
+
+        setProvinces(autocompleteProvinces);
+      } catch (error) {
+        alert(error);
+      }
     };
     fetchProvinces();
   }, []);
@@ -110,13 +131,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
             }
           />
           <label>City</label>
-          {/* <input
-            type=""
-            value={activity.city}
-            onChange={(e) =>
-              setActivity({ ...activity, city_name: e.target.value })
-            }
-          /> */}
+
           <Autocomplete
             id="size-small-standard"
             size="small"
