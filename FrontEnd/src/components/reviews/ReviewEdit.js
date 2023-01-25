@@ -30,7 +30,7 @@ const ReviewEdit = ({
         }),
       });
 
-      if (response.status !== 200) throw Error("Not Edit");
+      if (response.status !== 201) throw Error("Not Edit");
 
       fetchReviews();
 

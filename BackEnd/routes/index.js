@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
     const user = await db.createUser(username, email, hashedPassword);
     if (user === null) throw `Could not create user`;
 
-    res.status(201).json({ error: false });
+    res.status(201).json({ error: false, message: "Registered successfully" });
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: true, message: "Could not register" });
@@ -57,7 +57,7 @@ router.post("/logout", async (req, res) => {
 
     res.clearCookie("sessionId");
 
-    res.status(200).json({ error: false });
+    res.status(200).json({ error: false, message: "Logout successfully" });
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: true, message: `Could not logout.` });
