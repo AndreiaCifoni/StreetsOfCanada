@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import ReviewsList from "./ReviewList";
 import ReviewCreate from "./ReviewCreate";
 
-const Reviews = ({ userStatus }) => {
+const Reviews = ({ userStatus, activityId }) => {
   const [reviewList, setReviewList] = useState(null);
   const [newReview, setNewReview] = useState({
     review: "",
     rating: 0,
   });
 
-  const fetchReviews = async (id) => {
-    const response = await fetch(`/activities/${id}/reviews`);
+  const fetchReviews = useCallback(async () => {
+    const response = await fetch(`/activities/${activityId}/reviews`);
     const data = await response.json();
     setReviewList(data);
-  };
+  }, [activityId]);
 
   return (
     <div>

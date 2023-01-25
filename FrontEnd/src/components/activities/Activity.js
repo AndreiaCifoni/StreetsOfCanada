@@ -90,7 +90,7 @@ const Activity = ({ userStatus }) => {
         <div className="bg-slate-50 rounded w-4/5 py-3.5 px-4 h-">
           <h2 className="text-2xl font-bold">Leave a review:</h2>
           <div>
-            <Reviews userStatus={userStatus} />
+            <Reviews userStatus={userStatus} activityId={id} />
           </div>
         </div>
       </div>
