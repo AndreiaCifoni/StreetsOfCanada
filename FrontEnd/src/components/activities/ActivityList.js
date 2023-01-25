@@ -13,70 +13,97 @@ const ActivityList = () => {
   const [cities, setCities] = useState([{ name: "None", province_id: "" }]);
   const [cityValue, setCityValue] = useState("");
 
-  useEffect(() => {
-    const fetchActivity = async () => {
+  const fetchActivity = async () => {
+    try {
       const response = await fetch("/activities");
       const data = await response.json();
+
+      if (response.status !== 200) throw Error("Could not get activities");
+
       setActivityList(data);
-    };
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  useEffect(() => {
     fetchActivity();
   }, []);
 
   useEffect(() => {
     const fetchTags = async () => {
-      const response = await fetch("/tags");
-      const tagsData = await response.json();
-      const dropdownTags = tagsData.map((tag) => {
-        const listOfTags = { value: tag.name, label: tag.name };
-        return listOfTags;
-      });
+      try {
+        const response = await fetch("/tags");
+        const tagsData = await response.json();
+        const dropdownTags = tagsData.map((tag) => {
+          const listOfTags = { value: tag.name, label: tag.name };
+          return listOfTags;
+        });
 
-      setTags([...tags, ...dropdownTags]);
+        if (response.status !== 200) throw Error("Could not get tags");
+
+        setTags([...tags, ...dropdownTags]);
+      } catch (error) {
+        alert(error);
+      }
     };
     fetchTags();
   }, []);
 
   useEffect(() => {
     const fetchCities = async () => {
-      const response = await fetch("/cities");
-      const citiesData = await response.json();
-      const autocompleteCities = citiesData.map((city) => {
-        const listCities = { name: city.name, province_id: city.province_id };
-        return listCities;
-      });
-      setCities([...cities, ...autocompleteCities]);
+      try {
+        const response = await fetch("/cities");
+        const citiesData = await response.json();
+        const autocompleteCities = citiesData.map((city) => {
+          const listCities = { name: city.name, province_id: city.province_id };
+          return listCities;
+        });
+
+        if (response.status !== 200) throw Error("Could not get cities");
+
+        setCities([...cities, ...autocompleteCities]);
+      } catch (error) {
+        alert(error);
+      }
     };
     fetchCities();
   }, []);
 
   const onDropdownChange = async (option) => {
-    const paramValue = option.value;
-    const response = await fetch(
-      "/activities?" +
-        new URLSearchParams({
-          tags: paramValue,
-        })
-    );
-    const data = await response.json();
-    setActivityList(data);
-  };
-
-  const onAutocomplete = async (event, newValue) => {
-    setCityValue(newValue);
-    const paramValue = newValue.name;
-    if (paramValue === "None") {
-      const response = await fetch("/activities");
-      const data = await response.json();
-      setActivityList(data);
-    } else {
+    try {
+      const paramValue = option.value;
       const response = await fetch(
         "/activities?" +
           new URLSearchParams({
-            city: paramValue,
+            tags: paramValue,
           })
       );
       const data = await response.json();
       setActivityList(data);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const onAutocomplete = async (event, newValue) => {
+    try {
+      setCityValue(newValue);
+      const paramValue = newValue.name;
+      if (paramValue === "None") {
+        fetchActivity();
+      } else {
+        const response = await fetch(
+          "/activities?" +
+            new URLSearchParams({
+              city: paramValue,
+            })
+        );
+        const data = await response.json();
+        setActivityList(data);
+      }
+    } catch (error) {
+      alert(error);
     }
   };
 
