@@ -213,6 +213,7 @@ router.put("/activities/:id", async (req, res) => {
       description,
       address,
       photo,
+      user_id,
       tags_ids,
       city_name,
       province_id,
@@ -221,9 +222,8 @@ router.put("/activities/:id", async (req, res) => {
     const { sessionId } = req.cookies;
 
     if (!sessionId) throw "User not login";
-    const userByReview = await db.getUserByReviewId(id);
     const userBySession = await db.getUserBySession(sessionId);
-    if (userByReview?.user_id !== userBySession?.user_id)
+    if (user_id !== userBySession?.user_id)
       throw "Only the owner of the activity can edit!";
 
     const insertCity = await db.createCity(city_name, province_id);
@@ -244,7 +244,8 @@ router.put("/activities/:id", async (req, res) => {
       latitude,
       longitude,
       photo,
-      cityId
+      cityId,
+      tags_ids
     );
 
     res.status(201).json(updateActivity);

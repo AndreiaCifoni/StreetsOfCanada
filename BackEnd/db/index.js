@@ -186,7 +186,8 @@ const getUpdateActivity = async (
   latitude,
   longitude,
   photo,
-  cityId
+  cityId,
+  tags_ids
 ) => {
   const { rows } = await pool.query(
     "UPDATE activities SET title = $2, description = $3, address = $4, latitude = $5, longitude = $6, photo = $7, city_id = $8  WHERE activity_id = $1 RETURNING *",

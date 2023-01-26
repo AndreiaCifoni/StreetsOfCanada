@@ -102,14 +102,14 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
         <div>
           <label>Tags</label>
           <Autocomplete
+            //defaultValue={activity.tags}
             id="size-small-standard"
             size="small"
-            className=" w-4/12 "
+            className=" w-2/3 "
             multiple
             options={tags}
             getOptionLabel={(tags) => tags.name}
             onChange={onTagsAutocomplete}
-            //defaultValue={[tags[1]]}
             filterSelectedOptions
             renderInput={(params) => (
               <TextField
@@ -133,6 +133,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
           <label>City</label>
 
           <Autocomplete
+            //defaultValue={activity.city.name}
             id="size-small-standard"
             size="small"
             className=" w-4/12 "
@@ -140,10 +141,13 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
             onChange={onCitiesAutocomplete}
             onInputChange={onCitiesAutocomplete}
             options={cities.map((option) => option.name)}
-            renderInput={(params) => <TextField {...params} label="freeSolo" />}
+            renderInput={(params) => (
+              <TextField {...params} label="Choose a city" />
+            )}
           />
           <label>Province</label>
           <Autocomplete
+            //defaultValue={activity.city.province_id}
             disablePortal
             id="size-small-standard"
             size="small"
