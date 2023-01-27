@@ -261,12 +261,15 @@ router.delete("/activities/:id", async (req, res) => {
     const { sessionId } = req.cookies;
 
     if (!sessionId) throw "User not login";
-    const userByReview = await db.getUserByReviewId(id);
+
+    const activityInfoById = await db.getActivityInfo(id);
+    const userByActivityId = activityInfoById.user.user_id;
     const userBySession = await db.getUserBySession(sessionId);
-    if (userByReview?.user_id !== userBySession?.user_id)
+    console.log(userByActivityId);
+    if (userByActivityId !== userBySession?.user_id)
       throw "Only the owner of the activity can delete!";
 
-    await deleteActivity(id);
+    await db.deleteActivity(id);
 
     res
       .status(200)

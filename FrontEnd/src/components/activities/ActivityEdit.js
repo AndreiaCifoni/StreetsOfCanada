@@ -29,7 +29,7 @@ const ActivityEdit = ({
         },
         body: JSON.stringify({
           title: editActivity.title,
-          tags_ids: editActivity.tags,
+          tags_ids: editActivity.tags_ids,
           address: editActivity.address,
           city_name: editActivity.city_name,
           province_id: editActivity.province_id,
@@ -39,7 +39,9 @@ const ActivityEdit = ({
         }),
       });
 
-      if (response.status !== 201) throw Error("Not Edit");
+      const data = await response.json();
+
+      if (data.error === true) throw Error(data.message);
 
       fetchActivity();
 

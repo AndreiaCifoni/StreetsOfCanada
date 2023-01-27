@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, useMap, Popup, Marker } from "react-leaflet";
 import "../../index.css";
 import Reviews from "../reviews/Reviews";
@@ -27,6 +28,24 @@ const Activity = ({ userStatus }) => {
 
   const onClickCancelEditActivity = () => {
     setIsEditingActivity(false);
+  };
+
+  const navigate = useNavigate();
+
+  const onClickDeleteActivity = async () => {
+    try {
+      const response = await fetch(`/activities/${id}`, {
+        method: "DELETE",
+      });
+
+      const data = await response.json();
+
+      if (data.error === true) throw Error(data.message);
+
+      navigate(`/`);
+    } catch (error) {
+      alert(error);
+    }
   };
 
   if (!activity) {
@@ -78,7 +97,10 @@ const Activity = ({ userStatus }) => {
             >
               Edit
             </button>
-            <button className="my-4 mx-3 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow">
+            <button
+              className="my-4 mx-3 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
+              onClick={onClickDeleteActivity}
+            >
               Delete
             </button>
           </div>

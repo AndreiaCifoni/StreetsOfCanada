@@ -17,11 +17,14 @@ const ReviewCard = ({
 
   const onClickDeleteReview = async () => {
     try {
-      const deleteReviews = await fetch(`/reviews/${reviewId}`, {
+      const response = await fetch(`/reviews/${reviewId}`, {
         method: "DELETE",
       });
-      console.log(deleteReviews);
-      if (deleteReviews.status !== 200) throw Error("Not deleted");
+
+      const data = await response.json();
+
+      //if (deleteReviews.status !== 200) throw Error("Not deleted");
+      if (data.error === true) throw Error(data.message);
 
       fetchReviews();
     } catch (error) {
