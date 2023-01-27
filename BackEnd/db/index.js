@@ -150,13 +150,17 @@ const getActivitiesIdByQuery = async (city_name, tag_name) => {
 };
 
 const getActivityInfo = async (id) => {
-  const getTagsNamesByActivity = await pool.query(
-    "SELECT name FROM activities_tags LEFT JOIN tags ON activities_tags.tags_id = tags.tags_id  WHERE activity_id = $1",
+  const getTagsInfoByActivity = await pool.query(
+    "SELECT name, tags.tags_id FROM activities_tags LEFT JOIN tags ON activities_tags.tags_id = tags.tags_id  WHERE activity_id = $1",
     [id]
   );
-  const allTagsNameByActivity = getTagsNamesByActivity.rows.map((tag) => {
+  const allTagsNameByActivity = getTagsInfoByActivity.rows.map((tag) => {
     return tag.name;
   });
+  const allTagsIdByActivity = getTagsInfoByActivity.rows.map((tag) => {
+    return tag.tags_id;
+  });
+
   const getUserInfo = await pool.query(
     "SELECT users.user_id, username, email FROM users LEFT JOIN activities ON activities.user_id = users.user_id  WHERE activity_id = $1",
     [id]
@@ -172,6 +176,7 @@ const getActivityInfo = async (id) => {
     [id]
   );
   getActivity.rows[0].tags = allTagsNameByActivity;
+  getActivity.rows[0].tagsId = allTagsIdByActivity;
   getActivity.rows[0].user = userInfo;
   getActivity.rows[0].city = cityName;
 

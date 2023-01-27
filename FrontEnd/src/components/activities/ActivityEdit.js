@@ -10,7 +10,7 @@ const ActivityEdit = ({
 }) => {
   const [editActivity, setEditActivity] = useState({
     title: activity.title,
-    tags_ids: activity.tags,
+    tags_ids: activity.tagsId,
     address: activity.address,
     city_name: activity.city.name,
     province_id: activity.city.province_id,
