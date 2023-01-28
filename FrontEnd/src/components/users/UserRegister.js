@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UserForm from "./UserForm";
 
-const UserRegister = () => {
+const UserRegister = ({ onLogin }) => {
   const [register, setRegister] = useState({
     username: "",
     email: "",
@@ -23,6 +23,9 @@ const UserRegister = () => {
       });
       const data = await response.json();
 
+      if (data.error === true) throw Error(data.message);
+
+      onLogin(register);
       setRegister({ username: "", email: "", password: "" });
     } catch {
       alert("Could not register");

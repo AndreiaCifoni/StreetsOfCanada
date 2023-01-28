@@ -15,7 +15,7 @@ const App = () => {
     password: "",
   });
 
-  const onLogin = async () => {
+  const onLogin = async (login) => {
     try {
       const response = await fetch("/login", {
         method: "POST",
@@ -38,13 +38,17 @@ const App = () => {
 
   const onLogout = async () => {
     try {
-      const logout = await fetch("/logout", {
+      const response = await fetch("/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({}),
       });
+      const data = await response.json();
+
+      if (data.error === true) throw Error(data.message);
+
       setUserStatus(null);
     } catch {
       alert("Could not logout");
@@ -56,7 +60,10 @@ const App = () => {
       <NavBar onLogout={onLogout} userStatus={userStatus} />
       <Routes>
         <Route path={"/"} element={<Home />} />
-        <Route path={"/register"} element={<UserRegister />} />
+        <Route
+          path={"/register"}
+          element={<UserRegister onLogin={onLogin} />}
+        />
         <Route
           path={"/login"}
           element={

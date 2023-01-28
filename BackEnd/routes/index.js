@@ -169,42 +169,6 @@ router.get("/activities/:id", async (req, res) => {
   }
 });
 
-// router.put("/activities/:id", async (req, res) => {
-//   try {
-//     const id = parseInt(req.params.id);
-//     const {
-//       title,
-//       description,
-//       address,
-//       latitude,
-//       longitude,
-//       photo,
-//       city_id,
-//       tags_ids,
-//     } = req.body;
-
-//     const results = await pool.query(
-//       "UPDATE activities SET title = $2, description = $3, address = $4, latitude = $5, longitude = $6, photo = $7, city_id = $8  WHERE activity_id = $1 RETURNING *",
-//       [id, title, description, address, latitude, longitude, photo, city_id]
-//     );
-//     const deleteTags = await pool.query(
-//       "DELETE FROM activities_tags WHERE activity_id = $1",
-//       [id]
-//     );
-//     const insertTags = tags_ids.map((tag_id) => {
-//       return pool.query(
-//         "INSERT INTO activities_tags (tags_id, activity_id) VALUES ($1, $2)",
-//         [tag_id, id]
-//       );
-//     });
-//     await Promise.all(insertTags);
-//     res.status(201).json(results.rows[0]);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(400).send("Activity not updated");
-//   }
-// });
-
 router.put("/activities/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -334,26 +298,6 @@ router.post("/activities/:id/reviews", async (req, res) => {
     res.status(400).json({ error: true, message: "Could not create review" });
   }
 });
-
-// router.get("/reviews/:id", async (req, res) => {
-//   const id = parseInt(req.params.id);
-//   try {
-//     const results = await pool.query(
-//       "SELECT * FROM reviews WHERE review_id = $1",
-//       [id]
-//     );
-//     const getUserInfo = await pool.query(
-//       "SELECT users.user_id, username, email FROM users LEFT JOIN reviews ON reviews.user_id = users.user_id  WHERE review_id = $1",
-//       [id]
-//     );
-//     const userInfo = getUserInfo.rows[0];
-//     results.rows[0].user = userInfo;
-//     res.status(200).json(results.rows);
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// });
 
 router.put("/reviews/:id", async (req, res) => {
   try {

@@ -29,8 +29,9 @@ const ReviewEdit = ({
           rating: editReview.rating,
         }),
       });
+      const data = await response.json();
 
-      if (response.status !== 201) throw Error("Not Edit");
+      if (data.error === true) throw Error(data.message);
 
       fetchReviews();
 
