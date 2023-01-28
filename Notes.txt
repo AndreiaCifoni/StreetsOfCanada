@@ -113,9 +113,6 @@
 
 -------------------------------------------------------------------------------
 
-PROBLEMS
-
-
 ------------------------------
 
 {
@@ -184,8 +181,6 @@ PROGRAMS USED
 
 ------------------------------
 PROBLEMS
-  -Edit & Delete Review
-    -route > Could not add safety
-    -ReviewCard > Could not hide btns (edit, delete)
+
 
 
