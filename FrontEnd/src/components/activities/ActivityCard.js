@@ -12,19 +12,19 @@ const ActivityCard = ({
   province,
 }) => {
   return (
-    <div className="flex md:flex-col w-4/5 h-60 lg:h-72 md:h-96 my-2 mx-auto bg-orange-50 rounded shadow-md border-solid border-2 border-indigo-500">
-      <div className="w-1/3 md:w-4/5 flex justify-center items-center bg-green-200">
+    <div className="flex md:flex-col w-4/5 h-60 lg:h-72 md:h-4/5 my-2 mx-auto md:py-4 bg-orange-50 rounded shadow-md border-solid border-2 border-indigo-500">
+      <div className="w-1/3 md:w-full flex justify-center items-center">
         <img
-          className="w-5/6 h-5/6 lg:h-3/5  object-cover rounded-md shadow-md "
+          className="w-5/6 h-5/6 lg:h-3/5 md:h-5/6  object-cover rounded-md shadow-md "
           src={photo}
           alt={title}
         />
       </div>
-      <div className="w-2/3 relative">
+      <div className="w-2/3 md:w-full md:px-4 relative md:flex-row">
         <h1 className="text-3xl xl:text-2xl font-bold mt-4 relative">
           {title}
         </h1>
-        <div className="flex justify-between">
+        <div className="flex sm:flex-col justify-between">
           <span className="block text-lg xl:text-base">
             {" "}
             - {city}/{province}
@@ -51,9 +51,9 @@ const ActivityCard = ({
           </div>
         </div>
 
-        <p className="text-lg xl:text-base my-1">{description}</p>
+        <p className="text-lg xl:text-base my-1 md:mt-4 ">{description}</p>
         <Link
-          className="xl:text-sm my-4 py-0.5 px-1.5 absolute right-4 bottom-2 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
+          className="xl:text-sm my-4 py-0.5 px-1.5 absolute right-4 bottom-2 md:static md:inline-block md:mx-auto rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
           to={`/activity/${activity_id}`}
         >
           See activity
