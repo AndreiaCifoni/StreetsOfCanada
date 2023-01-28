@@ -9,7 +9,7 @@ const Home = () => {
           Streets Of Canada
         </h1>
       </div>
-      <div className="w-2/3 lg:w-4/5 mx-auto my-12 ">
+      <div className="w-2/3 lg:w-4/5 mx-auto my-12 lg:mb-0 ">
         <p className="text-xl lg:text-lg md:text-base  text-center">
           Streets of Canada is a website that has the perfect activity for you!
           This page is for anyone interested in post or review experiences
@@ -19,7 +19,9 @@ const Home = () => {
         </p>
       </div>
       <div className="mt-20">
-        <h1 className="text-3xl font-bold my-8 mx-4">All Activities:</h1>
+        <h1 className="text-3xl lg:text-2xl font-bold my-8 mx-4">
+          All Activities:
+        </h1>
         <ActivityList />
       </div>
     </div>

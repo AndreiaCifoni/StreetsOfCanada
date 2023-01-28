@@ -172,7 +172,7 @@ const ActivityList = () => {
             city={activity.city.name}
             province={activity.city.province_id}
             tags={activity.tags}
-            description={activity.description.substring(0, 200) + "..."}
+            description={activity.description.substring(0, 150) + "..."}
           />
         );
       })}
