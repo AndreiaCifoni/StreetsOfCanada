@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserForm from "./UserForm";
 
 const UserRegister = ({ onLogin }) => {
@@ -7,6 +8,8 @@ const UserRegister = ({ onLogin }) => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const onSubmitRegister = async () => {
     try {
@@ -24,8 +27,10 @@ const UserRegister = ({ onLogin }) => {
       const data = await response.json();
 
       if (data.error === true) throw Error(data.message);
-
       onLogin(register);
+
+      navigate(`/`);
+
       setRegister({ username: "", email: "", password: "" });
     } catch {
       alert("Could not register");

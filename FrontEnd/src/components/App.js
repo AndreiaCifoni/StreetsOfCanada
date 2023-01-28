@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Activity from "./activities/Activity";
 import Home from "./Home";
 import UserRegister from "./users/UserRegister";
@@ -14,6 +15,8 @@ const App = () => {
     email: null,
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const onLogin = async (login) => {
     try {
@@ -31,6 +34,7 @@ const App = () => {
 
       setUserStatus(data);
       setLogin({ username: "", email: null, password: "" });
+      navigate(`/`);
     } catch {
       alert("Could not login");
     }
