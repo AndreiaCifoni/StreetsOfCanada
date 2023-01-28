@@ -48,6 +48,23 @@ const Activity = ({ userStatus }) => {
     }
   };
 
+  const editAndDeleteBtn = (
+    <>
+      <button
+        className="my-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
+        onClick={onClickEditActivity}
+      >
+        Edit
+      </button>
+      <button
+        className="my-4 mx-3 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
+        onClick={onClickDeleteActivity}
+      >
+        Delete
+      </button>
+    </>
+  );
+
   if (!activity) {
     return <div>Loading</div>;
   }
@@ -91,18 +108,7 @@ const Activity = ({ userStatus }) => {
               <p>Created by {activity.user.username}</p>
               <p>Date: {activity.date_created.substring(0, 10)}</p>
             </div>
-            <button
-              className="my-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
-              onClick={onClickEditActivity}
-            >
-              Edit
-            </button>
-            <button
-              className="my-4 mx-3 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
-              onClick={onClickDeleteActivity}
-            >
-              Delete
-            </button>
+            {activity.user_id === userStatus?.user_id ? editAndDeleteBtn : null}
           </div>
           <div className="w-3/5 m-4">
             <h1 className="text-3xl font-bold my-4">
