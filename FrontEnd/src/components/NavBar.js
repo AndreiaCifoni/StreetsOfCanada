@@ -4,7 +4,7 @@ import "../index.css";
 
 const NavBar = ({ onLogout, userStatus }) => {
   return (
-    <div className="bg-indigo-300 h-20 shadow-md flex justify-between font-bold text-purple-900">
+    <div className=" bg-indigo-300 h-20 shadow-md flex justify-between font-bold text-purple-900">
       <h1 className="my-auto ml-8 text-3xl lg:text-2xl ">Streets Of Canada</h1>
       <div className="flex justify-end my-auto mr-8">
         <Link

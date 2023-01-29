@@ -82,16 +82,18 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
   };
 
   return (
-    <div>
+    <div className="h-screen flex mt-8 mx-16 bg-indigo-100 rounded font-bold text-xl">
       <form
+        className="w-2/3 mx-auto mt-8 py-8 px-12 flex-col  bg-orange-50"
         onSubmit={(e) => {
           e.preventDefault();
           onSubmitActivity(activity);
         }}
       >
-        <div>
-          <label>Title</label>
+        <div className="mb-6">
+          <label className="mr-4">Title</label>
           <input
+            className="rounded"
             type="text"
             value={activity.title}
             onChange={(e) =>
@@ -99,13 +101,13 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
             }
           />
         </div>
-        <div>
+        <div className="mb-6">
           <label>Tags</label>
           <Autocomplete
             //defaultValue={activity.tags}
             id="size-small-standard"
             size="small"
-            className=" w-2/3 "
+            className="  "
             multiple
             options={tags}
             getOptionLabel={(tags) => tags.name}
@@ -114,52 +116,64 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="filterSelectedOptions"
+                label="Choose the tags"
                 placeholder="Favorites"
               />
             )}
           />
         </div>
-        <div>
-          <h1>Location</h1>
-          <label>Address</label>
-          <input
-            type=""
-            value={activity.address}
-            onChange={(e) =>
-              setActivity({ ...activity, address: e.target.value })
-            }
-          />
-          <label>City</label>
-
-          <Autocomplete
-            //defaultValue={activity.city.name}
-            id="size-small-standard"
-            size="small"
-            className=" w-4/12 "
-            freeSolo
-            onChange={onCitiesAutocomplete}
-            onInputChange={onCitiesAutocomplete}
-            options={cities.map((option) => option.name)}
-            renderInput={(params) => (
-              <TextField {...params} label="Choose a city" />
-            )}
-          />
-          <label>Province</label>
-          <Autocomplete
-            //defaultValue={activity.city.province_id}
-            disablePortal
-            id="size-small-standard"
-            size="small"
-            className=" w-2/12 "
-            options={provinces}
-            onChange={onProvAutocomplete}
-            renderInput={(params) => <TextField {...params} label="Province" />}
-          />
+        <div className="mb-6">
+          <h1 className="mb-2">Location</h1>
+          <div className="ml-8">
+            <div className="mb-4">
+              <label className="mr-4">Address</label>
+              <input
+                className="rounded"
+                type=""
+                value={activity.address}
+                onChange={(e) =>
+                  setActivity({ ...activity, address: e.target.value })
+                }
+              />
+            </div>
+            <div className="mb-4">
+              <label>City</label>
+              <Autocomplete
+                //defaultValue={activity.city.name}
+                id="size-small-standard"
+                size="small"
+                className=" w-4/12 "
+                freeSolo
+                onChange={onCitiesAutocomplete}
+                onInputChange={onCitiesAutocomplete}
+                options={cities.map((option) => option.name)}
+                renderInput={(params) => (
+                  <TextField {...params} label="Choose a city" />
+                )}
+              />
+            </div>
+            <div>
+              <label>Province</label>
+              <Autocomplete
+                //defaultValue={activity.city.province_id}
+                disablePortal
+                id="size-small-standard"
+                size="small"
+                className=" w-2/12 "
+                options={provinces}
+                onChange={onProvAutocomplete}
+                renderInput={(params) => (
+                  <TextField {...params} label="Province" />
+                )}
+              />
+            </div>
+          </div>
         </div>
-        <div>
-          <label>Photo</label>
+
+        <div className="mb-6">
+          <label className="mr-4">Photo</label>
           <input
+            className="rounded"
             type="text"
             value={activity.photo}
             onChange={(e) =>
@@ -167,9 +181,10 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
             }
           />
         </div>
-        <div>
-          <label>Description</label>
+        <div className="mb-14">
+          <label className="mr-4">Description</label>
           <textarea
+            className="rounded"
             type="text"
             value={activity.description}
             onChange={(e) =>

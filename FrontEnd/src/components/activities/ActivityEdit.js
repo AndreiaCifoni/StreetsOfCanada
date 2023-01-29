@@ -52,7 +52,7 @@ const ActivityEdit = ({
   };
 
   return (
-    <div>
+    <div className="">
       <ActivityForm
         activity={editActivity}
         setActivity={setEditActivity}

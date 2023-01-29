@@ -45,15 +45,17 @@ const ActivityCreate = ({ userStatus }) => {
   };
 
   const messageNewActivity = (
-    <>
-      <p>Hello there!! Please, register or login to do a new activity!</p>
-    </>
+    <div className="h-screen flex justify-center p-8">
+      <p className="mt-40 font-bold text-3xl lg:text-2xl md:text-xl ">
+        Hello there!! Please, register or login to do a new activity!
+      </p>
+    </div>
   );
 
   return (
     <div>
       {userStatus === null ? (
-        <p>Hello there!! Please, register or login to do a new activity!</p>
+        messageNewActivity
       ) : (
         <ActivityForm
           activity={newActivity}
