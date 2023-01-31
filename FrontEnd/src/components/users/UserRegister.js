@@ -40,6 +40,7 @@ const UserRegister = ({ onLogin }) => {
   return (
     <div>
       <UserForm
+        formTitle={"Register"}
         user={register}
         setUser={setRegister}
         onSubmitUser={onSubmitRegister}

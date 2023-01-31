@@ -4,7 +4,12 @@ import UserForm from "./UserForm";
 const UserLogin = ({ login, setLogin, onLogin }) => {
   return (
     <div>
-      <UserForm user={login} setUser={setLogin} onSubmitUser={onLogin} />
+      <UserForm
+        formTitle={"Login"}
+        user={login}
+        setUser={setLogin}
+        onSubmitUser={onLogin}
+      />
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import React from "react";
 
-const UserForm = ({ user, setUser, onSubmitUser }) => {
+const UserForm = ({ formTitle, user, setUser, onSubmitUser }) => {
   return (
     <div>
-      <h1>This is a form</h1>
+      <h1>{formTitle}</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
