@@ -82,7 +82,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
   };
 
   return (
-    <div className="h-screen flex mt-8 mx-16 bg-indigo-100 rounded font-bold text-xl">
+    <div className="h-full flex mt-8 mx-16 bg-indigo-100 rounded font-bold text-xl">
       <form
         className="w-2/3 mx-auto mt-8 py-8 px-12 flex-col  bg-orange-50"
         onSubmit={(e) => {
@@ -93,7 +93,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
         <div className="mb-6">
           <label className="mr-4">Title</label>
           <input
-            className="rounded"
+            className="focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
             type="text"
             value={activity.title}
             onChange={(e) =>
@@ -124,11 +124,11 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
         </div>
         <div className="mb-6">
           <h1 className="mb-2">Location</h1>
-          <div className="ml-8">
+          <div className="ml-8 p-4 w-2/3 border-indigo-200 border-2 border solid rounded">
             <div className="mb-4">
               <label className="mr-4">Address</label>
               <input
-                className="rounded"
+                className="focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
                 type=""
                 value={activity.address}
                 onChange={(e) =>
@@ -173,7 +173,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
         <div className="mb-6">
           <label className="mr-4">Photo</label>
           <input
-            className="rounded"
+            className="focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
             type="text"
             value={activity.photo}
             onChange={(e) =>
@@ -181,10 +181,10 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
             }
           />
         </div>
-        <div className="mb-14">
-          <label className="mr-4">Description</label>
+        <div className="flex items-center mb-14">
+          <label className=" mr-4 ">Description</label>
           <textarea
-            className="rounded"
+            className="w-1/2 h-32 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
             type="text"
             value={activity.description}
             onChange={(e) =>
