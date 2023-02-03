@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.nav-icon {
+  width: 2.2rem;
+  visibility: hidden;
+}
+
+@media screen and (max-width: 800px) {
+  .nav-container {
+    display: flex;
+    align-items: center;
+  }
+  .nav-icon-container {
+    position: relative;
+    left: 13.5rem;
+  }
+  .nav-icon {
+    visibility: visible;
+  }
+
+  .nav-items-dropdown-closed {
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0.8rem;
+    top: 80px;
+    left: -30px;
+    gap: 0.4rem;
+    transform: all 0.5s ease;
+    border-radius: 0 0 4px 4px;
+    visibility: hidden;
+  }
+
+  .nav-items-dropdown {
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #c4d5fa;
+    padding: 0.8rem;
+    top: 80px;
+    left: -30px;
+    gap: 0.4rem;
+    transform: all 0.5s ease;
+    border-radius: 0 0 4px 4px;
+  }
+}

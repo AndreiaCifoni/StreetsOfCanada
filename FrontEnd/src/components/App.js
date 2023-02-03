@@ -15,6 +15,11 @@ const App = () => {
     email: null,
     password: "",
   });
+  const [navDropdown, setNavDropdown] = useState(false);
+
+  const onNavDropdown = () => {
+    setNavDropdown(!navDropdown);
+  };
 
   const navigate = useNavigate();
 
@@ -54,6 +59,7 @@ const App = () => {
       if (data.error === true) throw Error(data.message);
 
       setUserStatus(null);
+      setNavDropdown(!navDropdown);
     } catch {
       alert("Could not logout");
     }
@@ -61,7 +67,12 @@ const App = () => {
 
   return (
     <div className="h-full font-mono bg-orange-50 text-indigo-900 ">
-      <NavBar onLogout={onLogout} userStatus={userStatus} />
+      <NavBar
+        onLogout={onLogout}
+        userStatus={userStatus}
+        onNavDropdown={onNavDropdown}
+        navDropdown={navDropdown}
+      />
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route
