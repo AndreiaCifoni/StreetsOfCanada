@@ -128,54 +128,24 @@ const ActivityList = () => {
   }
 
   return (
-    <div className="flex-col mb-16 bg-red-100">
-      <div className="flex border-solid border-2 border-red-900">
+    <div className="flex-col mb-16">
+      <div className="flex md:flex-col md:items-end justify-end mr-2 gap-2 mb-4 ">
         <Autocomplete
           id="size-small-standard"
           size="small"
-          className=" w-2/12 "
+          className="w-1/6 lg:w-1/4 md:w-1/2 "
           onChange={onAutocomplete}
           options={cities}
           getOptionLabel={(option) => `${option.name} ${option.province_id}`}
           renderInput={(params) => (
             <TextField {...params} label="Filter by city" className="" />
           )}
-          renderOption={(props, option, { inputValue }) => {
-            const matches = match(
-              `${option.name} ${option.province_id}`,
-              inputValue,
-              {
-                insideWords: true,
-              }
-            );
-            const parts = parse(
-              `${option.name} ${option.province_id}`,
-              matches
-            );
-
-            return (
-              <li {...props}>
-                <div>
-                  {parts.map((part, index) => (
-                    <span
-                      key={index}
-                      style={{
-                        fontWeight: part.highlight ? 700 : 400,
-                      }}
-                    >
-                      {part.text}
-                    </span>
-                  ))}
-                </div>
-              </li>
-            );
-          }}
         />
 
         <Autocomplete
           id="size-small-standard"
           size="small"
-          className=" w-2/12 "
+          className="w-1/6 lg:w-1/4 md:w-1/2"
           onChange={onFilterByTag}
           options={tags}
           renderInput={(params) => (

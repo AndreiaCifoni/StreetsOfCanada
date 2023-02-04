@@ -19,7 +19,7 @@ const Home = () => {
         </p>
       </div>
       <div className="mt-20">
-        <h1 className="text-3xl lg:text-2xl font-bold my-8 mx-4">
+        <h1 className="text-3xl lg:text-2xl font-bold my-2 mx-4">
           All Activities:
         </h1>
         <ActivityList />
