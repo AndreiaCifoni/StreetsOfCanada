@@ -53,7 +53,7 @@ const ActivityCreate = ({ userStatus }) => {
   );
 
   return (
-    <div>
+    <div className="">
       {userStatus === null ? (
         messageNewActivity
       ) : (

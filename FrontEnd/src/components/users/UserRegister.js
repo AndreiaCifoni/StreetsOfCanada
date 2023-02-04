@@ -38,7 +38,7 @@ const UserRegister = ({ onLogin }) => {
   };
 
   return (
-    <div className="h-screen sm:mx-0 flex mt-8 mx-16 bg-indigo-100 rounded font-bold text-xl">
+    <div className="h-screen pb-8 sm:mx-0 flex mt-8 mx-16 bg-indigo-100 rounded font-bold text-xl">
       <UserForm
         formTitle={"Register"}
         user={register}

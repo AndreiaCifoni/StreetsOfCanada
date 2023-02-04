@@ -82,9 +82,9 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
   };
 
   return (
-    <div className="h-full flex mt-8 mx-16 bg-indigo-100 rounded font-bold text-xl">
+    <div className="h-full flex mt-8 mx-16 pb-8 bg-indigo-100 rounded font-bold text-xl">
       <form
-        className="w-2/3 mx-auto mt-8 py-8 px-12 flex-col  bg-orange-50"
+        className="w-2/3 mx-auto mt-8 py-8 px-12 flex-col rounded bg-orange-50"
         onSubmit={(e) => {
           e.preventDefault();
           onSubmitActivity(activity);
@@ -93,7 +93,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
         <div className="mb-6">
           <label className="mr-4">Title</label>
           <input
-            className="focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+            className="pl-2 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
             type="text"
             value={activity.title}
             onChange={(e) =>
@@ -101,13 +101,12 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
             }
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-6 flex items-center gap-4">
           <label>Tags</label>
           <Autocomplete
             //defaultValue={activity.tags}
-            id="size-small-standard"
             size="small"
-            className="  "
+            className="w-3/4"
             multiple
             options={tags}
             getOptionLabel={(tags) => tags.name}
@@ -128,7 +127,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
             <div className="mb-4">
               <label className="mr-4">Address</label>
               <input
-                className="focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+                className="pl-2 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
                 type=""
                 value={activity.address}
                 onChange={(e) =>
@@ -136,7 +135,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
                 }
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-4 flex items-center gap-4">
               <label>City</label>
               <Autocomplete
                 //defaultValue={activity.city.name}
@@ -152,7 +151,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
                 )}
               />
             </div>
-            <div>
+            <div className="flex items-center gap-4">
               <label>Province</label>
               <Autocomplete
                 //defaultValue={activity.city.province_id}
@@ -173,7 +172,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
         <div className="mb-6">
           <label className="mr-4">Photo</label>
           <input
-            className="focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+            className="pl-2 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
             type="text"
             value={activity.photo}
             onChange={(e) =>
@@ -184,7 +183,7 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
         <div className="flex items-center mb-14">
           <label className=" mr-4 ">Description</label>
           <textarea
-            className="w-1/2 h-32 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+            className="pl-2 w-1/2 h-32 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
             type="text"
             value={activity.description}
             onChange={(e) =>

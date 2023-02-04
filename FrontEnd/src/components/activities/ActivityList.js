@@ -131,25 +131,31 @@ const ActivityList = () => {
     <div className="flex-col mb-16">
       <div className="flex md:flex-col md:items-end justify-end mr-2 gap-2 mb-4 ">
         <Autocomplete
-          id="size-small-standard"
           size="small"
           className="w-1/6 lg:w-1/4 md:w-1/2 "
           onChange={onAutocomplete}
           options={cities}
           getOptionLabel={(option) => `${option.name} ${option.province_id}`}
           renderInput={(params) => (
-            <TextField {...params} label="Filter by city" className="" />
+            <TextField
+              {...params}
+              label="Filter by city"
+              className="bg-indigo-50"
+            />
           )}
         />
 
         <Autocomplete
-          id="size-small-standard"
           size="small"
           className="w-1/6 lg:w-1/4 md:w-1/2"
           onChange={onFilterByTag}
           options={tags}
           renderInput={(params) => (
-            <TextField {...params} label="Filter by tag" />
+            <TextField
+              {...params}
+              label="Filter by tag"
+              className="bg-indigo-50"
+            />
           )}
         />
 
