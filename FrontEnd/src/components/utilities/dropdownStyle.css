@@ -1,4 +1,4 @@
-.Dropdown-root {
+/* .Dropdown-root {
   width: 12%;
   margin: -3rem 2rem 2rem auto;
   position: relative;
@@ -84,7 +84,7 @@
 .Dropdown-option.is-selected {
   background-color: #f2f9fc;
   color: #333;
-}
+} */
 
 /* .Dropdown-noresults {
   box-sizing: border-box;

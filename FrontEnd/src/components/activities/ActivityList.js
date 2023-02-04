@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Dropdown from "react-dropdown";
+// import Dropdown from "react-dropdown";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import parse from "autosuggest-highlight/parse";
@@ -70,9 +70,25 @@ const ActivityList = () => {
     fetchCities();
   }, []);
 
-  const onDropdownChange = async (option) => {
+  // const onDropdownChange = async (option) => {
+  //   try {
+  //     const paramValue = option.value;
+  //     const response = await fetch(
+  //       "/activities?" +
+  //         new URLSearchParams({
+  //           tags: paramValue,
+  //         })
+  //     );
+  //     const data = await response.json();
+  //     setActivityList(data);
+  //   } catch (error) {
+  //     alert(error);
+  //   }
+  // };
+
+  const onFilterByTag = async (event, newValue) => {
     try {
-      const paramValue = option.value;
+      const paramValue = newValue.value;
       const response = await fetch(
         "/activities?" +
           new URLSearchParams({
@@ -112,8 +128,8 @@ const ActivityList = () => {
   }
 
   return (
-    <div className="flex-col mb-16">
-      <div>
+    <div className="flex-col mb-16 bg-red-100">
+      <div className="flex border-solid border-2 border-red-900">
         <Autocomplete
           id="size-small-standard"
           size="small"
@@ -156,11 +172,22 @@ const ActivityList = () => {
           }}
         />
 
-        <Dropdown
+        <Autocomplete
+          id="size-small-standard"
+          size="small"
+          className=" w-2/12 "
+          onChange={onFilterByTag}
+          options={tags}
+          renderInput={(params) => (
+            <TextField {...params} label="Filter by tag" />
+          )}
+        />
+
+        {/* <Dropdown
           options={tags}
           onChange={onDropdownChange}
           placeholder="Filter by tag"
-        />
+        /> */}
       </div>
       {activityList.map((activity) => {
         return (
