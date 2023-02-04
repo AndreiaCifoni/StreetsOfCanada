@@ -15,7 +15,7 @@ const UserForm = ({ formTitle, user, setUser, onSubmitUser }) => {
           <div className="mb-4">
             <label className="mr-4">Username</label>
             <input
-              className="focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+              className="pl-2 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
               type="text"
               value={user.username}
               onChange={(e) => setUser({ ...user, username: e.target.value })}
@@ -26,7 +26,7 @@ const UserForm = ({ formTitle, user, setUser, onSubmitUser }) => {
             <div className="mb-4">
               <label className="mr-4">Email</label>
               <input
-                className="focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+                className="pl-2 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
                 type="email"
                 value={user.email}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
@@ -38,7 +38,7 @@ const UserForm = ({ formTitle, user, setUser, onSubmitUser }) => {
           <div className="mb-8">
             <label className="mr-4">Password</label>
             <input
-              className="focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+              className="pl-2 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
               type="password"
               value={user.password}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
