@@ -46,5 +46,6 @@
     gap: 0.4rem;
     transform: all 0.5s ease;
     border-radius: 0 0 4px 4px;
+    z-index: 10;
   }
 }
