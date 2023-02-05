@@ -81,7 +81,7 @@ const Activity = ({ userStatus }) => {
         />
       ) : (
         <div className="h-full lg:flex-col flex mt-8 mx-16 bg-indigo-100 rounded">
-          <div className="w-2/5 m-4 lg:flex lg:w-full  ">
+          <div className="w-2/5 m-4 lg:flex md:flex-col lg:w-full md:">
             <div>
               <img
                 className="w-11/12 h-96 lg:h-5/6 object-cover rounded-md shadow-md "
@@ -89,10 +89,10 @@ const Activity = ({ userStatus }) => {
                 alt={activity.title}
               />
             </div>
-            <div className="lg:w-1/2">
+            <div className="lg:w-1/2 md:w-full">
               <h2 className="text-xl font-bold mt-4 mb-2">Location:</h2>
               <MapContainer
-                className="w-80 h-44 lg:w-48 z-0 "
+                className="w-80 h-44 lg:w-48 md:w-80 z-0 "
                 //style={{ width: "420px", height: "180px" }}
                 center={[activity.latitude, activity.longitude]}
                 zoom={13}
@@ -117,7 +117,7 @@ const Activity = ({ userStatus }) => {
               </div>
             </div>
           </div>
-          <div className="w-3/5 m-4 lg:w-full mx-8">
+          <div className="w-3/5 m-4 lg:w-full mx-8 px-8">
             <h1 className="text-3xl font-bold my-4">
               {activity.title}
               <span className="text-lg">
