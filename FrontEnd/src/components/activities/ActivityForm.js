@@ -88,9 +88,9 @@ const ActivityForm = ({
   };
 
   return (
-    <div className="h-full flex mt-8 mx-16 pb-8 bg-indigo-100 rounded font-bold text-xl">
+    <div className="h-full flex mt-8 mx-16 lg:mx-8 pb-8 bg-indigo-100 rounded font-bold text-xl">
       <form
-        className="w-2/3 mx-auto mt-8 py-8 px-12 flex-col rounded bg-orange-50"
+        className=" w-2/3 lg:w-10/12 mx-auto mt-8 py-8 px-12 lg:px-6 flex-col rounded bg-orange-50"
         onSubmit={(e) => {
           e.preventDefault();
           onSubmitActivity(activity);
@@ -99,7 +99,7 @@ const ActivityForm = ({
         <div className="mb-6">
           <label className="mr-4">Title</label>
           <input
-            className="pl-2 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+            className="pl-2 w-3/5 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
             type="text"
             value={activity.title}
             onChange={(e) =>
@@ -112,7 +112,7 @@ const ActivityForm = ({
           <Autocomplete
             //defaultValue={activity.tags}
             size="small"
-            className="w-3/4"
+            className="w-3/4 "
             multiple
             options={tags}
             getOptionLabel={(tags) => tags.name}
@@ -129,11 +129,11 @@ const ActivityForm = ({
         </div>
         <div className="mb-6">
           <h1 className="mb-2">Location</h1>
-          <div className="ml-8 p-4 w-2/3 border-indigo-200 border-2 border solid rounded">
+          <div className="ml-8 p-4 w-2/3 lg:w-10/12 border-indigo-200 border-2 border solid rounded">
             <div className="mb-4">
               <label className="mr-4">Address</label>
               <input
-                className="pl-2 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+                className="pl-2 w-3/5 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
                 type=""
                 value={activity.address}
                 onChange={(e) =>
@@ -147,7 +147,7 @@ const ActivityForm = ({
                 //defaultValue={activity.city.name}
                 id="size-small-standard"
                 size="small"
-                className=" w-4/12 "
+                className=" w-3/5 "
                 freeSolo
                 onChange={onCitiesAutocomplete}
                 onInputChange={onCitiesAutocomplete}
@@ -164,7 +164,7 @@ const ActivityForm = ({
                 disablePortal
                 id="size-small-standard"
                 size="small"
-                className=" w-2/12 "
+                className=" w-3/5 "
                 options={provinces}
                 onChange={onProvAutocomplete}
                 renderInput={(params) => (
@@ -178,7 +178,7 @@ const ActivityForm = ({
         <div className="mb-6">
           <label className="mr-4">Photo</label>
           <input
-            className="pl-2 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+            className="pl-2 w-3/5 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
             type="text"
             value={activity.photo}
             onChange={(e) =>
@@ -189,7 +189,7 @@ const ActivityForm = ({
         <div className="flex items-center mb-14">
           <label className=" mr-4 ">Description</label>
           <textarea
-            className="pl-2 w-1/2 h-32 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
+            className="pl-2 w-3/5 h-32 focus:outline-indigo-700 border-indigo-200 border-2 border-solid rounded"
             type="text"
             value={activity.description}
             onChange={(e) =>
@@ -199,7 +199,7 @@ const ActivityForm = ({
         </div>
         <div>
           <input
-            className="mt-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
+            className="mt-4 mr-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
             type="submit"
             value="Submit"
           />
