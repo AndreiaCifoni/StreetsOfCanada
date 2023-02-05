@@ -61,6 +61,7 @@ const ActivityCreate = ({ userStatus }) => {
           activity={newActivity}
           setActivity={setNewActivity}
           onSubmitActivity={onSubmitNewActivity}
+          editForm={false}
         />
       )}
     </div>

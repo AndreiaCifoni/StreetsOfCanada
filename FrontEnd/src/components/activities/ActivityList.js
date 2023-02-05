@@ -129,7 +129,7 @@ const ActivityList = () => {
 
   return (
     <div className="flex-col mb-16">
-      <div className="flex md:flex-col md:items-end justify-end mr-2 gap-2 mb-4 ">
+      <div className="flex md:flex-col md:items-end justify-end mr-4 gap-2 mb-4 ">
         <Autocomplete
           size="small"
           className="w-1/6 lg:w-1/4 md:w-1/2 "

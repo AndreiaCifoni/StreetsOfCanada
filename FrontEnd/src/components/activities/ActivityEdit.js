@@ -57,13 +57,9 @@ const ActivityEdit = ({
         activity={editActivity}
         setActivity={setEditActivity}
         onSubmitActivity={onSubmitEditActivity}
+        onClickCancelEditActivity={onClickCancelEditActivity}
+        editForm={true}
       />
-      <button
-        className="mt-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
-        onClick={onClickCancelEditActivity}
-      >
-        Cancel
-      </button>
     </div>
   );
 };

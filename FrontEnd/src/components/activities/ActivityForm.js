@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
-const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
+const ActivityForm = ({
+  activity,
+  setActivity,
+  onSubmitActivity,
+  onClickCancelEditActivity,
+  editForm,
+}) => {
   const [tags, setTags] = useState([]);
   const [cities, setCities] = useState([]);
   const [provinces, setProvinces] = useState([]);
@@ -191,11 +197,24 @@ const ActivityForm = ({ activity, setActivity, onSubmitActivity }) => {
             }
           />
         </div>
-        <input
-          className="mt-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
-          type="submit"
-          value="Submit"
-        />
+        <div>
+          <input
+            className="mt-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
+            type="submit"
+            value="Submit"
+          />
+
+          <button
+            className={
+              editForm
+                ? "mt-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
+                : "invisible"
+            }
+            onClick={onClickCancelEditActivity}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );
