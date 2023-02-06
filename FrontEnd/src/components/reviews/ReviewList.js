@@ -12,7 +12,7 @@ const ReviewsList = ({
 
   useEffect(() => {
     fetchReviews();
-  });
+  }, [fetchReviews]);
 
   if (!reviewList) {
     return <div>Loading</div>;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
@@ -13,15 +13,15 @@ const Activity = ({ userStatus }) => {
 
   let { id } = useParams();
 
-  const fetchActivity = async () => {
+  const fetchActivity = useCallback(async () => {
     const response = await fetch(`${apiURL}/activities/${id}`);
     const data = await response.json();
     setActivity(data);
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchActivity();
-  });
+  }, [fetchActivity]);
 
   const onClickEditActivity = () => {
     setIsEditingActivity(true);
