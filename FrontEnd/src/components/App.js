@@ -7,6 +7,7 @@ import UserRegister from "./users/UserRegister";
 import UserLogin from "./users/UserLogin";
 import NavBar from "./NavBar";
 import ActivityCreate from "./activities/ActivityCreate";
+import { apiURL } from "../globalVariables";
 
 const App = () => {
   const [userStatus, setUserStatus] = useState(null);
@@ -25,7 +26,7 @@ const App = () => {
 
   const onLogin = async (login) => {
     try {
-      const response = await fetch("/login", {
+      const response = await fetch(`${apiURL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +48,7 @@ const App = () => {
 
   const onLogout = async () => {
     try {
-      const response = await fetch("/logout", {
+      const response = await fetch(`${apiURL}/logout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

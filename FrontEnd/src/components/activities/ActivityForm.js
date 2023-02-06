@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { apiURL } from "../../globalVariables";
 
 const ActivityForm = ({
   activity,
@@ -16,7 +17,7 @@ const ActivityForm = ({
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch("/tags");
+        const response = await fetch(`${apiURL}/tags`);
         const tagsData = await response.json();
         const autocompleteTags = tagsData.map((tag) => {
           const listOfTags = { tags_id: tag.tags_id, name: tag.name };
@@ -36,7 +37,7 @@ const ActivityForm = ({
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await fetch("/cities");
+        const response = await fetch(`${apiURL}/cities`);
         const citiesData = await response.json();
         const autocompleteCities = citiesData.map((city) => {
           const listCities = { name: city.name, province_id: city.province_id };
@@ -56,7 +57,7 @@ const ActivityForm = ({
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
-        const response = await fetch("/provinces");
+        const response = await fetch(`${apiURL}/provinces`);
         const provincesData = await response.json();
         const autocompleteProvinces = provincesData.map((province) => {
           return province.province_id;

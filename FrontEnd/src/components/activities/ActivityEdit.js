@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ActivityForm from "./ActivityForm";
+import { apiURL } from "../../globalVariables";
 
 const ActivityEdit = ({
   onClickCancelEditActivity,
@@ -22,7 +23,7 @@ const ActivityEdit = ({
 
   const onSubmitEditActivity = async () => {
     try {
-      const response = await fetch(`/activities/${activityId}`, {
+      const response = await fetch(`${apiURL}/activities/${activityId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

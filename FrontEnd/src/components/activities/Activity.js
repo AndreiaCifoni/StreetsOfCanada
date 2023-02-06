@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import "../../index.css";
 import Reviews from "../reviews/Reviews";
 import ActivityEdit from "./ActivityEdit";
+import { apiURL } from "../../globalVariables";
 
 const Activity = ({ userStatus }) => {
   const [activity, setActivity] = useState(null);
@@ -13,7 +14,7 @@ const Activity = ({ userStatus }) => {
   let { id } = useParams();
 
   const fetchActivity = async () => {
-    const response = await fetch(`/activities/${id}`);
+    const response = await fetch(`${apiURL}/activities/${id}`);
     const data = await response.json();
     setActivity(data);
   };
@@ -34,7 +35,7 @@ const Activity = ({ userStatus }) => {
 
   const onClickDeleteActivity = async () => {
     try {
-      const response = await fetch(`/activities/${id}`, {
+      const response = await fetch(`${apiURL}/activities/${id}`, {
         method: "DELETE",
       });
 

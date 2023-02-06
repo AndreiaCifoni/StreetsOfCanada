@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ActivityForm from "./ActivityForm";
+import { apiURL } from "../../globalVariables";
 
 const ActivityCreate = ({ userStatus }) => {
   const [newActivity, setNewActivity] = useState({
@@ -18,7 +19,7 @@ const ActivityCreate = ({ userStatus }) => {
 
   const onSubmitNewActivity = async () => {
     try {
-      const response = await fetch("/activities", {
+      const response = await fetch(`${apiURL}/activities`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

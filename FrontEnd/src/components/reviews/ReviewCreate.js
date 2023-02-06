@@ -1,13 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ReviewForm from "./ReviewForm";
+import { apiURL } from "../../globalVariables";
 
 const ReviewCreate = ({ newReview, setNewReview, fetchReviews }) => {
   let { id } = useParams();
 
   const onSubmitNewReview = async () => {
     try {
-      const response = await fetch(`/activities/${id}/reviews`, {
+      const response = await fetch(`${apiURL}/activities/${id}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

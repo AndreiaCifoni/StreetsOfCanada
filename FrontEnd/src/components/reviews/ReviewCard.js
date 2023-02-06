@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import ReviewEdit from "./ReviewEdit";
+import { apiURL } from "../../globalVariables";
 
 const ReviewCard = ({
   userInfo,
@@ -17,7 +18,7 @@ const ReviewCard = ({
 
   const onClickDeleteReview = async () => {
     try {
-      const response = await fetch(`/reviews/${reviewId}`, {
+      const response = await fetch(`${apiURL}/reviews/${reviewId}`, {
         method: "DELETE",
       });
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReviewForm from "./ReviewForm";
+import { apiURL } from "../../globalVariables";
 
 const ReviewEdit = ({
   onClickCancelEditReview,
@@ -19,7 +20,7 @@ const ReviewEdit = ({
 
   const onSubmitEditReview = async () => {
     try {
-      const response = await fetch(`/reviews/${reviewId}`, {
+      const response = await fetch(`${apiURL}/reviews/${reviewId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

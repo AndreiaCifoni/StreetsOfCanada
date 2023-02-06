@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserForm from "./UserForm";
+import { apiURL } from "../../globalVariables";
 
 const UserRegister = ({ onLogin }) => {
   const [register, setRegister] = useState({
@@ -13,7 +14,7 @@ const UserRegister = ({ onLogin }) => {
 
   const onSubmitRegister = async () => {
     try {
-      const response = await fetch("/register", {
+      const response = await fetch(`${apiURL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

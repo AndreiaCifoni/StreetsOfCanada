@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import ReviewsList from "./ReviewList";
 import ReviewCreate from "./ReviewCreate";
+import { apiURL } from "../../globalVariables";
 
 const Reviews = ({ userStatus, activityId }) => {
   const [reviewList, setReviewList] = useState(null);
@@ -11,7 +12,9 @@ const Reviews = ({ userStatus, activityId }) => {
 
   const fetchReviews = useCallback(async () => {
     try {
-      const response = await fetch(`/activities/${activityId}/reviews`);
+      const response = await fetch(
+        `${apiURL}/activities/${activityId}/reviews`
+      );
       const data = await response.json();
 
       if (response.status !== 200) throw Error("Could not get reviews");

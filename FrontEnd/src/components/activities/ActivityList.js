@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import ActivityCard from "./ActivityCard";
 import "../utilities/dropdownStyle.css";
+import { apiURL } from "../../globalVariables";
 
 const ActivityList = () => {
   const [activityList, setActivityList] = useState(null);
@@ -12,7 +13,7 @@ const ActivityList = () => {
 
   const fetchActivity = async () => {
     try {
-      const response = await fetch("/activities");
+      const response = await fetch(`${apiURL}/activities`);
       const data = await response.json();
 
       if (response.status !== 200) throw Error("Could not get activities");
@@ -30,7 +31,7 @@ const ActivityList = () => {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch("/tags");
+        const response = await fetch(`${apiURL}/tags`);
         const tagsData = await response.json();
         const dropdownTags = tagsData.map((tag) => {
           const listOfTags = { value: tag.name, label: tag.name };
@@ -50,7 +51,7 @@ const ActivityList = () => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await fetch("/cities");
+        const response = await fetch(`${apiURL}/cities`);
         const citiesData = await response.json();
         const autocompleteCities = citiesData.map((city) => {
           const listCities = { name: city.name, province_id: city.province_id };
@@ -87,7 +88,7 @@ const ActivityList = () => {
     try {
       const paramValue = newValue.value;
       const response = await fetch(
-        "/activities?" +
+        `${apiURL}/activities?` +
           new URLSearchParams({
             tags: paramValue,
           })
@@ -106,7 +107,7 @@ const ActivityList = () => {
         fetchActivity();
       } else {
         const response = await fetch(
-          "/activities?" +
+          `${apiURL}/activities?` +
             new URLSearchParams({
               city: paramValue,
             })
