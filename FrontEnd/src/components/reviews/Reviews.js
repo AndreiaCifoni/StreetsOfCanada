@@ -31,8 +31,6 @@ const Reviews = ({ userStatus, activityId }) => {
           <ReviewCreate
             newReview={newReview}
             setNewReview={setNewReview}
-            setReviewList={setReviewList}
-            reviewList={reviewList}
             fetchReviews={fetchReviews}
           />
         )}

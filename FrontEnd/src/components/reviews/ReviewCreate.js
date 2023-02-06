@@ -2,13 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import ReviewForm from "./ReviewForm";
 
-const ReviewCreate = ({
-  newReview,
-  setNewReview,
-  setReviewList,
-  reviewList,
-  fetchReviews,
-}) => {
+const ReviewCreate = ({ newReview, setNewReview, fetchReviews }) => {
   let { id } = useParams();
 
   const onSubmitNewReview = async () => {
@@ -23,7 +17,6 @@ const ReviewCreate = ({
           rating: newReview.rating,
         }),
       });
-      const data = await response.json();
 
       if (response.status !== 201) throw Error("Review not created");
 

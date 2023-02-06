@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { XCircleIcon, Bars3Icon } from "@heroicons/react/20/solid";
 import "../index.css";

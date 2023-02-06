@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 // import Dropdown from "react-dropdown";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import parse from "autosuggest-highlight/parse";
-import match from "autosuggest-highlight/match";
 import ActivityCard from "./ActivityCard";
 import "../utilities/dropdownStyle.css";
 
@@ -11,7 +9,6 @@ const ActivityList = () => {
   const [activityList, setActivityList] = useState(null);
   const [tags, setTags] = useState([{ value: "", label: "All tags" }]);
   const [cities, setCities] = useState([{ name: "None", province_id: "" }]);
-  const [cityValue, setCityValue] = useState("");
 
   const fetchActivity = async () => {
     try {
@@ -68,7 +65,7 @@ const ActivityList = () => {
       }
     };
     fetchCities();
-  }, []);
+  }, [tags]);
 
   // const onDropdownChange = async (option) => {
   //   try {
@@ -104,7 +101,6 @@ const ActivityList = () => {
 
   const onAutocomplete = async (event, newValue) => {
     try {
-      setCityValue(newValue);
       const paramValue = newValue.name;
       if (paramValue === "None") {
         fetchActivity();
