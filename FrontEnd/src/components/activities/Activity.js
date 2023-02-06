@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { MapContainer, TileLayer, useMap, Popup, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import "../../index.css";
 import Reviews from "../reviews/Reviews";
 import ActivityEdit from "./ActivityEdit";
@@ -20,7 +20,7 @@ const Activity = ({ userStatus }) => {
 
   useEffect(() => {
     fetchActivity();
-  }, []);
+  });
 
   const onClickEditActivity = () => {
     setIsEditingActivity(true);
