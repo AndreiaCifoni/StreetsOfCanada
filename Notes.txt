@@ -111,6 +111,10 @@
       -TailwindCSS  - toda vez que mudar ou inserir algo na pasta layout, tem que rodar de novo!!
         npx tailwindcss -i ./src/layout.css -o ./dist/output.css --watch
 
+
+      -PROXI
+        "proxy": "http://localhost:3000",
+
 -------------------------------------------------------------------------------
 
 ------------------------------
