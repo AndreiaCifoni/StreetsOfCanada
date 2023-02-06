@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const streetsOfCanadaRoutes = require("./routes/index");
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+// const port = 3000;
 
 app.use(cors());
 app.use(express.json());
