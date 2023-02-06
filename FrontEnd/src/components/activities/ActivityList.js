@@ -45,7 +45,7 @@ const ActivityList = () => {
       }
     };
     fetchTags();
-  }, []);
+  }, [tags]);
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -65,7 +65,7 @@ const ActivityList = () => {
       }
     };
     fetchCities();
-  }, [tags]);
+  }, [cities]);
 
   // const onDropdownChange = async (option) => {
   //   try {
