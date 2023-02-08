@@ -117,6 +117,15 @@
 
 -------------------------------------------------------------------------------
 
+Schema
+--***** important, I already see this structure ON DELETE CASCADE, use if needed
+-- FOREIGN KEY (user_id)
+--       REFERENCES accounts (user_id) ON DELETE CASCADE
+
+-- ***** important, add for post and review
+-- update_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
+
 ------------------------------
 
 {
@@ -175,16 +184,6 @@ PROGRAMS USED
 
 
   ------------------------------------------
-  SCHEMA
-  --***** important, I already see this structure ON DELETE CASCADE, use if needed
--- FOREIGN KEY (user_id)
---       REFERENCES accounts (user_id) ON DELETE CASCADE
-
--- ***** important, add for post and review
--- update_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-
-------------------------------
-PROBLEMS
 
 
 

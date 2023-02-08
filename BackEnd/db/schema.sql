@@ -123,31 +123,3 @@ CREATE TABLE IF NOT EXISTS activities_tags (
 
 INSERT INTO activities_tags (tags_id, activity_id) VALUES (1,1),(7,1),(3,2),(7,2),(2,3),(4,3)
 
-
-
---***** important, I already see this structure ON DELETE CASCADE, use if needed
--- FOREIGN KEY (user_id)
---       REFERENCES accounts (user_id) ON DELETE CASCADE
-
--- ***** important, add for post and review
--- update_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-
-
--- CREATE TABLE account_roles (
---   user_id INT NOT NULL,
---   role_id INT NOT NULL,
---   grant_date TIMESTAMP,
---   PRIMARY KEY (user_id, role_id),
---   FOREIGN KEY (role_id)
---       REFERENCES roles (role_id),
---   FOREIGN KEY (user_id)
---       REFERENCES accounts (user_id)
--- );
-
---   CREATE TABLE Persons (
---     PersonID int,
---     LastName varchar(255),
---     FirstName varchar(255),
---     Address varchar(255),
---     City varchar(255)
--- );

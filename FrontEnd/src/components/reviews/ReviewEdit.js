@@ -4,13 +4,9 @@ import { apiURL } from "../../globalVariables";
 
 const ReviewEdit = ({
   onClickCancelEditReview,
-  userInfo,
   rating,
-  date,
   review,
   reviewId,
-  setReviewList,
-  reviewList,
   fetchReviews,
 }) => {
   const [editReview, setEditReview] = useState({

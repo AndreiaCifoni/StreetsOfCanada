@@ -111,7 +111,6 @@ const ActivityForm = ({
         <div className="mb-6 flex items-center gap-4">
           <label>Tags</label>
           <Autocomplete
-            //defaultValue={activity.tags}
             size="small"
             className="w-3/4 "
             multiple
@@ -145,7 +144,6 @@ const ActivityForm = ({
             <div className="mb-4 flex items-center gap-4">
               <label>City</label>
               <Autocomplete
-                //defaultValue={activity.city.name}
                 id="size-small-standard"
                 size="small"
                 className=" w-3/5 "
@@ -161,7 +159,6 @@ const ActivityForm = ({
             <div className="flex items-center gap-4">
               <label>Province</label>
               <Autocomplete
-                //defaultValue={activity.city.province_id}
                 disablePortal
                 id="size-small-standard"
                 size="small"

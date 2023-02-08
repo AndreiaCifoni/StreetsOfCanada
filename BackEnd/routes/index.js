@@ -91,24 +91,6 @@ router.get("/activities", async (req, res) => {
   }
 });
 
-// router.post("/activities", (req, res) => {
-//   const { title, description, photo, user_id, tags_ids } = req.body;
-//   pool.query(
-//     "INSERT INTO activities (title, description, photo, user_id) VALUES ($1, $2, $3, $4) RETURNING *",
-//     [title, description, photo, user_id],
-//     (error, results) => {
-//       if (error) throw error;
-//       tags_ids.forEach((tag_id) => {
-//         pool.query(
-//           "INSERT INTO activities_tags (tags_id, activity_id) VALUES ($1, $2)",
-//           [tag_id, activity_id]
-//         );
-//       });
-//       res.status(201).json(results.rows[0]);
-//     }
-//   );
-// });
-
 router.post("/activities", async (req, res) => {
   try {
     const {

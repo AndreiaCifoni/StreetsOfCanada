@@ -94,7 +94,6 @@ const Activity = ({ userStatus }) => {
               <h2 className="text-xl font-bold mt-4 mb-2">Location:</h2>
               <MapContainer
                 className="w-80 h-44 lg:w-48 md:w-80 z-0 "
-                //style={{ width: "420px", height: "180px" }}
                 center={[activity.latitude, activity.longitude]}
                 zoom={13}
                 scrollWheelZoom={false}

@@ -74,5 +74,3 @@ const NavBar = ({ onLogout, userStatus, onNavDropdown, navDropdown }) => {
 };
 
 export default NavBar;
-
-//alert("Hi there, login to add a new activity");

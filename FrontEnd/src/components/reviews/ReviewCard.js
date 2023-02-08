@@ -24,7 +24,6 @@ const ReviewCard = ({
 
       const data = await response.json();
 
-      //if (deleteReviews.status !== 200) throw Error("Not deleted");
       if (data.error === true) throw Error(data.message);
 
       fetchReviews();
@@ -63,13 +62,9 @@ const ReviewCard = ({
       {isEditingReview ? (
         <ReviewEdit
           onClickCancelEditReview={onClickCancelEditReview}
-          userInfo={userInfo}
           rating={rating}
-          date={date}
           review={review}
           reviewId={reviewId}
-          setReviewList={setReviewList}
-          reviewList={reviewList}
           fetchReviews={fetchReviews}
         />
       ) : (
@@ -101,19 +96,3 @@ const ReviewCard = ({
 };
 
 export default ReviewCard;
-
-// {userInfo.user_id === userStatus?.user_id
-//   ? (<button
-//       className="mt-4 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
-//       onClick={onClickEditReview}
-//     >
-//       Edit
-//     </button>)(
-//       <button
-//         className="mt-4 mx-3 py-0.5 px-1.5 rounded border-solid border-2 border-indigo-400 hover:border-violet-400 hover:bg-violet-300 shadow"
-//         onClick={onClickDeleteReview}
-//       >
-//         Delete
-//       </button>
-//     )
-//   : null}

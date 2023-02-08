@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import Dropdown from "react-dropdown";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import ActivityCard from "./ActivityCard";
-import "../utilities/dropdownStyle.css";
 import { apiURL } from "../../globalVariables";
 
 const ActivityList = () => {
@@ -63,22 +61,6 @@ const ActivityList = () => {
     fetchTags();
     fetchCities();
   }, []);
-
-  // const onDropdownChange = async (option) => {
-  //   try {
-  //     const paramValue = option.value;
-  //     const response = await fetch(
-  //       "/activities?" +
-  //         new URLSearchParams({
-  //           tags: paramValue,
-  //         })
-  //     );
-  //     const data = await response.json();
-  //     setActivityList(data);
-  //   } catch (error) {
-  //     alert(error);
-  //   }
-  // };
 
   const onFilterByTag = async (event, newValue) => {
     try {
@@ -151,12 +133,6 @@ const ActivityList = () => {
             />
           )}
         />
-
-        {/* <Dropdown
-          options={tags}
-          onChange={onDropdownChange}
-          placeholder="Filter by tag"
-        /> */}
       </div>
       {activityList.map((activity) => {
         return (

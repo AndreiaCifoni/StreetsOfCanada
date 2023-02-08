@@ -5,7 +5,6 @@ import { apiURL } from "../../globalVariables";
 const ActivityEdit = ({
   onClickCancelEditActivity,
   activity,
-  userStatus,
   activityId,
   fetchActivity,
 }) => {

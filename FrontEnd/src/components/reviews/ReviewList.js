@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-//import { useParams } from "react-router-dom";
 import ReviewCard from "./ReviewCard";
 
 const ReviewsList = ({
@@ -8,8 +7,6 @@ const ReviewsList = ({
   userStatus,
   fetchReviews,
 }) => {
-  //let { id } = useParams();
-
   useEffect(() => {
     fetchReviews();
   }, [fetchReviews]);
