@@ -5,7 +5,7 @@ import ActivityCard from "./ActivityCard";
 import { apiURL } from "../../globalVariables";
 
 const ActivityList = () => {
-  const [activityList, setActivityList] = useState(null);
+  const [activityList, setActivityList] = useState([]);
   const [tags, setTags] = useState([{ value: "", label: "All tags" }]);
   const [cities, setCities] = useState([{ name: "None", province_id: "" }]);
 
@@ -78,7 +78,7 @@ const ActivityList = () => {
     }
   };
 
-  const onAutocomplete = async (event, newValue) => {
+  const onFilterByCity = async (event, newValue) => {
     try {
       const paramValue = newValue.name;
       if (paramValue === "None") {
@@ -98,6 +98,21 @@ const ActivityList = () => {
     }
   };
 
+  const showActivity = activityList.map((activity) => {
+    return (
+      <ActivityCard
+        key={activity.activity_id}
+        activity_id={activity.activity_id}
+        photo={activity.photo}
+        title={activity.title}
+        city={activity.city.name}
+        province={activity.city.province_id}
+        tags={activity.tags}
+        description={activity.description.substring(0, 150) + "..."}
+      />
+    );
+  });
+
   if (!activityList) {
     return <div>Loading</div>;
   }
@@ -108,7 +123,7 @@ const ActivityList = () => {
         <Autocomplete
           size="small"
           className="w-1/6 lg:w-1/4 md:w-1/2 "
-          onChange={onAutocomplete}
+          onChange={onFilterByCity}
           options={cities}
           getOptionLabel={(option) => `${option.name} ${option.province_id}`}
           renderInput={(params) => (
@@ -134,20 +149,7 @@ const ActivityList = () => {
           )}
         />
       </div>
-      {activityList.map((activity) => {
-        return (
-          <ActivityCard
-            key={activity.activity_id}
-            activity_id={activity.activity_id}
-            photo={activity.photo}
-            title={activity.title}
-            city={activity.city.name}
-            province={activity.city.province_id}
-            tags={activity.tags}
-            description={activity.description.substring(0, 150) + "..."}
-          />
-        );
-      })}
+      {activityList ? showActivity : "There is no activity to show"}
     </div>
   );
 };

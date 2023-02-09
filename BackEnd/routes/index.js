@@ -84,6 +84,7 @@ router.get("/activities", async (req, res) => {
     });
 
     const results = await Promise.all(activityInfo);
+
     res.status(200).json(results);
   } catch (error) {
     console.log(error);

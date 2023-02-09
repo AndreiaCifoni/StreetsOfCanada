@@ -13,10 +13,12 @@ const ActivityForm = ({
   const [tags, setTags] = useState([]);
   const [cities, setCities] = useState([]);
   const [provinces, setProvinces] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchTags = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch(`${apiURL}/tags`);
         const tagsData = await response.json();
         const autocompleteTags = tagsData.map((tag) => {
@@ -29,6 +31,8 @@ const ActivityForm = ({
         setTags(autocompleteTags);
       } catch (error) {
         alert(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchTags();
@@ -88,6 +92,14 @@ const ActivityForm = ({
     setActivity({ ...activity, province_id: newValue });
   };
 
+  const activityTags = tags.filter((tag) =>
+    activity.tags_ids.includes(tag.tags_id)
+  );
+
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
   return (
     <div className="h-full flex mt-8 mx-16 lg:mx-8 pb-8 bg-indigo-100 rounded font-bold text-xl">
       <form
@@ -114,6 +126,7 @@ const ActivityForm = ({
             size="small"
             className="w-3/4 "
             multiple
+            defaultValue={activityTags}
             options={tags}
             getOptionLabel={(tags) => tags.name}
             onChange={onTagsAutocomplete}
@@ -147,6 +160,7 @@ const ActivityForm = ({
                 id="size-small-standard"
                 size="small"
                 className=" w-3/5 "
+                defaultValue={activity.city_name}
                 freeSolo
                 onChange={onCitiesAutocomplete}
                 onInputChange={onCitiesAutocomplete}
@@ -163,6 +177,7 @@ const ActivityForm = ({
                 id="size-small-standard"
                 size="small"
                 className=" w-3/5 "
+                defaultValue={activity.province_id}
                 options={provinces}
                 onChange={onProvAutocomplete}
                 renderInput={(params) => (

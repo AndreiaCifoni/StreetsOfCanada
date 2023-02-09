@@ -18,7 +18,6 @@ const ActivityEdit = ({
     description: activity.description,
     user_id: activity.user_id,
   });
-  console.log(activity);
 
   const onSubmitEditActivity = async () => {
     try {
