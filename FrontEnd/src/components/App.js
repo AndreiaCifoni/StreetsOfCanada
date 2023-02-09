@@ -38,6 +38,8 @@ const App = () => {
       });
       const data = await response.json();
 
+      if (data.error === true) throw Error(data.message);
+
       setUserStatus(data);
       setLogin({ username: "", email: null, password: "" });
       navigate(`/`);
