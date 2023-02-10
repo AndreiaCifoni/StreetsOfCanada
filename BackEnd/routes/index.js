@@ -38,7 +38,7 @@ router.post("/login", async (req, res) => {
 
     if (newSession === null) throw `Could not create session`;
 
-    res.cookie("sessionId", sessionId);
+    res.cookie("sessionId", sessionId, { sameSite: false });
 
     res.status(201).json({
       user_id: user.user_id,
@@ -215,7 +215,7 @@ router.delete("/activities/:id", async (req, res) => {
     const activityInfoById = await db.getActivityInfo(id);
     const userByActivityId = activityInfoById.user.user_id;
     const userBySession = await db.getUserBySession(sessionId);
-  
+
     if (userByActivityId !== userBySession?.user_id)
       throw "Only the owner of the activity can delete!";
 
