@@ -215,7 +215,7 @@ router.delete("/activities/:id", async (req, res) => {
     const activityInfoById = await db.getActivityInfo(id);
     const userByActivityId = activityInfoById.user.user_id;
     const userBySession = await db.getUserBySession(sessionId);
-    console.log(userByActivityId);
+  
     if (userByActivityId !== userBySession?.user_id)
       throw "Only the owner of the activity can delete!";
 
