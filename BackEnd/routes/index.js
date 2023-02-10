@@ -3,7 +3,6 @@ const router = Router();
 const fetch = require("node-fetch");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
-const pool = require("../db/pool");
 const db = require("../db/index");
 
 //-------------------USERS------------------
@@ -34,7 +33,9 @@ router.post("/login", async (req, res) => {
     if (!bcrypt.compareSync(password, hashedPassword)) throw `Wrong password`;
 
     const sessionId = uuidv4();
+
     const newSession = await db.createSession(sessionId, user.user_id);
+
     if (newSession === null) throw `Could not create session`;
 
     res.cookie("sessionId", sessionId);
@@ -53,6 +54,7 @@ router.post("/login", async (req, res) => {
 router.post("/logout", async (req, res) => {
   try {
     const { sessionId } = req.cookies;
+
     await db.deleteSession(sessionId);
 
     res.clearCookie("sessionId");
@@ -275,6 +277,7 @@ router.post("/activities/:id/reviews", async (req, res) => {
       review,
       rating
     );
+
     newReview.user = user;
     res.status(201).json(newReview);
   } catch (error) {

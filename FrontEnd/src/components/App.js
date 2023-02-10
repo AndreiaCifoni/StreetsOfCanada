@@ -28,6 +28,7 @@ const App = () => {
     try {
       const response = await fetch(`${apiURL}/login`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -52,6 +53,7 @@ const App = () => {
     try {
       const response = await fetch(`${apiURL}/logout`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

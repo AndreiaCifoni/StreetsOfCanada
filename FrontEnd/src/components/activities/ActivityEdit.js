@@ -23,6 +23,7 @@ const ActivityEdit = ({
     try {
       const response = await fetch(`${apiURL}/activities/${activityId}`, {
         method: "PUT",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

@@ -20,6 +20,7 @@ const ReviewCard = ({
     try {
       const response = await fetch(`${apiURL}/reviews/${reviewId}`, {
         method: "DELETE",
+        credentials: "include",
       });
 
       const data = await response.json();

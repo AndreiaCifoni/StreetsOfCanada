@@ -18,6 +18,7 @@ const ReviewEdit = ({
     try {
       const response = await fetch(`${apiURL}/reviews/${reviewId}`, {
         method: "PUT",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

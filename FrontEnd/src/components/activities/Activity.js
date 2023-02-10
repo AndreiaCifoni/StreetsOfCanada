@@ -37,6 +37,7 @@ const Activity = ({ userStatus }) => {
     try {
       const response = await fetch(`${apiURL}/activities/${id}`, {
         method: "DELETE",
+        credentials: "include",
       });
 
       const data = await response.json();

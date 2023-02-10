@@ -10,6 +10,7 @@ const ReviewCreate = ({ newReview, setNewReview, fetchReviews }) => {
     try {
       const response = await fetch(`${apiURL}/activities/${id}/reviews`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
