@@ -75,6 +75,7 @@ router.get("/activities", async (req, res) => {
       city_name,
       tag_name
     );
+
     const allActivitiesIds = activitiesIdsByQuery.map((activity) => {
       return activity.activity_id;
     });

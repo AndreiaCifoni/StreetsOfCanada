@@ -72,9 +72,13 @@ const ActivityList = () => {
           })
       );
       const data = await response.json();
+
+      if (data.error === true) throw Error(data.message);
+
       setActivityList(data);
     } catch (error) {
       alert(error);
+      fetchActivity();
     }
   };
 
@@ -91,10 +95,14 @@ const ActivityList = () => {
             })
         );
         const data = await response.json();
+
+        if (data.error === true) throw Error(data.message);
+
         setActivityList(data);
       }
     } catch (error) {
       alert(error);
+      fetchActivity();
     }
   };
 
