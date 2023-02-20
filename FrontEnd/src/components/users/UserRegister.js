@@ -33,7 +33,7 @@ const UserRegister = ({ onLogin }) => {
       navigate(`/`);
 
       setRegister({ username: "", email: "", password: "" });
-    } catch {
+    } catch (error) {
       console.log(error);
     }
   };
