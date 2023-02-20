@@ -18,7 +18,7 @@ const ActivityList = () => {
 
       setActivityList(data);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 
@@ -35,7 +35,7 @@ const ActivityList = () => {
 
       setTags((oldTags) => [...oldTags, ...dropdownTags]);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 
@@ -52,7 +52,7 @@ const ActivityList = () => {
 
       setCities((oldCities) => [...oldCities, ...autocompleteCities]);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 
@@ -77,7 +77,7 @@ const ActivityList = () => {
 
       setActivityList(data);
     } catch (error) {
-      alert(error);
+      console.log(error);
       fetchActivity();
     }
   };
@@ -101,7 +101,7 @@ const ActivityList = () => {
         setActivityList(data);
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
       fetchActivity();
     }
   };

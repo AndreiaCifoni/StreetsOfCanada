@@ -47,7 +47,7 @@ const ActivityEdit = ({
 
       onClickCancelEditActivity();
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

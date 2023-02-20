@@ -46,7 +46,7 @@ const Activity = ({ userStatus }) => {
 
       navigate(`/`);
     } catch (error) {
-      alert(error);
+      console.log(error)
     }
   };
 

@@ -41,7 +41,7 @@ const ActivityCreate = ({ userStatus }) => {
 
       navigate(`/activity/${data.activity_id}`);
     } catch (error) {
-      alert(error);
+      console.log(error)
     }
   };
 

@@ -34,7 +34,7 @@ const UserRegister = ({ onLogin }) => {
 
       setRegister({ username: "", email: "", password: "" });
     } catch {
-      alert("Could not register");
+      console.log(error);
     }
   };
 

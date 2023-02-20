@@ -29,7 +29,7 @@ const ReviewCreate = ({ newReview, setNewReview, fetchReviews }) => {
         rating: 0,
       });
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

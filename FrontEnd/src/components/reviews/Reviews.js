@@ -21,7 +21,7 @@ const Reviews = ({ userStatus, activityId }) => {
 
       setReviewList(data);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   }, [activityId]);
 

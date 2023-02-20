@@ -45,7 +45,7 @@ const App = () => {
       setLogin({ username: "", email: null, password: "" });
       navigate(`/`);
     } catch {
-      alert("Could not login");
+      console.log(error);
     }
   };
 
@@ -66,7 +66,7 @@ const App = () => {
       setUserStatus(null);
       setNavDropdown(!navDropdown);
     } catch {
-      alert("Could not logout");
+      console.log(error);
     }
   };
 

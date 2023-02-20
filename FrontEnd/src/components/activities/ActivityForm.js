@@ -30,7 +30,7 @@ const ActivityForm = ({
 
         setTags(autocompleteTags);
       } catch (error) {
-        alert(error);
+        console.log(error);
       } finally {
         setIsLoading(false);
       }
@@ -52,7 +52,7 @@ const ActivityForm = ({
 
         setCities(autocompleteCities);
       } catch (error) {
-        alert(error);
+        console.log(error);
       }
     };
     fetchCities();
@@ -71,7 +71,7 @@ const ActivityForm = ({
 
         setProvinces(autocompleteProvinces);
       } catch (error) {
-        alert(error);
+        console.log(error)
       }
     };
     fetchProvinces();

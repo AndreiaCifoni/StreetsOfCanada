@@ -29,7 +29,7 @@ const ReviewCard = ({
 
       fetchReviews();
     } catch (error) {
-      alert(error);
+      console.log(error)
     }
   };
 

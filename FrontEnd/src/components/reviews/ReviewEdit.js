@@ -35,7 +35,7 @@ const ReviewEdit = ({
 
       onClickCancelEditReview();
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 
