@@ -9,8 +9,6 @@ const ReviewCard = ({
   date,
   review,
   reviewId,
-  setReviewList,
-  reviewList,
   userStatus,
   fetchReviews,
 }) => {
@@ -29,7 +27,7 @@ const ReviewCard = ({
 
       fetchReviews();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 

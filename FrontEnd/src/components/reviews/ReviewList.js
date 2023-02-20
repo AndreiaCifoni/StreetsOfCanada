@@ -26,8 +26,6 @@ const ReviewsList = ({
             date={review.date}
             review={review.review}
             reviewId={review.review_id}
-            setReviewList={setReviewList}
-            reviewList={reviewList}
             userStatus={userStatus}
             fetchReviews={fetchReviews}
           />
