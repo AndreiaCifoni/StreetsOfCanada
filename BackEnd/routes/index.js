@@ -38,7 +38,7 @@ router.post("/login", async (req, res) => {
 
     if (newSession === null) throw `Could not create session`;
 
-    res.cookie("sessionId", sessionId, { sameSite: false });
+    res.cookie("sessionId", sessionId, { sameSite: true });
 
     res.status(201).json({
       user_id: user.user_id,

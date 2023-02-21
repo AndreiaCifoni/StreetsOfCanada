@@ -1,0 +1,22 @@
+{
+  "name": "streetsofcanada",
+  "version": "1.0.0",
+  "description": "Under construction",
+  "main": "index.js",
+  "scripts": {
+    "frontEnd": "cd FrontEnd && npm run build",
+    "backEnd": "cd BackEnd && npm start",
+    "start": "npm run frontEnd && npm run backEnd",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreiaCifoni/StreetsOfCanada.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndreiaCifoni/StreetsOfCanada/issues"
+  },
+  "homepage": "https://github.com/AndreiaCifoni/StreetsOfCanada#readme"
+}
