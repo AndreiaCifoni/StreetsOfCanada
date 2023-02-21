@@ -11,17 +11,26 @@ const Footer = () => {
           <a
             href="mailto:andreiacifoni@gmail.com?subject='subject text'"
             target="_blank"
+            rel="noreferrer"
           >
             <ion-icon className="" name="mail-outline"></ion-icon>
           </a>
         </div>
         <div>
-          <a href="https://linkedin.com/in/andreiacifoni" target="_blank">
+          <a
+            href="https://linkedin.com/in/andreiacifoni"
+            target="_blank"
+            rel="noreferrer"
+          >
             <ion-icon className="" name="logo-linkedin"></ion-icon>
           </a>
         </div>
         <div>
-          <a href="https://github.com/AndreiaCifoni" target="_blank">
+          <a
+            href="https://github.com/AndreiaCifoni"
+            target="_blank"
+            rel="noreferrer"
+          >
             <ion-icon className="" name="logo-github"></ion-icon>
           </a>
         </div>
