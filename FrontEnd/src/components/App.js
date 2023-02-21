@@ -8,6 +8,7 @@ import UserLogin from "./users/UserLogin";
 import NavBar from "./NavBar";
 import ActivityCreate from "./activities/ActivityCreate";
 import { apiURL } from "../globalVariables";
+import Footer from "./Footer";
 
 const App = () => {
   const [userStatus, setUserStatus] = useState(null);
@@ -71,7 +72,7 @@ const App = () => {
   };
 
   return (
-    <div className="h-full pb-8 font-mono bg-orange-50 text-indigo-900 ">
+    <div className="h-full  font-mono bg-orange-50 text-indigo-900 ">
       <NavBar
         onLogout={onLogout}
         userStatus={userStatus}
@@ -99,6 +100,7 @@ const App = () => {
           element={<Activity userStatus={userStatus} />}
         />
       </Routes>
+      <Footer />
     </div>
   );
 };
