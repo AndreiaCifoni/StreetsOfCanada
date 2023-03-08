@@ -1,12 +1,16 @@
 const Pool = require("pg").Pool;
 const fs = require("fs");
+const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
-  user: process.env.DBUSERNAME || "postgres",
-  host: process.env.DBHOSTNAME || "localhost",
-  database: process.env.DBDATABASE || "streets_of_canada",
-  password: process.env.DBPASSWORD || "1234",
-  port: process.env.DBPORT || 5432,
+  connectionString,
 });
+// const pool = new Pool({
+//   user: process.env.DBUSERNAME || "postgres",
+//   host: process.env.DBHOSTNAME || "localhost",
+//   database: process.env.DBDATABASE || "streets_of_canada",
+//   password: process.env.DBPASSWORD || "1234",
+//   port: process.env.DBPORT || 5432,
+// });
 
 const sql = fs.readFileSync("./db/schema.sql").toString();
 
