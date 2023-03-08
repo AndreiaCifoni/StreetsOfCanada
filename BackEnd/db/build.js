@@ -3,6 +3,9 @@ const fs = require("fs");
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
   connectionString,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 // const pool = new Pool({
 //   user: process.env.DBUSERNAME || "postgres",
