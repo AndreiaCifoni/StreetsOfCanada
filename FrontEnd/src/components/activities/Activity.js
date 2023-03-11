@@ -46,7 +46,7 @@ const Activity = ({ userStatus }) => {
 
       navigate(`/`);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -77,7 +77,6 @@ const Activity = ({ userStatus }) => {
         <ActivityEdit
           onClickCancelEditActivity={onClickCancelEditActivity}
           activity={activity}
-          userStatus={userStatus}
           activityId={id}
           fetchActivity={fetchActivity}
         />
