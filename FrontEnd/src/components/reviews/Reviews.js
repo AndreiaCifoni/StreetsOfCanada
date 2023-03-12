@@ -40,7 +40,6 @@ const Reviews = ({ userStatus, activityId }) => {
       </div>
       <ReviewsList
         reviewList={reviewList}
-        setReviewList={setReviewList}
         userStatus={userStatus}
         fetchReviews={fetchReviews}
       />
