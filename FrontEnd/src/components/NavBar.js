@@ -1,12 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { XCircleIcon, Bars3Icon } from "@heroicons/react/20/solid";
 import "../index.css";
-import { UserContext } from "../UserContextProvider";
 
-const NavBar = ({ onNavDropdown, navDropdown }) => {
-  const { onLogout, userStatus } = useContext(UserContext);
-
+const NavBar = ({ onLogout, userStatus, onNavDropdown, navDropdown }) => {
   return (
     <nav className="nav-container bg-indigo-300 h-20 shadow-md flex justify-between font-bold text-purple-900">
       <h1 className="my-auto ml-8 text-3xl lg:text-2xl ">Streets Of Canada</h1>

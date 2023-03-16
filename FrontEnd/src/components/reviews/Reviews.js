@@ -38,7 +38,11 @@ const Reviews = ({ userStatus, activityId }) => {
           />
         )}
       </div>
-      <ReviewsList reviewList={reviewList} fetchReviews={fetchReviews} />
+      <ReviewsList
+        reviewList={reviewList}
+        userStatus={userStatus}
+        fetchReviews={fetchReviews}
+      />
     </div>
   );
 };

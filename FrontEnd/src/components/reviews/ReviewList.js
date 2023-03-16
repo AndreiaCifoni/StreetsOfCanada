@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ReviewCard from "./ReviewCard";
 
-const ReviewsList = ({ reviewList, fetchReviews }) => {
+const ReviewsList = ({ reviewList, userStatus, fetchReviews }) => {
   useEffect(() => {
     fetchReviews();
   }, [fetchReviews]);
@@ -21,6 +21,7 @@ const ReviewsList = ({ reviewList, fetchReviews }) => {
             date={review.date}
             review={review.review}
             reviewId={review.review_id}
+            userStatus={userStatus}
             fetchReviews={fetchReviews}
           />
         );

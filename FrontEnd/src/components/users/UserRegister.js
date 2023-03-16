@@ -1,11 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserForm from "./UserForm";
 import { apiURL } from "../../globalVariables";
-import { UserContext } from "../../UserContextProvider";
 
-const UserRegister = () => {
-  const { onLogin } = useContext(UserContext);
+const UserRegister = ({ onLogin }) => {
   const [register, setRegister] = useState({
     username: "",
     email: "",

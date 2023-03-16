@@ -1,12 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ActivityForm from "./ActivityForm";
 import { apiURL } from "../../globalVariables";
-import { UserContext } from "../../UserContextProvider";
 
-const ActivityCreate = () => {
-  const { userStatus } = useContext(UserContext);
-
+const ActivityCreate = ({ userStatus }) => {
   const [newActivity, setNewActivity] = useState({
     title: "",
     tags_ids: [],
