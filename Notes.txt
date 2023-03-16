@@ -185,5 +185,7 @@ PROGRAMS USED
 
   ------------------------------------------
 
-
+in FrontEnd: 
+  it was: "build": "react-scripts build",
+  now:  "build": "GENERATE_SOURCEMAP=false node --max_old_space_size=256 --max-old-space-size=256 node_modules/.bin/react-scripts build",
 
