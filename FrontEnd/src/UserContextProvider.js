@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiURL } from "../globalVariables";
+import { apiURL } from "./globalVariables";
 
 export const UserContext = createContext(null);
 
