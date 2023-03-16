@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Rating } from "react-simple-star-rating";
 import ReviewEdit from "./ReviewEdit";
 import { apiURL } from "../../globalVariables";
+import { UserContext } from "../../UserContextProvider";
 
 const ReviewCard = ({
   userInfo,
@@ -9,10 +10,11 @@ const ReviewCard = ({
   date,
   review,
   reviewId,
-  userStatus,
   fetchReviews,
 }) => {
   const [isEditingReview, setIsEditingReview] = useState(false);
+
+  const { userStatus } = useContext(UserContext);
 
   const onClickDeleteReview = async () => {
     try {

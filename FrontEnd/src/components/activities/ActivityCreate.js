@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import ActivityForm from "./ActivityForm";
 import { apiURL } from "../../globalVariables";
+import { UserContext } from "../../UserContextProvider";
 
-const ActivityCreate = ({ userStatus }) => {
+const ActivityCreate = () => {
+  const { userStatus } = useContext(UserContext);
+
   const [newActivity, setNewActivity] = useState({
     title: "",
     tags_ids: [],
@@ -41,7 +44,7 @@ const ActivityCreate = ({ userStatus }) => {
 
       navigate(`/activity/${data.activity_id}`);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 

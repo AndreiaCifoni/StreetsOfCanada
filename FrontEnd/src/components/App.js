@@ -73,33 +73,49 @@ const App = () => {
 
   return (
     <div className="h-full  font-mono bg-orange-50 text-indigo-900 ">
-      <NavBar
-        onLogout={onLogout}
-        userStatus={userStatus}
-        onNavDropdown={onNavDropdown}
-        navDropdown={navDropdown}
-      />
-      <Routes>
-        <Route path={"/"} element={<Home />} />
-        <Route
-          path={"/register"}
-          element={<UserRegister onLogin={onLogin} />}
+      <UserContextProvider>
+        <NavBar
+          // onLogout={onLogout}
+          // userStatus={userStatus}
+          onNavDropdown={onNavDropdown}
+          navDropdown={navDropdown}
         />
-        <Route
-          path={"/login"}
-          element={
-            <UserLogin login={login} setLogin={setLogin} onLogin={onLogin} />
-          }
-        />
-        <Route
-          path={"/activity"}
-          element={<ActivityCreate userStatus={userStatus} />}
-        />
-        <Route
-          path={"/activity/:id"}
-          element={<Activity userStatus={userStatus} />}
-        />
-      </Routes>
+        <Routes>
+          <Route path={"/"} element={<Home />} />
+          <Route
+            path={"/register"}
+            element={
+              <UserRegister
+              // onLogin={onLogin}
+              />
+            }
+          />
+          <Route
+            path={"/login"}
+            element={
+              <UserLogin
+              // login={login} setLogin={setLogin} onLogin={onLogin}
+              />
+            }
+          />
+          <Route
+            path={"/activity"}
+            element={
+              <ActivityCreate
+              // userStatus={userStatus}
+              />
+            }
+          />
+          <Route
+            path={"/activity/:id"}
+            element={
+              <Activity
+              // userStatus={userStatus}
+              />
+            }
+          />
+        </Routes>
+      </UserContextProvider>
       <Footer />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
@@ -6,10 +6,13 @@ import "../../index.css";
 import Reviews from "../reviews/Reviews";
 import ActivityEdit from "./ActivityEdit";
 import { apiURL } from "../../globalVariables";
+import { UserContext } from "../../UserContextProvider";
 
-const Activity = ({ userStatus }) => {
+const Activity = () => {
   const [activity, setActivity] = useState(null);
   const [isEditingActivity, setIsEditingActivity] = useState(false);
+
+  const { userStatus } = useContext(UserContext);
 
   let { id } = useParams();
 
