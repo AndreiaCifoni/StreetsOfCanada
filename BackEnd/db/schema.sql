@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS activities (
   );
 
 INSERT INTO activities(title, description, address, latitude, longitude, photo, user_id, city_id) VALUES ('Craigleigh Gardens Dog Park',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper eu lectus ac maximus. Sed non posuere arcu. Fusce pharetra arcu justo, vel mollis ante fermentum nec. Fusce commodo aliquam consequat. Phasellus ut ipsum vel diam accumsan volutpat. Vestibulum sit amet felis laoreet, faucibus est in, commodo enim. Sed ultricies urna vitae elit luctus molestie.',
+    'AAAAAAAA tur adipiscing elit. Etiam semper eu lectus ac maximus. Sed non posuere arcu. Fusce pharetra arcu justo, vel mollis ante fermentum nec. Fusce commodo aliquam consequat. Phasellus ut ipsum vel diam accumsan volutpat. Vestibulum sit amet felis laoreet, faucibus est in, commodo enim. Sed ultricies urna vitae elit luctus molestie.',
     'Milkmans Lane',
     43.67748558012985,
     -79.37223787483332,
