@@ -52,7 +52,6 @@ const ActivityCard = ({
             </div>
           </div>
           <p className="text-lg xl:text-base my-1 md:mt-4 ">{description}</p>
-          See activity
         </div>
       </Link>
     </div>
