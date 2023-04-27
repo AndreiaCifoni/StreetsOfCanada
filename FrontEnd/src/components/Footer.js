@@ -4,7 +4,15 @@ const Footer = () => {
   return (
     <footer className="w-full mt-8 bg-indigo-300 h-20 shadow-md flex font-bold text-purple-900">
       <p className="w-1/2 text-xl md:text-lg sm:text-base my-auto text-center   ">
-        Created by Andreia Cifoni
+        Created by{" "}
+        <a
+          className="underline-offset-4 text-red"
+          href="https://andreiacifoni.github.io/Portifolio/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Andreia Cifoni
+        </a>
       </p>
       <div className="w-1/2 text-2xl md:text-xl sm:text-lg flex gap-24 md:gap-20 sm:gap-12 items-center justify-center">
         <div>
@@ -27,7 +35,7 @@ const Footer = () => {
         </div>
         <div>
           <a
-            href="https://github.com/AndreiaCifoni"
+            href="https://github.com/AndreiaCifoni/StreetsOfCanada"
             target="_blank"
             rel="noreferrer"
           >
