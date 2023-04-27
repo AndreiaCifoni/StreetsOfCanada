@@ -12,7 +12,7 @@ const ActivityCard = ({
   province,
 }) => {
   return (
-    <Link to={`/activity/${activity_id}`}>
+    <Link className="hover:bg-orange-100" to={`/activity/${activity_id}`}>
       <div className="flex md:flex-col w-4/5 h-60 lg:h-72 md:h-4/5 my-2 mx-auto md:py-4 bg-orange-50 rounded shadow-md border-solid border-2 border-indigo-500">
         <div className="w-1/3 md:w-full flex justify-center items-center">
           <img
