@@ -6,12 +6,11 @@ const Footer = () => {
       <p className="w-1/2 text-xl md:text-lg sm:text-base my-auto text-center   ">
         Created by{" "}
         <a
-          className="underline-offset-4 text-red"
           href="https://andreiacifoni.github.io/Portifolio/"
           target="_blank"
           rel="noreferrer"
         >
-          Andreia Cifoni
+          <span className="underline-offset-4">Andreia Cifoni</span>
         </a>
       </p>
       <div className="w-1/2 text-2xl md:text-xl sm:text-lg flex gap-24 md:gap-20 sm:gap-12 items-center justify-center">
