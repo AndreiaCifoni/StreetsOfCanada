@@ -6,7 +6,7 @@ const Footer = () => {
       <p className="w-1/2 text-xl md:text-lg sm:text-base my-auto text-center   ">
         Created by{" "}
         <a
-          className="underline text-purple-900 hover:text-blue-800 visited:text-purple-600"
+          className="underline hover:text-blue-800"
           href="https://andreiacifoni.github.io/Portifolio/"
           target="_blank"
           rel="noreferrer"
