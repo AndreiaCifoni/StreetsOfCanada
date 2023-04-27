@@ -12,8 +12,8 @@ const ActivityCard = ({
   province,
 }) => {
   return (
-    <div className="flex md:flex-col w-4/5 h-60 lg:h-72 md:h-4/5 my-2 mx-auto md:py-4 bg-orange-50 rounded shadow-md border-solid border-2 border-indigo-500">
-      <Link to={`/activity/${activity_id}`}>
+    <Link to={`/activity/${activity_id}`}>
+      <div className="flex md:flex-col w-4/5 h-60 lg:h-72 md:h-4/5 my-2 mx-auto md:py-4 bg-orange-50 rounded shadow-md border-solid border-2 border-indigo-500">
         <div className="w-1/3 md:w-full flex justify-center items-center">
           <img
             className="w-5/6 h-5/6 lg:h-3/5 md:h-5/6  object-cover rounded-md shadow-md "
@@ -53,8 +53,8 @@ const ActivityCard = ({
           </div>
           <p className="text-lg xl:text-base my-1 md:mt-4 ">{description}</p>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 
