@@ -6,7 +6,9 @@ import "../index.css";
 const NavBar = ({ onLogout, userStatus, onNavDropdown, navDropdown }) => {
   return (
     <nav className="nav-container bg-indigo-300 h-20 shadow-md flex justify-between font-bold text-purple-900">
-      <h1 className="my-auto ml-8 text-3xl lg:text-2xl ">Streets Of Canada</h1>
+      <h1 className="my-auto ml-8 xs:ml-2 text-3xl lg:text-2xl xs:text-lg ">
+        Streets Of Canada
+      </h1>
 
       <div className="nav-icon-container">
         <i onClick={onNavDropdown}>
