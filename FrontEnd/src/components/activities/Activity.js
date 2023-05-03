@@ -81,7 +81,7 @@ const Activity = ({ userStatus }) => {
           fetchActivity={fetchActivity}
         />
       ) : (
-        <div className="h-full lg:flex-col flex mt-8 mx-16 bg-indigo-100 rounded">
+        <div className="h-full lg:flex-col flex mt-8 mx-16 xs:mx-2 bg-indigo-100 rounded">
           <div className="w-2/5 m-4 lg:flex md:flex-col lg:w-full md:">
             <div>
               <img
