@@ -72,7 +72,7 @@ const App = () => {
   };
 
   return (
-    <div className="h-full  font-mono bg-orange-50 text-indigo-900 ">
+    <div className="h-full font-mono bg-orange-50 text-indigo-900 ">
       <NavBar
         onLogout={onLogout}
         userStatus={userStatus}
