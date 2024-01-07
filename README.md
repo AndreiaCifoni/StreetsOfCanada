@@ -13,13 +13,7 @@ Streets of Canada is a website that has the perfect activity for you! This page 
 
 ## Getting Started
 
-The project is deployed and it can be found in the link below:
-
-[Streets of Canada](https://streets-of-canada.onrender.com/)
-
-OR
-
-If you prefer to open the project locally, you can access Streets of Canada by making the clone of this repository in your code editor:
+To open the project locally, you can access Streets of Canada by making a clone of this repository in your code editor:
 
 - Go to "Code" in this repository and copy the path HTTPS
 - In your code editor, copy the path and clone the project in a new folder
@@ -50,7 +44,7 @@ And if you don't like your post or review don't worry, only the owner of the act
 
 ![edit review](https://res.cloudinary.com/deiacifoni/image/upload/v1677967429/projects/StreetsOfCanada/edit_review_o2xetv.jpg)
 
-This website has also a responsive design to accommodate different sizes of screens.
+This website also has a responsive design to accommodate different sizes of screens.
 
 ![Responsive design Activity list](https://res.cloudinary.com/deiacifoni/image/upload/v1677967429/projects/StreetsOfCanada/Home_list_mobile_y4fyum.jpg)
 ![Responsive design Activity view](https://res.cloudinary.com/deiacifoni/image/upload/v1677967429/projects/StreetsOfCanada/activity_view_mobile_xn4bd0.jpg)
